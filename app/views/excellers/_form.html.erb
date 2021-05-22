@@ -1,0 +1,87 @@
+<%= form_with(model: exceller, local: true) do |form| %>
+  <% if exceller.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(exceller.errors.count, "error") %> prohibited this exceller from being saved:</h2>
+
+      <ul>
+        <% exceller.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :first_name %>
+    <%= form.text_field :first_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :father_name %>
+    <%= form.text_field :father_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :grandfather_name %>
+    <%= form.text_field :grandfather_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :position_id %>
+    <%= form.number_field :position_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :address_id %>
+    <%= form.number_field :address_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :years_of_experience %>
+    <%= form.number_field :years_of_experience %>
+  </div>
+
+  <div class="field">
+    <%= form.label :recommended_for %>
+    <%= form.number_field :recommended_for %>
+  </div>
+
+  <div class="field">
+    <%= form.label :contract_signing_date %>
+    <%= form.date_select :contract_signing_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :employment_type %>
+    <%= form.number_field :employment_type %>
+  </div>
+
+  <div class="field">
+    <%= form.label :duty_station %>
+    <%= form.number_field :duty_station %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.number_field :status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :created_by %>
+    <%= form.number_field :created_by %>
+  </div>
+
+  <div class="field">
+    <%= form.label :modified_by %>
+    <%= form.number_field :modified_by %>
+  </div>
+
+  <div class="field">
+    <%= form.label :deleted_at %>
+    <%= form.datetime_select :deleted_at %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Exceller Skills</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Exceller</th>
+      <th>Skill</th>
+      <th>Proficiency</th>
+      <th>Created by</th>
+      <th>Modified by</th>
+      <th>Deleted at</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @exceller_skills.each do |exceller_skill| %>
+      <tr>
+        <td><%= exceller_skill.exceller_id %></td>
+        <td><%= exceller_skill.skill_id %></td>
+        <td><%= exceller_skill.proficiency %></td>
+        <td><%= exceller_skill.created_by %></td>
+        <td><%= exceller_skill.modified_by %></td>
+        <td><%= exceller_skill.deleted_at %></td>
+        <td><%= link_to 'Show', exceller_skill %></td>
+        <td><%= link_to 'Edit', edit_exceller_skill_path(exceller_skill) %></td>
+        <td><%= link_to 'Destroy', exceller_skill, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Exceller Skill', new_exceller_skill_path %>

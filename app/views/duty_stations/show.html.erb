@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @duty_station.name %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @duty_station.address_id %>
+</p>
+
+<p>
+  <strong>Created by:</strong>
+  <%= @duty_station.created_by %>
+</p>
+
+<p>
+  <strong>Modified by:</strong>
+  <%= @duty_station.modified_by %>
+</p>
+
+<p>
+  <strong>Deleted at:</strong>
+  <%= @duty_station.deleted_at %>
+</p>
+
+<%= link_to 'Edit', edit_duty_station_path(@duty_station) %> |
+<%= link_to 'Back', duty_stations_path %>

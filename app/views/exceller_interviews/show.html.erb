@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Exceller:</strong>
+  <%= @exceller_interview.exceller_id %>
+</p>
+
+<p>
+  <strong>Interviewer:</strong>
+  <%= @exceller_interview.interviewer_id %>
+</p>
+
+<p>
+  <strong>Interview criteria:</strong>
+  <%= @exceller_interview.interview_criteria_id %>
+</p>
+
+<p>
+  <strong>Score:</strong>
+  <%= @exceller_interview.score %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @exceller_interview.comment %>
+</p>
+
+<p>
+  <strong>Created by:</strong>
+  <%= @exceller_interview.created_by %>
+</p>
+
+<p>
+  <strong>Modified by:</strong>
+  <%= @exceller_interview.modified_by %>
+</p>
+
+<p>
+  <strong>Deleted at:</strong>
+  <%= @exceller_interview.deleted_at %>
+</p>
+
+<%= link_to 'Edit', edit_exceller_interview_path(@exceller_interview) %> |
+<%= link_to 'Back', exceller_interviews_path %>

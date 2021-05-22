@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Exceller:</strong>
+  <%= @exceller_assignment.exceller_id %>
+</p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @exceller_assignment.project_id %>
+</p>
+
+<p>
+  <strong>Skill:</strong>
+  <%= @exceller_assignment.skill_id %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @exceller_assignment.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @exceller_assignment.end_date %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @exceller_assignment.status %>
+</p>
+
+<p>
+  <strong>Created by:</strong>
+  <%= @exceller_assignment.created_by %>
+</p>
+
+<p>
+  <strong>Modified by:</strong>
+  <%= @exceller_assignment.modified_by %>
+</p>
+
+<p>
+  <strong>Deleted at:</strong>
+  <%= @exceller_assignment.deleted_at %>
+</p>
+
+<%= link_to 'Edit', edit_exceller_assignment_path(@exceller_assignment) %> |
+<%= link_to 'Back', exceller_assignments_path %>

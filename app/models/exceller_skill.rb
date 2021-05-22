@@ -1,0 +1,2 @@
+class ExcellerSkill < ApplicationRecord
+end

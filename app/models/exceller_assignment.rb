@@ -1,0 +1,2 @@
+class ExcellerAssignment < ApplicationRecord
+end

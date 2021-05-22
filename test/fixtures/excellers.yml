@@ -1,0 +1,33 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  first_name: MyString
+  father_name: MyString
+  grandfather_name: MyString
+  position_id: 1
+  address_id: 1
+  years_of_experience: 1
+  recommended_for: 1
+  contract_signing_date: 2021-05-22
+  employment_type: 1
+  duty_station: 1
+  status: 1
+  created_by: 1
+  modified_by: 1
+  deleted_at: 2021-05-22 19:08:28
+
+two:
+  first_name: MyString
+  father_name: MyString
+  grandfather_name: MyString
+  position_id: 1
+  address_id: 1
+  years_of_experience: 1
+  recommended_for: 1
+  contract_signing_date: 2021-05-22
+  employment_type: 1
+  duty_station: 1
+  status: 1
+  created_by: 1
+  modified_by: 1
+  deleted_at: 2021-05-22 19:08:28

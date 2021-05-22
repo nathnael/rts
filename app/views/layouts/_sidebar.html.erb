@@ -5,7 +5,7 @@
     <div class="profile-element">
       <%=link_to "/" do %>
       <span>
-        <img alt="IRAPS" class="img-circle" src="<%= image_url('iraps-logo.png') %>">
+        <img alt="RTS" class="img-circle" src="<%= image_url('excellerent-logo.png') %>">
       </span>
       <% end %>
     </div>
@@ -30,140 +30,41 @@
               with font-awesome or any other icon font library -->
         <li class="nav-item has-treeview">
           <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-truck"></i>
-            <p>
-              Logistics Module
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">            
-            <%if policy(Vendor).index? %>
-              <li class="nav-item">
-                <%= link_to vendors_url, :class => "nav-link" do %>
-                  <i class="nav-icon fas fa-building"></i>
-                  <p>Vendors</p>
-                <% end %>
-              </li>
-            <%end%>
-            <li class="nav-item">
-              <%= link_to invoices_url, :class => "nav-link" do %>
-                <i class="fas fa-file-invoice-dollar nav-icon"></i>
-                <p>Invoices</p>
-              <% end %>
-            </li>
-            <!--
-            <li class="nav-item">
-              <a href="./index2.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Distribution</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="./index3.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Download Waybills</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="./index3.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>TruckLoad Capacity</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="./index3.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>CIF</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="./index3.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Non-Food Item</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="./index3.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Waybill Verification</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="./index3.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Payment Request</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="./index3.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Memo/LTI</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="./index3.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Memo/None LTI</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="./index3.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Invoice Follow Up</p>
-              </a>
-            </li>
-            -->
-          </ul>
-        </li>
-        <li class="nav-item has-treeview">
-          <a href="#" class="nav-link">
             <i class="nav-icon fas fa-hand-holding-usd"></i>
             <p>
-              Finance Module
+              Client Module
               <i class="right fas fa-angle-left"></i>
             </p>
           </a>
           <ul class="nav nav-treeview">            
-            <li class="nav-item">
-              <a href="./index2.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Confirmation</p>
-              </a>
+            <li class="<%= 'active' if is_active_controller('clients') %>">
+              <%= link_to clients_url, :class => "nav-link" do %>
+                <i class="nav-icon fas fa-building"></i>
+                <p>Clients</p>
+              <% end %>
             </li>
-            <li class="nav-item">
-              <a href="./index2.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Payment</p>
-              </a>
+            <li class="<%= 'active' if is_active_controller('projects') %>">
+              <%= link_to projects_url, :class => "nav-link" do %>
+                <i class="nav-icon fas fa-building"></i>
+                <p>Projects</p>
+              <% end %>
             </li>
           </ul>
-        </li>
+        </li> 
         <li class="nav-item has-treeview">
           <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-warehouse"></i>
+            <i class="nav-icon fas fa-truck"></i>
             <p>
-              LESS
+              Recruitment Module
               <i class="right fas fa-angle-left"></i>
             </p>
           </a>
-          <ul class="nav nav-treeview">            
-            <li class="nav-item">
-              <a href="./index2.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>LTI Detail</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="./index2.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Dispatch Vs. Received</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="./index2.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Waybill Detail</p>
-              </a>
+          <ul class="nav nav-treeview">  
+            <li class="<%= 'active' if is_active_controller('excellers') %>">
+              <%= link_to excellers_url, :class => "nav-link" do %>
+                <i class="nav-icon fas fa-building"></i>
+                <p>Excellers</p>
+              <% end %>
             </li>
           </ul>
         </li>
@@ -176,7 +77,7 @@
             </p>
           </a>
           <ul class="nav nav-treeview">            
-            <li class="nav-item">
+            <li class="<%= 'active' if is_active_controller('summary_reports') %>">
               <a href="./index2.html" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Summary Reports</p>
@@ -193,13 +94,13 @@
             </p>
           </a>
           <ul class="nav nav-treeview">     
-            <li class="nav-item">
+            <li class="<%= 'active' if is_active_controller('users') %>">
               <%= link_to users_url, :class => "nav-link" do %>
                 <i class="fas fa-user nav-icon"></i>
                 <p>Users</p>
               <% end %>
             </li>       
-            <li class="nav-item">
+            <li class="<%= 'active' if is_active_controller('permissions') %>">
               <%= link_to permissions_url, :class => "nav-link" do %>
                 <i class="fas fa-user-tag nav-icon"></i>
                 <p>Permissions</p>

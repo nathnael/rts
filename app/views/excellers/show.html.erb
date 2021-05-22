@@ -1,0 +1,74 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>First name:</strong>
+  <%= @exceller.first_name %>
+</p>
+
+<p>
+  <strong>Father name:</strong>
+  <%= @exceller.father_name %>
+</p>
+
+<p>
+  <strong>Grandfather name:</strong>
+  <%= @exceller.grandfather_name %>
+</p>
+
+<p>
+  <strong>Position:</strong>
+  <%= @exceller.position_id %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @exceller.address_id %>
+</p>
+
+<p>
+  <strong>Years of experience:</strong>
+  <%= @exceller.years_of_experience %>
+</p>
+
+<p>
+  <strong>Recommended for:</strong>
+  <%= @exceller.recommended_for %>
+</p>
+
+<p>
+  <strong>Contract signing date:</strong>
+  <%= @exceller.contract_signing_date %>
+</p>
+
+<p>
+  <strong>Employment type:</strong>
+  <%= @exceller.employment_type %>
+</p>
+
+<p>
+  <strong>Duty station:</strong>
+  <%= @exceller.duty_station %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @exceller.status %>
+</p>
+
+<p>
+  <strong>Created by:</strong>
+  <%= @exceller.created_by %>
+</p>
+
+<p>
+  <strong>Modified by:</strong>
+  <%= @exceller.modified_by %>
+</p>
+
+<p>
+  <strong>Deleted at:</strong>
+  <%= @exceller.deleted_at %>
+</p>
+
+<%= link_to 'Edit', edit_exceller_path(@exceller) %> |
+<%= link_to 'Back', excellers_path %>

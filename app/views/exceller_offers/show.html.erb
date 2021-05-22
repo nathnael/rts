@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Exceller:</strong>
+  <%= @exceller_offer.exceller_id %>
+</p>
+
+<p>
+  <strong>Position:</strong>
+  <%= @exceller_offer.position_id %>
+</p>
+
+<p>
+  <strong>Response:</strong>
+  <%= @exceller_offer.response %>
+</p>
+
+<p>
+  <strong>Created by:</strong>
+  <%= @exceller_offer.created_by %>
+</p>
+
+<p>
+  <strong>Modified by:</strong>
+  <%= @exceller_offer.modified_by %>
+</p>
+
+<p>
+  <strong>Deleted at:</strong>
+  <%= @exceller_offer.deleted_at %>
+</p>
+
+<%= link_to 'Edit', edit_exceller_offer_path(@exceller_offer) %> |
+<%= link_to 'Back', exceller_offers_path %>

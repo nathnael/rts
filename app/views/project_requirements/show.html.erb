@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Skill:</strong>
+  <%= @project_requirement.skill_id %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @project_requirement.amount %>
+</p>
+
+<p>
+  <strong>Created by:</strong>
+  <%= @project_requirement.created_by %>
+</p>
+
+<p>
+  <strong>Modified by:</strong>
+  <%= @project_requirement.modified_by %>
+</p>
+
+<p>
+  <strong>Deleted at:</strong>
+  <%= @project_requirement.deleted_at %>
+</p>
+
+<%= link_to 'Edit', edit_project_requirement_path(@project_requirement) %> |
+<%= link_to 'Back', project_requirements_path %>

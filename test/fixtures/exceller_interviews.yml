@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  exceller_id: 1
+  interviewer_id: 1
+  interview_criteria_id: 1
+  score: 1
+  comment: MyText
+  created_by: 1
+  modified_by: 1
+  deleted_at: 2021-05-22 21:08:13
+
+two:
+  exceller_id: 1
+  interviewer_id: 1
+  interview_criteria_id: 1
+  score: 1
+  comment: MyText
+  created_by: 1
+  modified_by: 1
+  deleted_at: 2021-05-22 21:08:13

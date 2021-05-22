@@ -10,36 +10,208 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_19_234436) do
+ActiveRecord::Schema.define(version: 2021_05_22_183053) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "invoices", force: :cascade do |t|
-    t.string "invoice_number"
-    t.datetime "date_received"
-    t.datetime "invoice_date"
-    t.integer "currency_type"
-    t.integer "number_of_waybill"
-    t.decimal "invoice_amount"
-    t.text "remark"
-    t.string "lti_number"
-    t.integer "received_from"
-    t.string "submitted_by"
-    t.datetime "deleted_at"
-    t.integer "created_by_id"
+  create_table "addresses", force: :cascade do |t|
+    t.string "email"
+    t.string "postal_code"
+    t.string "country"
+    t.string "city"
+    t.string "state"
+    t.string "zip_code"
+    t.string "sub_city"
+    t.string "woreda"
+    t.string "house_no"
+    t.string "home_phone"
+    t.string "cell_phone"
+    t.string "work_phone"
+    t.integer "created_by"
     t.integer "modified_by"
-    t.integer "vendor_id"
+    t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "clients", force: :cascade do |t|
+    t.string "name"
+    t.string "rep_name"
+    t.integer "address_id"
     t.integer "status"
-    t.integer "assigned_to_id"
+    t.integer "created_by"
+    t.integer "modified_by"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "duty_stations", force: :cascade do |t|
+    t.string "name"
+    t.integer "address_id"
+    t.integer "created_by"
+    t.integer "modified_by"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "exceller_addresses", force: :cascade do |t|
+    t.integer "exceller_id"
+    t.integer "address_id"
+    t.integer "status"
+    t.integer "created_by"
+    t.integer "modified_by"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "exceller_assignments", force: :cascade do |t|
+    t.integer "exceller_id"
+    t.integer "project_id"
+    t.integer "skill_id"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.integer "status"
+    t.integer "created_by"
+    t.integer "modified_by"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "exceller_interviews", force: :cascade do |t|
+    t.integer "exceller_id"
+    t.integer "interviewer_id"
+    t.integer "interview_criteria_id"
+    t.integer "score"
+    t.text "comment"
+    t.integer "created_by"
+    t.integer "modified_by"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "exceller_offers", force: :cascade do |t|
+    t.integer "exceller_id"
+    t.integer "position_id"
+    t.integer "response"
+    t.integer "created_by"
+    t.integer "modified_by"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "exceller_skills", force: :cascade do |t|
+    t.integer "exceller_id"
+    t.integer "skill_id"
+    t.integer "proficiency"
+    t.integer "created_by"
+    t.integer "modified_by"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "excellers", force: :cascade do |t|
+    t.string "first_name"
+    t.string "father_name"
+    t.string "grandfather_name"
+    t.integer "position_id"
+    t.integer "address_id"
+    t.integer "years_of_experience"
+    t.integer "recommended_for_id"
+    t.date "contract_signing_date"
+    t.integer "employment_type_id"
+    t.integer "duty_station_id"
+    t.integer "status_id"
+    t.integer "created_by"
+    t.integer "modified_by"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "interview_criteria", force: :cascade do |t|
+    t.integer "interview_id"
+    t.integer "skill_id"
+    t.integer "created_by"
+    t.integer "modified_by"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "interviews", force: :cascade do |t|
+    t.string "name"
+    t.integer "position_id"
+    t.integer "created_by"
+    t.integer "modified_by"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "permissions", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.integer "user_type"
+    t.integer "created_by"
+    t.integer "modified_by"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "positions", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.integer "created_by"
+    t.integer "modified_by"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "project_requirements", force: :cascade do |t|
+    t.integer "skill_id"
+    t.integer "amount"
+    t.integer "created_by"
+    t.integer "modified_by"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.string "name"
+    t.integer "client_id"
+    t.integer "status"
+    t.date "start_date"
+    t.date "end_date"
+    t.integer "created_by"
+    t.integer "modified_by"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "skill_types", force: :cascade do |t|
+    t.string "name"
+    t.integer "created_by"
+    t.integer "modified_by"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "skills", force: :cascade do |t|
+    t.string "name"
+    t.integer "skill_type_id"
     t.integer "created_by"
     t.integer "modified_by"
     t.datetime "deleted_at"
@@ -78,18 +250,6 @@ ActiveRecord::Schema.define(version: 2021_01_19_234436) do
     t.inet "last_sign_in_ip"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  end
-
-  create_table "vendors", force: :cascade do |t|
-    t.string "name"
-    t.string "code"
-    t.string "org_unit"
-    t.string "status"
-    t.datetime "deleted_at"
-    t.integer "created_by"
-    t.integer "modified_by"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
 end

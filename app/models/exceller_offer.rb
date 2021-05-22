@@ -1,0 +1,2 @@
+class ExcellerOffer < ApplicationRecord
+end

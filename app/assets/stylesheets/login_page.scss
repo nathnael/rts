@@ -34,7 +34,7 @@
     font-weight: 300;
     font-family: 'Lato', sans-serif;
     color: #777;
-    padding: 3rem;
+    // padding: 3rem;
     min-height: 100vh;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -52,6 +52,7 @@
     -ms-flex: 1;
     flex: 1;
     position: relative;
+    height: 80vh;
   }
   
   .flex {
@@ -798,7 +799,7 @@
   
   .footer {
     background-color: #f7f7f7;
-    padding: 6rem 4rem 3rem 4rem;
+    padding: 0rem 6rem 5rem 4rem;;
     font-size: 1.4rem;
     display: grid;
     grid-template-columns: auto auto;

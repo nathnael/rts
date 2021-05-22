@@ -1,0 +1,105 @@
+<!-- Content Header (Page header) -->
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark">Excellers</h1>
+      </div><!-- /.col -->
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item active">Excellers</li>
+        </ol>
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="title-action float-sm-right">
+              <%= link_to 'New Exceller', new_exceller_path, :class => "btn btn-primary" %>
+            </div>           
+          </div>
+          <div class="card-body">
+            <table class="table table-bordered table-striped iraps_datatable">
+              <thead>
+                <tr>
+                  <th>Full name</th>
+                  <th>Position</th>
+                  <th>Years of experience</th>
+                  <th>Contract signing date</th>
+                  <th>Employment type</th>
+                  <th>Duty station</th>
+                  <th>Status</th>
+                  <th>Created by</th>                   
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @excellers.each do |user| %>
+                <tr>
+                  <td><%= exceller.full_name %></td>
+                  <td><%= exceller.position.name %></td>
+                  <td><%= exceller.years_of_experience %></td>
+                  <td><%= exceller.contract_signing_date %></td>
+                  <td><%= exceller.employment_type.name %></td>
+                  <td><%= exceller.duty_station.name %></td>
+                  <td><%= exceller.status %></td>
+                  <td><%= exceller.created_by %></td>            
+                  <td>
+                    <%= link_to 'Edit', edit_exceller_path(user) %> &middot;
+                    <%= link_to 'Delete', exceller, method: :delete, data: { confirm: 'Are you sure?' } %>  
+                  </td>
+                </tr>
+                <% end %>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Full name</th>
+                  <th>Position</th>
+                  <th>Years of experience</th>
+                  <th>Contract signing date</th>
+                  <th>Employment type</th>
+                  <th>Duty station</th>
+                  <th>Status</th>
+                  <th>Created by</th>                   
+                  <th>Actions</th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+      </div>
+      <!-- /.card -->
+    </div>
+  </div>
+</section>
+<!-- /.content -->
+
+<script>
+  $(document).ready(function() {
+    if ( ! $.fn.DataTable.isDataTable( '.iraps_datatable' ) ) {
+      $('.iraps_datatable').DataTable({
+        "paging": true,
+        "lengthChange": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": true,
+        "responsive": true,
+        "dom": 'lBfrtip',
+        "buttons": [
+            'copy', 'csv', 'pdf', 'print'
+        ]
+      });
+    }
+    
+  });
+</script>

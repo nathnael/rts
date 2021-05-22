@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Duty Stations</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Address</th>
+      <th>Created by</th>
+      <th>Modified by</th>
+      <th>Deleted at</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @duty_stations.each do |duty_station| %>
+      <tr>
+        <td><%= duty_station.name %></td>
+        <td><%= duty_station.address_id %></td>
+        <td><%= duty_station.created_by %></td>
+        <td><%= duty_station.modified_by %></td>
+        <td><%= duty_station.deleted_at %></td>
+        <td><%= link_to 'Show', duty_station %></td>
+        <td><%= link_to 'Edit', edit_duty_station_path(duty_station) %></td>
+        <td><%= link_to 'Destroy', duty_station, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Duty Station', new_duty_station_path %>

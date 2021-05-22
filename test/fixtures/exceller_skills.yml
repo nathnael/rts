@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  exceller_id: 1
+  skill_id: 1
+  proficiency: 1
+  created_by: 1
+  modified_by: 1
+  deleted_at: 2021-05-22 20:19:00
+
+two:
+  exceller_id: 1
+  skill_id: 1
+  proficiency: 1
+  created_by: 1
+  modified_by: 1
+  deleted_at: 2021-05-22 20:19:00

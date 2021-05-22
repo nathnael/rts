@@ -1,0 +1,2 @@
+class DutyStation < ApplicationRecord
+end

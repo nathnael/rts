@@ -1,0 +1,2 @@
+class InterviewCriterium < ApplicationRecord
+end

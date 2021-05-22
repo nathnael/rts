@@ -1,0 +1,57 @@
+<%= form_with(model: exceller_interview, local: true) do |form| %>
+  <% if exceller_interview.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(exceller_interview.errors.count, "error") %> prohibited this exceller_interview from being saved:</h2>
+
+      <ul>
+        <% exceller_interview.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :exceller_id %>
+    <%= form.number_field :exceller_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :interviewer_id %>
+    <%= form.number_field :interviewer_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :interview_criteria_id %>
+    <%= form.number_field :interview_criteria_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :score %>
+    <%= form.number_field :score %>
+  </div>
+
+  <div class="field">
+    <%= form.label :comment %>
+    <%= form.text_area :comment %>
+  </div>
+
+  <div class="field">
+    <%= form.label :created_by %>
+    <%= form.number_field :created_by %>
+  </div>
+
+  <div class="field">
+    <%= form.label :modified_by %>
+    <%= form.number_field :modified_by %>
+  </div>
+
+  <div class="field">
+    <%= form.label :deleted_at %>
+    <%= form.datetime_select :deleted_at %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

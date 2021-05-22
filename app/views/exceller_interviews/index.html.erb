@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Exceller Interviews</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Exceller</th>
+      <th>Interviewer</th>
+      <th>Interview criteria</th>
+      <th>Score</th>
+      <th>Comment</th>
+      <th>Created by</th>
+      <th>Modified by</th>
+      <th>Deleted at</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @exceller_interviews.each do |exceller_interview| %>
+      <tr>
+        <td><%= exceller_interview.exceller_id %></td>
+        <td><%= exceller_interview.interviewer_id %></td>
+        <td><%= exceller_interview.interview_criteria_id %></td>
+        <td><%= exceller_interview.score %></td>
+        <td><%= exceller_interview.comment %></td>
+        <td><%= exceller_interview.created_by %></td>
+        <td><%= exceller_interview.modified_by %></td>
+        <td><%= exceller_interview.deleted_at %></td>
+        <td><%= link_to 'Show', exceller_interview %></td>
+        <td><%= link_to 'Edit', edit_exceller_interview_path(exceller_interview) %></td>
+        <td><%= link_to 'Destroy', exceller_interview, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Exceller Interview', new_exceller_interview_path %>

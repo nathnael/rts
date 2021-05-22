@@ -1,0 +1,47 @@
+<%= form_with(model: exceller_offer, local: true) do |form| %>
+  <% if exceller_offer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(exceller_offer.errors.count, "error") %> prohibited this exceller_offer from being saved:</h2>
+
+      <ul>
+        <% exceller_offer.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :exceller_id %>
+    <%= form.number_field :exceller_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :position_id %>
+    <%= form.number_field :position_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :response %>
+    <%= form.number_field :response %>
+  </div>
+
+  <div class="field">
+    <%= form.label :created_by %>
+    <%= form.number_field :created_by %>
+  </div>
+
+  <div class="field">
+    <%= form.label :modified_by %>
+    <%= form.number_field :modified_by %>
+  </div>
+
+  <div class="field">
+    <%= form.label :deleted_at %>
+    <%= form.datetime_select :deleted_at %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

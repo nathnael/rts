@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Interview:</strong>
+  <%= @interview_criterium.interview_id %>
+</p>
+
+<p>
+  <strong>Skill:</strong>
+  <%= @interview_criterium.skill_id %>
+</p>
+
+<p>
+  <strong>Created by:</strong>
+  <%= @interview_criterium.created_by %>
+</p>
+
+<p>
+  <strong>Modified by:</strong>
+  <%= @interview_criterium.modified_by %>
+</p>
+
+<p>
+  <strong>Deleted at:</strong>
+  <%= @interview_criterium.deleted_at %>
+</p>
+
+<%= link_to 'Edit', edit_interview_criterium_path(@interview_criterium) %> |
+<%= link_to 'Back', interview_criteria_path %>

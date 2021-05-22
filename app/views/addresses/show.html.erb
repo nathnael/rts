@@ -1,0 +1,79 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @address.email %>
+</p>
+
+<p>
+  <strong>Postal code:</strong>
+  <%= @address.postal_code %>
+</p>
+
+<p>
+  <strong>Country:</strong>
+  <%= @address.country %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @address.city %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @address.state %>
+</p>
+
+<p>
+  <strong>Zip code:</strong>
+  <%= @address.zip_code %>
+</p>
+
+<p>
+  <strong>Sub city:</strong>
+  <%= @address.sub_city %>
+</p>
+
+<p>
+  <strong>Woreda:</strong>
+  <%= @address.woreda %>
+</p>
+
+<p>
+  <strong>House no:</strong>
+  <%= @address.house_no %>
+</p>
+
+<p>
+  <strong>Home phone:</strong>
+  <%= @address.home_phone %>
+</p>
+
+<p>
+  <strong>Cell phone:</strong>
+  <%= @address.cell_phone %>
+</p>
+
+<p>
+  <strong>Work phone:</strong>
+  <%= @address.work_phone %>
+</p>
+
+<p>
+  <strong>Created by:</strong>
+  <%= @address.created_by %>
+</p>
+
+<p>
+  <strong>Modified by:</strong>
+  <%= @address.modified_by %>
+</p>
+
+<p>
+  <strong>Deleted at:</strong>
+  <%= @address.deleted_at %>
+</p>
+
+<%= link_to 'Edit', edit_address_path(@address) %> |
+<%= link_to 'Back', addresses_path %>

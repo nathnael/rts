@@ -1,0 +1,2 @@
+class Exceller < ApplicationRecord
+end

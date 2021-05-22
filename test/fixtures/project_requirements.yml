@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  skill_id: 1
+  amount: 1
+  created_by: 1
+  modified_by: 1
+  deleted_at: 2021-05-22 19:38:31
+
+two:
+  skill_id: 1
+  amount: 1
+  created_by: 1
+  modified_by: 1
+  deleted_at: 2021-05-22 19:38:31

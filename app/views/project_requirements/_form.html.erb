@@ -1,0 +1,42 @@
+<%= form_with(model: project_requirement, local: true) do |form| %>
+  <% if project_requirement.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(project_requirement.errors.count, "error") %> prohibited this project_requirement from being saved:</h2>
+
+      <ul>
+        <% project_requirement.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :skill_id %>
+    <%= form.number_field :skill_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :amount %>
+    <%= form.number_field :amount %>
+  </div>
+
+  <div class="field">
+    <%= form.label :created_by %>
+    <%= form.number_field :created_by %>
+  </div>
+
+  <div class="field">
+    <%= form.label :modified_by %>
+    <%= form.number_field :modified_by %>
+  </div>
+
+  <div class="field">
+    <%= form.label :deleted_at %>
+    <%= form.datetime_select :deleted_at %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

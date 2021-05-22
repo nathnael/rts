@@ -24,7 +24,7 @@ default: &default
 
 development:
   <<: *default
-  database: temp_development
+  database: ets_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -58,7 +58,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: temp_test
+  database: ets_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -81,6 +81,6 @@ test:
 #
 production:
   <<: *default
-  database: temp_production
+  database: ets_production
   username: temp
-  password: <%= ENV['TEMP_DATABASE_PASSWORD'] %>
+  password: <%= ENV['ETS_DATABASE_PASSWORD'] %>

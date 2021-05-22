@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Exceller:</strong>
+  <%= @exceller_skill.exceller_id %>
+</p>
+
+<p>
+  <strong>Skill:</strong>
+  <%= @exceller_skill.skill_id %>
+</p>
+
+<p>
+  <strong>Proficiency:</strong>
+  <%= @exceller_skill.proficiency %>
+</p>
+
+<p>
+  <strong>Created by:</strong>
+  <%= @exceller_skill.created_by %>
+</p>
+
+<p>
+  <strong>Modified by:</strong>
+  <%= @exceller_skill.modified_by %>
+</p>
+
+<p>
+  <strong>Deleted at:</strong>
+  <%= @exceller_skill.deleted_at %>
+</p>
+
+<%= link_to 'Edit', edit_exceller_skill_path(@exceller_skill) %> |
+<%= link_to 'Back', exceller_skills_path %>

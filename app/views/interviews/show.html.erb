@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @interview.name %>
+</p>
+
+<p>
+  <strong>Position:</strong>
+  <%= @interview.position_id %>
+</p>
+
+<p>
+  <strong>Created by:</strong>
+  <%= @interview.created_by %>
+</p>
+
+<p>
+  <strong>Modified by:</strong>
+  <%= @interview.modified_by %>
+</p>
+
+<p>
+  <strong>Deleted at:</strong>
+  <%= @interview.deleted_at %>
+</p>
+
+<%= link_to 'Edit', edit_interview_path(@interview) %> |
+<%= link_to 'Back', interviews_path %>
