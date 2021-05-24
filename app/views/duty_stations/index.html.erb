@@ -1,35 +1,128 @@
-<p id="notice"><%= notice %></p>
+<!-- Content Header (Page header) -->
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark">Duty Stations</h1>
+      </div><!-- /.col -->
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item active">Duty Stations</li>
+        </ol>
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="title-action float-sm-right">
+              <%= link_to 'New Duty Station', new_duty_station_path, :class => "btn btn-primary"%>
+            </div>           
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <table class="table table-bordered table-striped iraps_datatable">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Postal/Zip Code</th>
+                  <th>House/Street no</th>
+                  <th>Sub-city & Woreda</th>
+                  <th>City</th>
+                  <th>State</th>
+                  <th>Country</th>
+                  <th>Created by</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @duty_stations.each do |duty_station| %>
+                  <tr>
+                    <td><%= duty_station.name %></td>
+                    <td><%= duty_station.address.email %></td>
+                    <td><%= duty_station.address.postal_code %></td>
+                    <% if (duty_station.address.postal_code != nil) then %>
+                      <td><%= duty_station.address.postal_code %></td>
+                    <% else %>
+                      <td><%= duty_station.address.zip_code %></td>
+                    <% end %>
+                    <% if (duty_station.address.house_no != nil) then %>
+                      <td><%= duty_station.address.house_no %></td>
+                    <% else %>
+                      <td><%= duty_station.address.street_no %></td>
+                    <% end %>
+                    <% if (duty_station.address.sub_city != nil || duty_station.address.woreda != nil) then %>
+                      <td><%= duty_station.address.sub_city + '/' + duty_station.address.woreda %></td>
+                    <% else %>
+                      <td>N/A</td>
+                    <% end %>
+                    <td><%= duty_station.address.city %></td>
+                    <td><%= duty_station.address.state %></td>
+                    <td><%= duty_station.address.country %></td>
+                    <td><%= duty_station.created_by %></td>
+                    <td>
+                      <a href="<%= edit_duty_station_path(vendor)%>" class="btn btn-warning btn-sm">
+                        <i class="fa fa-edit" aria-hidden="true"></i>  
+                        Edit                   
+                      </a>
+                      <%= link_to duty_station, method: :delete, :class => "btn btn-danger btn-sm", :data=> { :confirm => "Are you sure?" }  do %>
+                        <i class="fa fa-archive"></i>   
+                        Delete     
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Postal/Zip Code</th>
+                  <th>House/Street no</th>
+                  <th>Sub-city & Woreda</th>
+                  <th>City</th>
+                  <th>State</th>
+                  <th>Country</th>
+                  <th>Created by</th>
+                  <th>Actions</th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+      </div>
+      <!-- /.card -->
+    </div>
+  </div>
+</section>
+<!-- /.content -->
 
-<h1>Duty Stations</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Address</th>
-      <th>Created by</th>
-      <th>Modified by</th>
-      <th>Deleted at</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @duty_stations.each do |duty_station| %>
-      <tr>
-        <td><%= duty_station.name %></td>
-        <td><%= duty_station.address_id %></td>
-        <td><%= duty_station.created_by %></td>
-        <td><%= duty_station.modified_by %></td>
-        <td><%= duty_station.deleted_at %></td>
-        <td><%= link_to 'Show', duty_station %></td>
-        <td><%= link_to 'Edit', edit_duty_station_path(duty_station) %></td>
-        <td><%= link_to 'Destroy', duty_station, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Duty Station', new_duty_station_path %>
+<script>
+  $(document).ready(function() {
+    if ( ! $.fn.DataTable.isDataTable( '.iraps_datatable' ) ) {
+      $('.iraps_datatable').DataTable({
+        "paging": true,
+        "lengthChange": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": true,
+        "responsive": true,
+        "dom": 'lBfrtip',
+        "buttons": [
+            'copy', 'csv', 'pdf', 'print'
+        ]
+      });
+    }
+    
+  });
+</script>

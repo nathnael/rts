@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :employment_types
   resources :duty_stations
   resources :positions
   resources :exceller_assignments

@@ -28,7 +28,7 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
               with font-awesome or any other icon font library -->
-        <li class="nav-item has-treeview">
+        <li class="nav-item has-treeview menu-open">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-hand-holding-usd"></i>
             <p>
@@ -37,7 +37,7 @@
             </p>
           </a>
           <ul class="nav nav-treeview">            
-            <li class="<%= 'active' if is_active_controller('clients') %>">
+            <li>
               <%= link_to clients_url, :class => "nav-link" do %>
                 <i class="nav-icon fas fa-building"></i>
                 <p>Clients</p>
@@ -51,7 +51,7 @@
             </li>
           </ul>
         </li> 
-        <li class="nav-item has-treeview">
+        <li class="nav-item has-treeview menu-open">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-truck"></i>
             <p>
@@ -66,9 +66,27 @@
                 <p>Excellers</p>
               <% end %>
             </li>
+            <li class="<%= 'active' if is_active_controller('positions') %>">
+              <%= link_to positions_url, :class => "nav-link" do %>
+                <i class="nav-icon fas fa-building"></i>
+                <p>Positions</p>
+              <% end %>
+            </li>
+            <li class="<%= 'active' if is_active_controller('employment_types') %>">
+              <%= link_to employment_types_url, :class => "nav-link" do %>
+                <i class="nav-icon fas fa-building"></i>
+                <p>Employment Types</p>
+              <% end %>
+            </li>
+            <li class="<%= 'active' if is_active_controller('duty_stations') %>">
+              <%= link_to duty_stations_url, :class => "nav-link" do %>
+                <i class="nav-icon fas fa-building"></i>
+                <p>Duty Stations</p>
+              <% end %>
+            </li>
           </ul>
         </li>
-        <li class="nav-item has-treeview">
+        <li class="nav-item has-treeview menu-open">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-file-word"></i>
             <p>
@@ -85,7 +103,7 @@
             </li>
           </ul>
         </li>
-        <li class="nav-item has-treeview">
+        <li class="nav-item has-treeview menu-open">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-tools"></i>
             <p>

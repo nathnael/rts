@@ -17,9 +17,9 @@
 
 $(document).ready(function() {
     
-    var activeLi = $('li.active');
-    activeLi.parentsUntil('nav', 'li').addClass('active');
-    activeLi.parentsUntil('nav', 'ul').removeClass('collapse');
+    var activeLi = $('a.nav-link');
+    activeLi.parentsUntil('nav-link', 'a').addClass('active');
+    activeLi.parentsUntil('nav-link', 'ul').removeClass('collapse');
 
     $('.gregorian_datepicker').calendarsPicker({
         format: 'DD, MM d, yyyy',

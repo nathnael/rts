@@ -1,3 +1,64 @@
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- left column -->
+      <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="card card-primary">
+          
+          <!-- form start -->
+          <%= form_with(model: duty_station, local: true) do |f| %>
+            <div class="card-body">
+              <% if duty_station.errors.any? %>
+                <div class="panel panel-danger">
+                  <div class="panel-heading">
+                    <%= pluralize(duty_station.errors.count, "error") %> prohibited this duty_station from being saved.
+                  </div>
+
+                  <div class="panel-body">
+                    <ul>
+                      <% duty_station.errors.full_messages.each do |message| %>
+                      <li><%= message %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+                </div>
+              <% end %>
+              <div class="form-group col-3">
+                <%= f.label :name %>
+                <%= f.text_field :name, :class => 'form-control' %>
+              </div>
+
+              <div class="form-group col-3">
+                <%= f.label :email %>
+                <input id="email" name="duty_station[address[email]]" type="text" class="form-control" value="<%= duty_station.address.email.present? ? duty_station.address.email : "" %>" />
+              </div>
+
+              <div class="form-group col-3">
+                <%= f.label :postal_code %>
+                <input id="email" name="duty_station[address[postal_code]]" type="text" class="form-control" value="<%= duty_station.address.postal_code.present? ? duty_station.address.postal_code : "" %>" />
+              </div>
+
+              <div class="form-group col-3">
+                <%= f.label :zip_code %>
+                <input id="email" name="duty_station[address[zip_code]]" type="text" class="form-control" value="<%= duty_station.address.zip_code.present? ? duty_station.address.zip_code : "" %>" />
+              </div>
+            </div>
+            <!-- /.card-body -->
+            
+            <div class="card-footer">
+              <%= f.submit :class => 'btn btn-primary' %>
+            </div>
+          <% end %>
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <%= form_with(model: duty_station, local: true) do |form| %>
   <% if duty_station.errors.any? %>
     <div id="error_explanation">
