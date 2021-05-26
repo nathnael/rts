@@ -45,31 +45,36 @@
               </thead>
               <tbody>
                 <% @duty_stations.each do |duty_station| %>
+                  <% @address = Address.find_by_id(duty_station.address_id) %>
+                  <% @created_by = User.find_by_id(duty_station.created_by) %>
                   <tr>
-                    <td><%= duty_station.name %></td>
-                    <td><%= duty_station.address.email %></td>
-                    <td><%= duty_station.address.postal_code %></td>
-                    <% if (duty_station.address.postal_code != nil) then %>
-                      <td><%= duty_station.address.postal_code %></td>
+                    <td>
+                      <a href="<%= duty_station_path(duty_station)%>"> 
+                        <%= duty_station.name %>
+                      </a>
+                    </td>
+                    <td><%= @address.email %></td>
+                    <% if (@address.postal_code != nil) then %>
+                      <td><%= @address.postal_code %></td>
                     <% else %>
-                      <td><%= duty_station.address.zip_code %></td>
+                      <td><%= @address.zip_code %></td>
                     <% end %>
-                    <% if (duty_station.address.house_no != nil) then %>
-                      <td><%= duty_station.address.house_no %></td>
+                    <% if (@address.house_no != nil) then %>
+                      <td><%= @address.house_no %></td>
                     <% else %>
-                      <td><%= duty_station.address.street_no %></td>
+                      <td><%= @address.street_no %></td>
                     <% end %>
-                    <% if (duty_station.address.sub_city != nil || duty_station.address.woreda != nil) then %>
-                      <td><%= duty_station.address.sub_city + '/' + duty_station.address.woreda %></td>
+                    <% if (@address.sub_city != nil || @address.woreda != nil) then %>
+                      <td><%= @address.sub_city + '/' + @address.woreda %></td>
                     <% else %>
                       <td>N/A</td>
                     <% end %>
-                    <td><%= duty_station.address.city %></td>
-                    <td><%= duty_station.address.state %></td>
-                    <td><%= duty_station.address.country %></td>
-                    <td><%= duty_station.created_by %></td>
+                    <td><%= @address.city %></td>
+                    <td><%= @address.state %></td>
+                    <td><%= @address.country %></td>
+                    <td><%= @created_by.name %></td>
                     <td>
-                      <a href="<%= edit_duty_station_path(vendor)%>" class="btn btn-warning btn-sm">
+                      <a href="<%= edit_duty_station_path(duty_station)%>" class="btn btn-warning btn-sm">
                         <i class="fa fa-edit" aria-hidden="true"></i>  
                         Edit                   
                       </a>
