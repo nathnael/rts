@@ -1,5 +1,26 @@
-<h1>New Employment Type</h1>
+<!-- Content Header (Page header) -->
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-12">
+        <h1 class="m-0 text-dark">Employment Types</h1>
+      </div><!-- /.col -->      
+    </div><!-- /.row -->
+    <div class="row mb-2">
+      <div class="col-sm-10">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item active">New Employment Type</li>
+        </ol>
+      </div><!-- /.col -->
+      <div class="col-sm-2">
+        <div class="title-action float-sm-right">
+          <%= link_to 'Cancel', employment_types_path,  :class => "btn btn-default"%>
+        </div>
+      </div><!-- /.col -->
+    </div>
+  </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
 
 <%= render 'form', employment_type: @employment_type %>
-
-<%= link_to 'Back', employment_types_path %>

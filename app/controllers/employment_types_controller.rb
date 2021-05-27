@@ -10,6 +10,8 @@ class EmploymentTypesController < ApplicationController
   # GET /employment_types/1
   # GET /employment_types/1.json
   def show
+    @created_by = User.find_by_id(@employment_type.created_by)
+    @modified_by = User.find_by_id(@employment_type.modified_by)
   end
 
   # GET /employment_types/new
@@ -25,7 +27,7 @@ class EmploymentTypesController < ApplicationController
   # POST /employment_types.json
   def create
     @employment_type = EmploymentType.new(employment_type_params)
-
+    @employment_type.created_by = current_user.id
     respond_to do |format|
       if @employment_type.save
         format.html { redirect_to @employment_type, notice: 'Employment type was successfully created.' }
@@ -40,6 +42,7 @@ class EmploymentTypesController < ApplicationController
   # PATCH/PUT /employment_types/1
   # PATCH/PUT /employment_types/1.json
   def update
+    @employment_type.modified_by = current_user.id
     respond_to do |format|
       if @employment_type.update(employment_type_params)
         format.html { redirect_to @employment_type, notice: 'Employment type was successfully updated.' }

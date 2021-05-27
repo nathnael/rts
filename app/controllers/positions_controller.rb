@@ -25,7 +25,7 @@ class PositionsController < ApplicationController
   # POST /positions.json
   def create
     @position = Position.new(position_params)
-
+    @position.created_by = current_user.id
     respond_to do |format|
       if @position.save
         format.html { redirect_to @position, notice: 'Position was successfully created.' }
@@ -40,6 +40,7 @@ class PositionsController < ApplicationController
   # PATCH/PUT /positions/1
   # PATCH/PUT /positions/1.json
   def update
+    @position.modified_by = current_user.id
     respond_to do |format|
       if @position.update(position_params)
         format.html { redirect_to @position, notice: 'Position was successfully updated.' }
