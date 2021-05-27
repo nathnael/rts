@@ -1,3 +1,110 @@
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- left column -->
+      <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="card card-primary">
+          
+          <!-- form start -->
+          <%= form_with(model: @exceller, local: true) do |f| %>
+            <div class="card-body">
+              <% if @exceller.errors.any? %>
+                <div class="panel panel-danger">
+                  <div class="panel-heading">
+                    <%= pluralize(@exceller.errors.count, "error") %> prohibited this exceller from being saved.
+                  </div>
+
+                  <div class="panel-body">
+                    <ul>
+                      <% @exceller.errors.full_messages.each do |message| %>
+                      <li><%= message %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+                </div>
+              <% end %>
+              <div class="row">
+                <div class="form-group col-3">
+                  <%= f.label :first_name %>
+                  <%= f.text_field :first_name, :class => 'form-control' %>
+                </div>
+
+                <div class="form-group col-3">
+                  <%= f.label :father_name %>
+                  <%= f.text_field :father_name, :class => 'form-control' %>
+                </div>
+
+                <div class="form-group col-3">
+                  <%= f.label :grandfather_name %>
+                  <%= f.text_field :grandfather_name, :class => 'form-control' %>>
+                </div>
+
+                <div class="form-group col-3">
+                  <%= f.label :zip_code %>
+                  <input id="zip_code" name="duty_station[address[zip_code]]" type="text" class="form-control" value="<%= @address.present? ? @address.zip_code : "" %>" />
+                </div>
+              </div>
+
+              <div class="row">
+                
+                <div class="form-group col-3">
+                  <%= f.label :house_no %>
+                  <input id="house_no" name="duty_station[address[house_no]]" type="text" class="form-control" value="<%= @address.present? ? @address.house_no : "" %>" />
+                </div>
+
+                <div class="form-group col-3">
+                  <%= f.label :street_no %>
+                  <input id="street_no" name="duty_station[address[street_no]]" type="text" class="form-control" value="<%= @address.present? ? @address.street_no : "" %>" />
+                </div>
+
+                <div class="form-group col-3">
+                  <%= f.label :sub_city %>
+                  <input id="sub_city" name="duty_station[address[sub_city]]" type="text" class="form-control" value="<%= @address.present? ? @address.sub_city : "" %>" />
+                </div>
+
+                <div class="form-group col-3">
+                  <%= f.label :woreda %>
+                  <input id="woreda" name="duty_station[address[woreda]]" type="text" class="form-control" value="<%= @address.present? ? @address.woreda : "" %>" />
+                </div>
+
+              </div>
+
+              <div class="row">
+                
+                <div class="form-group col-3">
+                  <%= f.label :city %>
+                  <input id="city" name="duty_station[address[city]]" type="text" class="form-control" value="<%= @address.present? ? @address.city : "" %>" />
+                </div>
+
+                <div class="form-group col-3">
+                  <%= f.label :state %>
+                  <input id="state" name="duty_station[address[state]]" type="text" class="form-control" value="<%= @address.present? ? @address.state : "" %>" />
+                </div>
+
+                <div class="form-group col-3">
+                  <%= f.label :country %>
+                  <input id="country" name="duty_station[address[country]]" type="text" class="form-control" value="<%= @address.present? ? @address.country : "" %>" />
+                </div>
+
+                
+              </div>
+            </div>
+            <!-- /.card-body -->
+            
+            <div class="card-footer">
+              <%= f.submit :class => 'btn btn-primary' %>
+            </div>
+          <% end %>
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <%= form_with(model: exceller, local: true) do |form| %>
   <% if exceller.errors.any? %>
     <div id="error_explanation">

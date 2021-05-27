@@ -10,6 +10,8 @@ class PositionsController < ApplicationController
   # GET /positions/1
   # GET /positions/1.json
   def show
+    @created_by = User.find_by_id(@position.created_by)
+    @modified_by = User.find_by_id(@position.modified_by)
   end
 
   # GET /positions/new
