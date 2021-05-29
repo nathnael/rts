@@ -1,44 +1,77 @@
-<p id="notice"><%= notice %></p>
+<!-- Content Header (Page header) -->
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-12">
+        <h1 class="m-0 text-dark">Projects</h1>
+      </div><!-- /.col -->      
+    </div><!-- /.row -->
+    <div class="row mb-2">
+      <div class="col-sm-10">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item active">Show Project</li>
+        </ol>
+      </div><!-- /.col -->
+      <div class="col-sm-2">
+        <div class="title-action float-sm-right">
+          <%= link_to 'Back', projects_path, :class => "btn btn-default" %>
+        </div>
+      </div><!-- /.col -->
+    </div>
+  </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-primary">
+          <div class="card-body">           
 
-<p>
-  <strong>Name:</strong>
-  <%= @project.name %>
-</p>
+            <div class="row">
+              <div class="form-group col-3">
+                <label>Name:</label>
+                <input type="text" value="<%= @project.name %>" class="form-control" placeholder="N/A" disabled>
+              </div>
+            </div>
 
-<p>
-  <strong>Client:</strong>
-  <%= @project.client_id %>
-</p>
+            <div class="row">
+              <div class="form-group col-3">
+                <label>Client:</label>
+                <input type="text" value="<%= @client.name %>" class="form-control" placeholder="N/A" disabled>
+              </div>
+            </div>
 
-<p>
-  <strong>Status:</strong>
-  <%= @project.status %>
-</p>
+            <div class="row">
+              <div class="form-group col-3">
+                <label>Start date:</label>
+                <input type="text" value="<%= @project.start_date.to_date.to_formatted_s(:long_ordinal) %>" class="form-control" placeholder="N/A" disabled>
+              </div>
+            </div>
 
-<p>
-  <strong>Start date:</strong>
-  <%= @project.start_date %>
-</p>
+            <div class="row">
+              <div class="form-group col-3">
+                <label>End date:</label>
+                <input type="text" value="<%= @project.end_date.to_date.to_formatted_s(:long_ordinal) %>" class="form-control" placeholder="N/A" disabled>
+              </div>
+            </div>
 
-<p>
-  <strong>End date:</strong>
-  <%= @project.end_date %>
-</p>
-
-<p>
-  <strong>Created by:</strong>
-  <%= @project.created_by %>
-</p>
-
-<p>
-  <strong>Modified by:</strong>
-  <%= @project.modified_by %>
-</p>
-
-<p>
-  <strong>Deleted at:</strong>
-  <%= @project.deleted_at %>
-</p>
-
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
+            <div class="row">
+              <div class="form-group col-3">
+                <label>Status:</label>
+                <input type="text" value="<%= @project.status.humanize %>" class="form-control" placeholder="N/A" disabled>
+              </div>
+            </div>
+            
+            <div class="card-footer">
+              <%= link_to 'Edit', edit_project_path(@project), :class => 'btn btn-primary' %>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

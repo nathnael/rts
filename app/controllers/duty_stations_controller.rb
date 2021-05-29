@@ -30,7 +30,6 @@ class DutyStationsController < ApplicationController
     address = Address.new(address_hash)
     address.created_by = current_user.id
     address.save
-    puts 'address: ' + address.inspect
     duty_station_map = duty_station_params.except(:address)
     duty_station_map[:address_id] = address.id
     @duty_station = DutyStation.new(duty_station_map)

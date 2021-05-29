@@ -1,39 +1,127 @@
-<p id="notice"><%= notice %></p>
+<!-- Content Header (Page header) -->
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-12">
+        <h1 class="m-0 text-dark">Clients</h1>
+      </div><!-- /.col -->      
+    </div><!-- /.row -->
+    <div class="row mb-2">
+      <div class="col-sm-10">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item active">Show Client</li>
+        </ol>
+      </div><!-- /.col -->
+      <div class="col-sm-2">
+        <div class="title-action float-sm-right">
+          <%= link_to 'Back', clients_path, :class => "btn btn-default" %>
+        </div>
+      </div><!-- /.col -->
+    </div>
+  </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-primary">
+          <div class="card-body">           
 
-<p>
-  <strong>Name:</strong>
-  <%= @client.name %>
-</p>
+            <div class="row">
+                <div class="form-group col-3">
+                  <label>Name:</label>
+                  <input type="text" value="<%= @client.name %>" class="form-control" placeholder="N/A" disabled>
+                </div>
+                <div class="form-group col-3">
+                  <label>Point person:</label>
+                  <input type="text" value="<%= @client.rep_name %>" class="form-control" placeholder="N/A" disabled>
+                </div>
+                <div class="form-group col-3">
+                  <label>Country:</label>
+                  <input type="text" value="<%= @address.country %>" class="form-control" placeholder="N/A" disabled>
+                </div>
+                <div class="form-group col-3">
+                  <label>Status:</label>
+                  <input type="text" value="<%= @client.status %>" class="form-control" placeholder="N/A" disabled>
+                </div>
+              </div>
 
-<p>
-  <strong>Rep name:</strong>
-  <%= @client.rep_name %>
-</p>
+              <div class="row">
+                
+                <div class="form-group col-3">
+                  <label>Email:</label>
+                  <input type="text" value="<%= @address.email %>" class="form-control" placeholder="N/A" disabled>
+                </div>
 
-<p>
-  <strong>Address:</strong>
-  <%= @client.address_id %>
-</p>
+                <div class="form-group col-3">
+                  <label>Postal code:</label>
+                  <input type="text" value="<%= @address.postal_code %>" class="form-control" placeholder="N/A" disabled>
+                </div>
 
-<p>
-  <strong>Status:</strong>
-  <%= @client.status %>
-</p>
+                <div class="form-group col-3">
+                  <label>Zip code:</label>
+                  <input type="text" value="<%= @address.zip_code %>" class="form-control" placeholder="N/A" disabled>
+                </div>
 
-<p>
-  <strong>Created by:</strong>
-  <%= @client.created_by %>
-</p>
+                <div class="form-group col-3">
+                  <label>House no.:</label>
+                  <input type="text" value="<%= @address.house_no %>" class="form-control" placeholder="N/A" disabled>
+                </div>
 
-<p>
-  <strong>Modified by:</strong>
-  <%= @client.modified_by %>
-</p>
+              </div>
 
-<p>
-  <strong>Deleted at:</strong>
-  <%= @client.deleted_at %>
-</p>
+              <div class="row">
+                
+                <div class="form-group col-3">
+                  <label>Street no.:</label>
+                  <input type="text" value="<%= @address.street_no %>" class="form-control" placeholder="N/A" disabled>
+                </div>
 
-<%= link_to 'Edit', edit_client_path(@client) %> |
-<%= link_to 'Back', clients_path %>
+                <div class="form-group col-3">
+                  <label>Sub-city:</label>
+                  <input type="text" value="<%= @address.sub_city %>" class="form-control" placeholder="N/A" disabled>
+                </div>
+
+                <div class="form-group col-3">
+                  <label>Woreda:</label>
+                  <input type="text" value="<%= @address.woreda %>" class="form-control" placeholder="N/A" disabled>
+                </div>
+
+                <div class="form-group col-3">
+                  <label>Cellphone:</label>
+                  <input type="text" value="<%= @address.cell_phone %>" class="form-control" placeholder="N/A" disabled>
+                </div>
+              </div>
+
+              <div class="row">
+                
+                <div class="form-group col-3">
+                  <label>Work phone.:</label>
+                  <input type="text" value="<%= @address.work_phone %>" class="form-control" placeholder="N/A" disabled>
+                </div>
+
+                <div class="form-group col-3">
+                  <label>City:</label>
+                  <input type="text" value="<%= @address.city %>" class="form-control" placeholder="N/A" disabled>
+                </div>
+
+                <div class="form-group col-3">
+                  <label>State:</label>
+                  <input type="text" value="<%= @address.state %>" class="form-control" placeholder="N/A" disabled>
+                </div>
+
+              </div>
+            
+            <div class="card-footer">
+              <%= link_to 'Edit', edit_client_path(@client), :class => 'btn btn-primary' %>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -25,6 +25,21 @@
                   </div>
                 </div>
               <% end %>
+
+              <div class="row">
+                <div class="form-group col-3">
+                  <h4><%= f.label :exceller_picture %></h4>                  
+                  <img alt="Profile picture" id="your_preview_id" class="profile-picture" src="<%= @exceller.profile_picture_url ? '../../uploads/' + @exceller.profile_picture_url : image_url('defualt-profile.png') %>">
+                  <%= f.file_field :profile_picture, :class => 'form-control', id: "image_upload_id" %>
+                </div>
+              </div>
+
+              <div class="row mt-5">
+                <div class="form-group col-12">
+                  <h4>Exceller profile</h4>
+                </div>
+              </div>
+
               <div class="row">
                 <div class="form-group col-3">
                   <%= f.label :first_name %>
@@ -38,58 +53,143 @@
 
                 <div class="form-group col-3">
                   <%= f.label :grandfather_name %>
-                  <%= f.text_field :grandfather_name, :class => 'form-control' %>>
+                  <%= f.text_field :grandfather_name, :class => 'form-control' %>
+                </div>
+
+                <div class="form-group col-3">
+                  <%= f.label :dob, 'Date of Birth' %>
+                  <%= f.text_field :dob, :class => 'form-control gregorian_datepicker', :required => true %>
+                </div>
+                
+              </div>
+
+              <div class="row">
+
+                <div class="form-group col-3">
+                  <%= f.label :position %>
+                  <%= select_tag "exceller[position_id]", options_for_select(Position.all.collect { |x| [x.name, x.id]}, @exceller), class: 'form-control' %>
+                </div>
+                
+                <div class="form-group col-3">
+                  <%= f.label :years_of_experience %>
+                  <%= f.number_field :years_of_experience, :class => 'form-control' %>
+                </div>
+
+                <div class="form-group col-3">
+                  <%= f.label :recommended_for %>
+                  <%= select_tag "exceller[recommended_for_id]", options_for_select(Position.all.collect { |x| [x.name, x.id]}, @exceller.recommended_for_id), class: 'form-control' %>
+                </div>
+
+                <div class="form-group col-3">
+                  <%= f.label :contract_signing_date, 'Contract Signing Date' %>
+                  <%= f.text_field :contract_signing_date, :class => 'form-control gregorian_datepicker', :required => true %>
+                </div>
+
+              </div>
+
+              <div class="row">
+              
+                <div class="form-group col-3">
+                  <%= f.label :employment_type %>
+                  <%= select_tag "exceller[employment_type_id]", options_for_select(EmploymentType.all.collect { |x| [x.name, x.id]}, @exceller.employment_type_id), class: 'form-control' %>
+                </div>
+                
+                <div class="form-group col-3">
+                  <%= f.label :duty_station %>
+                  <%= select_tag "exceller[duty_station_id]", options_for_select(DutyStation.all.collect { |x| [x.name, x.id]}, @exceller.duty_station_id), class: 'form-control' %>
+                </div>
+
+                <div class="form-group col-3">
+                   <%= f.label :status %>
+                  <%= f.select :status_id, Exceller.status_ids.keys.map { |w| [w.humanize, w] }, {include_blank: "Select Status"}, { :class => 'form-control' } %>
+                </div>
+                              
+              </div>
+
+              <div class="row mt-5">
+                <div class="form-group col-12">
+                  <h4>Exceller address</h4>
+                </div>
+              </div>
+
+              <div class="row">                 
+
+                <div class="form-group col-3">
+                  <%= f.label :country %>
+                  <%= render partial: "shared/countrylist", locals: {id: "country", name: "exceller[address[country]]", value: @address.present? ? @address.country : ""} %>
+                </div>  
+                
+              </div>
+
+              <div class="row">                
+                <div class="form-group col-3">
+                  <%= f.label :email %>
+                  <input id="email" name="exceller[address[email]]" type="text" class="form-control" value="<%= @address.present? ? @address.email : "" %>" />
+                </div>
+
+                <div class="form-group col-3">
+                  <%= f.label :postal_code %>
+                  <input id="postal_code" name="exceller[address[postal_code]]" type="text" class="form-control" value="<%= @address.present? ? @address.postal_code : "" %>" />
                 </div>
 
                 <div class="form-group col-3">
                   <%= f.label :zip_code %>
-                  <input id="zip_code" name="duty_station[address[zip_code]]" type="text" class="form-control" value="<%= @address.present? ? @address.zip_code : "" %>" />
+                  <input id="zip_code" name="exceller[address[zip_code]]" type="text" class="form-control" value="<%= @address.present? ? @address.zip_code : "" %>" />
+                </div>
+
+                <div class="form-group col-3">
+                  <%= f.label :house_no %>
+                  <input id="house_no" name="exceller[address[house_no]]" type="text" class="form-control" value="<%= @address.present? ? @address.house_no : "" %>" />
                 </div>
               </div>
 
-              <div class="row">
-                
+              <div class="row">                
                 <div class="form-group col-3">
-                  <%= f.label :house_no %>
-                  <input id="house_no" name="duty_station[address[house_no]]" type="text" class="form-control" value="<%= @address.present? ? @address.house_no : "" %>" />
+                  <%= f.label :home_phone %>
+                  <input id="home_phone" name="exceller[address[home_phone]]" type="text" class="form-control" value="<%= @address.present? ? @address.home_phone : "" %>" />
+                </div>
+
+                <div class="form-group col-3">
+                  <%= f.label :cell_phone %>
+                  <input id="cell_phone" name="exceller[address[cell_phone]]" type="text" class="form-control" value="<%= @address.present? ? @address.cell_phone : "" %>" />
+                </div>
+
+                <div class="form-group col-3">
+                  <%= f.label :work_phone %>
+                  <input id="work_phone" name="exceller[address[work_phone]]" type="text" class="form-control" value="<%= @address.present? ? @address.work_phone : "" %>" />
                 </div>
 
                 <div class="form-group col-3">
                   <%= f.label :street_no %>
-                  <input id="street_no" name="duty_station[address[street_no]]" type="text" class="form-control" value="<%= @address.present? ? @address.street_no : "" %>" />
-                </div>
+                  <input id="street_no" name="exceller[address[street_no]]" type="text" class="form-control" value="<%= @address.present? ? @address.street_no : "" %>" />
+                </div> 
+                
+              </div>
+
+              <div class="row">   
 
                 <div class="form-group col-3">
                   <%= f.label :sub_city %>
-                  <input id="sub_city" name="duty_station[address[sub_city]]" type="text" class="form-control" value="<%= @address.present? ? @address.sub_city : "" %>" />
+                  <input id="sub_city" name="exceller[address[sub_city]]" type="text" class="form-control" value="<%= @address.present? ? @address.sub_city : "" %>" />
                 </div>
 
                 <div class="form-group col-3">
                   <%= f.label :woreda %>
-                  <input id="woreda" name="duty_station[address[woreda]]" type="text" class="form-control" value="<%= @address.present? ? @address.woreda : "" %>" />
+                  <input id="woreda" name="exceller[address[woreda]]" type="text" class="form-control" value="<%= @address.present? ? @address.woreda : "" %>" />
                 </div>
 
-              </div>
-
-              <div class="row">
-                
                 <div class="form-group col-3">
                   <%= f.label :city %>
-                  <input id="city" name="duty_station[address[city]]" type="text" class="form-control" value="<%= @address.present? ? @address.city : "" %>" />
+                  <input id="city" name="exceller[address[city]]" type="text" class="form-control" value="<%= @address.present? ? @address.city : "" %>" />
                 </div>
 
                 <div class="form-group col-3">
                   <%= f.label :state %>
-                  <input id="state" name="duty_station[address[state]]" type="text" class="form-control" value="<%= @address.present? ? @address.state : "" %>" />
+                  <input id="state" name="exceller[address[state]]" type="text" class="form-control" value="<%= @address.present? ? @address.state : "" %>" />
                 </div>
 
-                <div class="form-group col-3">
-                  <%= f.label :country %>
-                  <input id="country" name="duty_station[address[country]]" type="text" class="form-control" value="<%= @address.present? ? @address.country : "" %>" />
-                </div>
+              </div>            
 
-                
-              </div>
             </div>
             <!-- /.card-body -->
             
@@ -105,90 +205,63 @@
 </section>
 
 
-<%= form_with(model: exceller, local: true) do |form| %>
-  <% if exceller.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(exceller.errors.count, "error") %> prohibited this exceller from being saved:</h2>
+<script>
+  $(document).ready(function() {
+      document.getElementById("country").value="<%= @address.present? ? @address.country : "" %>";  
+  });
+</script>
 
-      <ul>
-        <% exceller.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="field">
-    <%= form.label :first_name %>
-    <%= form.text_field :first_name %>
-  </div>
+<script>
+  $(document).ready(function() {
 
-  <div class="field">
-    <%= form.label :father_name %>
-    <%= form.text_field :father_name %>
-  </div>
+    document.getElementById("country").value="<%= @address.present? ? @address.country : "" %>";  
+      
+      var activeLi = $('li.active');
+      activeLi.parentsUntil('nav', 'li').addClass('active');
+      activeLi.parentsUntil('nav', 'ul').removeClass('collapse');
 
-  <div class="field">
-    <%= form.label :grandfather_name %>
-    <%= form.text_field :grandfather_name %>
-  </div>
+      $('.gregorian_datepicker').calendarsPicker({
+          format: 'DD, MM d, yyyy',
+          onSelect: function(dateText, inst) {
+              var dateAsObject = $(this).calendarsPicker('getDate');
+              // var jd = dateAsObject[0].toJD();
+              // var date_gc = $.calendars.fromJD(jd);
+              $(this).val(dateAsObject[0].formatDate('DD, MM d, yyyy'));
+          }
+      });
 
-  <div class="field">
-    <%= form.label :position_id %>
-    <%= form.number_field :position_id %>
-  </div>
+      $('.ethiopian_datepicker').calendarsPicker({
+          calendar: $.calendars.instance('ethiopian', 'am'),
+          format: 'DD, MM d, yyyy',
+          onSelect: function(dateText, inst) {
+              var dateAsObject = $(this).calendarsPicker('getDate');
+              var jd = dateAsObject[0].toJD();
+              var date_gc = $.calendars.instance('ethiopian').fromJD(jd);
+              $(this).val(date_gc.formatDate('DD, MM d, yyyy'));
+          }
+      });
 
-  <div class="field">
-    <%= form.label :address_id %>
-    <%= form.number_field :address_id %>
-  </div>
+      $(".amharic_input").amharicKeyboard();
 
-  <div class="field">
-    <%= form.label :years_of_experience %>
-    <%= form.number_field :years_of_experience %>
-  </div>
+      $('.multiple_select').select2();
 
-  <div class="field">
-    <%= form.label :recommended_for %>
-    <%= form.number_field :recommended_for %>
-  </div>
+      $('#image_upload_id').on('change', function() {
+        showImage(this);
+      });
+  });
 
-  <div class="field">
-    <%= form.label :contract_signing_date %>
-    <%= form.date_select :contract_signing_date %>
-  </div>
+  function showImage(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
 
-  <div class="field">
-    <%= form.label :employment_type %>
-    <%= form.number_field :employment_type %>
-  </div>
+      reader.onload = function (e) {
+        $('#your_preview_id')
+          .attr('src', e.target.result)
+          .width(150);
+      };
 
-  <div class="field">
-    <%= form.label :duty_station %>
-    <%= form.number_field :duty_station %>
-  </div>
-
-  <div class="field">
-    <%= form.label :status %>
-    <%= form.number_field :status %>
-  </div>
-
-  <div class="field">
-    <%= form.label :created_by %>
-    <%= form.number_field :created_by %>
-  </div>
-
-  <div class="field">
-    <%= form.label :modified_by %>
-    <%= form.number_field :modified_by %>
-  </div>
-
-  <div class="field">
-    <%= form.label :deleted_at %>
-    <%= form.datetime_select :deleted_at %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+</script>

@@ -10,7 +10,6 @@ Rails.application.routes.draw do
   resources :exceller_skills
   resources :skill_types
   resources :skills
-  resources :exceller_addresses
   resources :addresses
   resources :project_requirements
   resources :projects

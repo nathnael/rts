@@ -1,57 +1,72 @@
-<%= form_with(model: project, local: true) do |form| %>
-  <% if project.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- left column -->
+      <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="card card-primary">
+          
+          <!-- form start -->
+          <%= form_with(model: @project, local: true) do |f| %>
+            <div class="card-body">
+              <% if @project.errors.any? %>
+                <div class="panel panel-danger">
+                  <div class="panel-heading">
+                    <%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved.
+                  </div>
 
-      <ul>
-        <% project.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+                  <div class="panel-body">
+                    <ul>
+                      <% @project.errors.full_messages.each do |message| %>
+                      <li><%= message %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+                </div>
+              <% end %>
+              <div class="row">
+                <div class="form-group col-4">
+                  <%= f.label :name %>
+                  <%= f.text_field :name, :class => 'form-control' %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-4">
+                  <%= f.label :client %>
+                  <span class="required">*</span>
+                  <%= f.collection_select :client_id, Client.all, :id, :name, {include_blank: '-- Choose --'}, {:class => 'form-control', :required => true }%>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-4">
+                  <%= f.label :start_date %>
+                  <%= f.text_field :start_date, :class => 'form-control gregorian_datepicker', :required => true %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-4">
+                  <%= f.label :end_date %>
+                  <%= f.text_field :end_date, :class => 'form-control gregorian_datepicker', :required => true %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-4">
+                   <%= f.label :status %>
+                  <%= f.select :status, Project.statuses.keys.map { |w| [w.humanize, w] }, {include_blank: "Select Status"}, { :class => 'form-control' } %>
+                </div>
+              </div>
+
+            </div>
+            <!-- /.card-body -->
+            
+            <div class="card-footer">
+              <%= f.submit :class => 'btn btn-primary' %>
+            </div>
+          <% end %>
+        </div>
+        <!-- /.card -->
+      </div>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
   </div>
-
-  <div class="field">
-    <%= form.label :client_id %>
-    <%= form.number_field :client_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :status %>
-    <%= form.number_field :status %>
-  </div>
-
-  <div class="field">
-    <%= form.label :start_date %>
-    <%= form.date_select :start_date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :end_date %>
-    <%= form.date_select :end_date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :created_by %>
-    <%= form.number_field :created_by %>
-  </div>
-
-  <div class="field">
-    <%= form.label :modified_by %>
-    <%= form.number_field :modified_by %>
-  </div>
-
-  <div class="field">
-    <%= form.label :deleted_at %>
-    <%= form.datetime_select :deleted_at %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</section>

@@ -1,2 +1,0 @@
-class ExcellerAddress < ApplicationRecord
-end

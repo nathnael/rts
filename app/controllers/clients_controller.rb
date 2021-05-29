@@ -10,6 +10,7 @@ class ClientsController < ApplicationController
   # GET /clients/1
   # GET /clients/1.json
   def show
+    @address = Address.find_by_id(@client.address_id)
   end
 
   # GET /clients/new
@@ -19,12 +20,20 @@ class ClientsController < ApplicationController
 
   # GET /clients/1/edit
   def edit
+    @address = Address.find_by_id(@client.address_id)
   end
 
   # POST /clients
   # POST /clients.json
   def create
-    @client = Client.new(client_params)
+    address_hash = client_params[:address]
+    address = Address.new(address_hash)
+    address.created_by = current_user.id
+    address.save
+    client_map = client_params.except(:address)
+    client_map[:address_id] = address.id
+    @client = Client.new(client_map)
+    @client.created_by = current_user.id
 
     respond_to do |format|
       if @client.save
@@ -40,8 +49,13 @@ class ClientsController < ApplicationController
   # PATCH/PUT /clients/1
   # PATCH/PUT /clients/1.json
   def update
+    address_hash = client_params[:address]       
+    address = Address.find_by_id(@client.address_id)
+    address.modified_by = current_user.id
+    address.update(address_hash)
+    client_map = client_params.except(:address)
     respond_to do |format|
-      if @client.update(client_params)
+      if @client.update(client_map)
         format.html { redirect_to @client, notice: 'Client was successfully updated.' }
         format.json { render :show, status: :ok, location: @client }
       else
@@ -69,6 +83,6 @@ class ClientsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def client_params
-      params.require(:client).permit(:name, :rep_name, :address_id, :status, :created_by, :modified_by, :deleted_at)
+      params.require(:client).permit(:name, :rep_name, :address_id, :status, :created_by, :modified_by, :deleted_at, :address => [:email, :postal_code, :zip_code, :house_no, :cell_phone, :work_phone, :street_no, :sub_city, :woreda, :city, :state, :country])
     end
 end

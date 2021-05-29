@@ -1,39 +1,121 @@
-<p id="notice"><%= notice %></p>
+<!-- Content Header (Page header) -->
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark">Clients</h1>
+      </div><!-- /.col -->
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item active">Clients</li>
+        </ol>
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="title-action float-sm-right">
+              <%= link_to 'New Client', new_client_path, :class => "btn btn-primary"%>
+            </div>           
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <table class="table table-bordered table-striped iraps_datatable">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Point person</th>                  
+                  <th>Email</th>
+                  <th>Work phone</th>
+                  <th>City</th>
+                  <th>State</th>
+                  <th>Country</th>
+                  <th>Status</th>
+                  <th>Created by</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @clients.each do |client| %>
+                  <% @address = Address.find_by_id(client.address_id) %>
+                  <% @created_by = User.find_by_id(client.created_by) %>
+                  <tr>
+                    <td>
+                      <a href="<%= client_path(client)%>"> 
+                        <%= client.name %>
+                      </a>
+                    </td>
+                    <td><%= client.rep_name %></td>
+                    <td><%= @address.email %></td>
+                    <td><%= @address.work_phone %></td>
+                    <td><%= @address.city %></td>
+                    <td><%= @address.state %></td>
+                    <td><%= @address.country %></td>
+                    <td><%= client.status.humanize %></td>
+                    <td><%= @created_by.name %></td>
+                    <td>
+                      <a href="<%= edit_client_path(client)%>" class="btn btn-warning btn-sm">
+                        <i class="fa fa-edit" aria-hidden="true"></i>  
+                        Edit                   
+                      </a>
+                      <%= link_to client, method: :delete, :class => "btn btn-danger btn-sm", :data=> { :confirm => "Are you sure?" }  do %>
+                        <i class="fa fa-archive"></i>   
+                        Delete     
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Name</th>
+                  <th>Point person</th>                  
+                  <th>Email</th>
+                  <th>Postal/Zip Code</th>
+                  <th>City</th>
+                  <th>State</th>
+                  <th>Country</th>
+                  <th>Status</th>
+                  <th>Created by</th>
+                  <th>Actions</th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+      </div>
+      <!-- /.card -->
+    </div>
+  </div>
+</section>
+<!-- /.content -->
 
-<h1>Clients</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Rep name</th>
-      <th>Address</th>
-      <th>Status</th>
-      <th>Created by</th>
-      <th>Modified by</th>
-      <th>Deleted at</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @clients.each do |client| %>
-      <tr>
-        <td><%= client.name %></td>
-        <td><%= client.rep_name %></td>
-        <td><%= client.address_id %></td>
-        <td><%= client.status %></td>
-        <td><%= client.created_by %></td>
-        <td><%= client.modified_by %></td>
-        <td><%= client.deleted_at %></td>
-        <td><%= link_to 'Show', client %></td>
-        <td><%= link_to 'Edit', edit_client_path(client) %></td>
-        <td><%= link_to 'Destroy', client, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Client', new_client_path %>
+<script>
+  $(document).ready(function() {
+    if ( ! $.fn.DataTable.isDataTable( '.iraps_datatable' ) ) {
+      $('.iraps_datatable').DataTable({
+        "paging": true,
+        "lengthChange": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": true,
+        "responsive": true,
+        "dom": 'lBfrtip',
+        "buttons": [
+            'copy', 'csv', 'pdf', 'print'
+        ]
+      });
+    }
+    
+  });
+</script>

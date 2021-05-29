@@ -30,6 +30,7 @@
             <table class="table table-bordered table-striped iraps_datatable">
               <thead>
                 <tr>
+                  <th></th>
                   <th>Full name</th>
                   <th>Position</th>
                   <th>Years of experience</th>
@@ -42,25 +43,45 @@
                 </tr>
               </thead>
               <tbody>
-                <% @excellers.each do |user| %>
+                <% @excellers.each do |exceller| %>
+                  <% @position = Position.find_by_id(exceller.position_id) %>
+                  <% @employment_type = EmploymentType.find_by_id(exceller.employment_type_id) %>
+                  <% @duty_station = DutyStation.find_by_id(exceller.duty_station_id) %>
+                  <% @created_by = User.find_by_id(exceller.created_by) %>
                 <tr>
-                  <td><%= exceller.full_name %></td>
-                  <td><%= exceller.position.name %></td>
-                  <td><%= exceller.years_of_experience %></td>
-                  <td><%= exceller.contract_signing_date %></td>
-                  <td><%= exceller.employment_type.name %></td>
-                  <td><%= exceller.duty_station.name %></td>
-                  <td><%= exceller.status %></td>
-                  <td><%= exceller.created_by %></td>            
                   <td>
-                    <%= link_to 'Edit', edit_exceller_path(user) %> &middot;
-                    <%= link_to 'Delete', exceller, method: :delete, data: { confirm: 'Are you sure?' } %>  
+                    <a href="<%= exceller_path(exceller)%>"> 
+                      <img alt="Profile picture" id="your_preview_id" class="profile-picture-small" src="<%= exceller.profile_picture_url ? 'uploads/' + exceller.profile_picture_url : image_url('defualt-profile.png') %>">
+                    </a>
+                  </td>
+                  <td>
+                    <a href="<%= exceller_path(exceller)%>"> 
+                      <%= exceller.name %>
+                    </a>
+                  </td>
+                  <td><%= @position.name %></td>
+                  <td><%= exceller.years_of_experience %></td>
+                  <td><%= exceller.contract_signing_date.to_date.to_formatted_s(:long_ordinal) %></td>
+                  <td><%= @employment_type.name %></td>
+                  <td><%= @duty_station.name %></td>
+                  <td><%= exceller.status_id.humanize %></td>
+                  <td><%= @created_by.name %></td>            
+                  <td>
+                    <a href="<%= edit_exceller_path(exceller)%>" class="btn btn-warning btn-sm">
+                      <i class="fa fa-edit" aria-hidden="true"></i>  
+                      Edit                   
+                    </a>
+                    <%= link_to exceller, method: :delete, :class => "btn btn-danger btn-sm", :data=> { :confirm => "Are you sure?" }  do %>
+                      <i class="fa fa-archive"></i>   
+                      Delete     
+                    <% end %>
                   </td>
                 </tr>
                 <% end %>
               </tbody>
               <tfoot>
                 <tr>
+                  <th></th>
                   <th>Full name</th>
                   <th>Position</th>
                   <th>Years of experience</th>

@@ -1,74 +1,200 @@
-<p id="notice"><%= notice %></p>
+<!-- Content Header (Page header) -->
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-12">
+        <h1 class="m-0 text-dark">Excellers</h1>
+      </div><!-- /.col -->      
+    </div><!-- /.row -->
+    <div class="row mb-2">
+      <div class="col-sm-10">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item active">Show Exceller</li>
+        </ol>
+      </div><!-- /.col -->
+      <div class="col-sm-2">
+        <div class="title-action float-sm-right">
+          <%= link_to 'Back', excellers_path, :class => "btn btn-default" %>
+        </div>
+      </div><!-- /.col -->
+    </div>
+  </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-primary">
+          <div class="card-body">       
+            <div class="row">
+              <div class="form-group col-12">
+                <h4>Exceller Profile</h4>
+              </div>
+            </div>    
 
-<p>
-  <strong>First name:</strong>
-  <%= @exceller.first_name %>
-</p>
+            <div class="row">
+              <div class="form-group col-4">
+                <label>Exceller picture:</label>      
+                <img alt="Profile picture" id="your_preview_id" class="profile-picture" src="<%= @exceller.profile_picture_url ? '../uploads/' + @exceller.profile_picture_url : image_url('defualt-profile.png') %>">   
+              </div>
+            </div>
 
-<p>
-  <strong>Father name:</strong>
-  <%= @exceller.father_name %>
-</p>
+            <div class="row">
+                <div class="form-group col-3">
+                  <label>First name:</label>
+                  <input type="text" value="<%= @exceller.first_name %>" class="form-control" placeholder="N/A" disabled>
+                </div>
+                <div class="form-group col-3">
+                  <label>Father name:</label>
+                  <input type="text" value="<%= @exceller.father_name %>" class="form-control" placeholder="N/A" disabled>
+                </div>
+                <div class="form-group col-3">
+                  <label>Grandfather name:</label>
+                  <input type="text" value="<%= @exceller.grandfather_name %>" class="form-control" placeholder="N/A" disabled>
+                </div>
+                <div class="form-group col-3">
+                  <label>Date of Birth:</label>
+                  <input type="text" value="<%= @exceller.dob.to_date.to_formatted_s(:long_ordinal) %>" class="form-control" placeholder="N/A" disabled>
+                </div>
+              </div>
 
-<p>
-  <strong>Grandfather name:</strong>
-  <%= @exceller.grandfather_name %>
-</p>
+              <div class="row">
+                
+                <div class="form-group col-3">
+                  <label>Job position:</label>
+                  <input type="text" value="<%= @position.name %>" class="form-control" placeholder="N/A" disabled>
+                </div>
 
-<p>
-  <strong>Position:</strong>
-  <%= @exceller.position_id %>
-</p>
+                <div class="form-group col-3">
+                  <label>Years of Experience:</label>
+                  <input type="text" value="<%= @exceller.years_of_experience %>" class="form-control" placeholder="N/A" disabled>
+                </div>
 
-<p>
-  <strong>Address:</strong>
-  <%= @exceller.address_id %>
-</p>
+                <div class="form-group col-3">
+                  <label>Recommended for:</label>
+                  <input type="text" value="<%= @recommended_for.name %>" class="form-control" placeholder="N/A" disabled>
+                </div>
 
-<p>
-  <strong>Years of experience:</strong>
-  <%= @exceller.years_of_experience %>
-</p>
+                <div class="form-group col-3">
+                  <label>Contract signing date:</label>
+                  <input type="text" value="<%= @exceller.contract_signing_date %>" class="form-control" placeholder="N/A" disabled>
+                </div>
 
-<p>
-  <strong>Recommended for:</strong>
-  <%= @exceller.recommended_for %>
-</p>
+              </div>
 
-<p>
-  <strong>Contract signing date:</strong>
-  <%= @exceller.contract_signing_date %>
-</p>
+              <div class="row">
+                
+                <div class="form-group col-3">
+                  <label>Employment type:</label>
+                  <input type="text" value="<%= @employment_type.name %>" class="form-control" placeholder="N/A" disabled>
+                </div>
 
-<p>
-  <strong>Employment type:</strong>
-  <%= @exceller.employment_type %>
-</p>
+                <div class="form-group col-3">
+                  <label>Duty station:</label>
+                  <input type="text" value="<%= @duty_station.name %>" class="form-control" placeholder="N/A" disabled>
+                </div>
 
-<p>
-  <strong>Duty station:</strong>
-  <%= @exceller.duty_station %>
-</p>
+                <div class="form-group col-3">
+                  <label>Status:</label>
+                  <input type="text" value="<%= @exceller.status_id.humanize %>" class="form-control" placeholder="N/A" disabled>
+                </div>
+              </div>
 
-<p>
-  <strong>Status:</strong>
-  <%= @exceller.status %>
-</p>
+              <div class="row mt-2">
+                <div class="form-group col-12">
+                  <h4>Exceller Address</h4>
+                </div>
+              </div>
 
-<p>
-  <strong>Created by:</strong>
-  <%= @exceller.created_by %>
-</p>
+              <div class="row">
+                <div class="form-group col-3">
+                  <label>Country:</label>
+                  <input type="text" value="<%= @address.country %>" class="form-control" placeholder="N/A" disabled>
+                </div>
+              </div>
 
-<p>
-  <strong>Modified by:</strong>
-  <%= @exceller.modified_by %>
-</p>
+              <div class="row">
+                
+                <div class="form-group col-3">
+                  <label>Email:</label>
+                  <input type="text" value="<%= @address.email %>" class="form-control" placeholder="N/A" disabled>
+                </div>
 
-<p>
-  <strong>Deleted at:</strong>
-  <%= @exceller.deleted_at %>
-</p>
+                <div class="form-group col-3">
+                  <label>Postal code:</label>
+                  <input type="text" value="<%= @address.postal_code %>" class="form-control" placeholder="N/A" disabled>
+                </div>
 
-<%= link_to 'Edit', edit_exceller_path(@exceller) %> |
-<%= link_to 'Back', excellers_path %>
+                <div class="form-group col-3">
+                  <label>Zip code:</label>
+                  <input type="text" value="<%= @address.zip_code %>" class="form-control" placeholder="N/A" disabled>
+                </div>
+
+                <div class="form-group col-3">
+                  <label>House no.:</label>
+                  <input type="text" value="<%= @address.house_no %>" class="form-control" placeholder="N/A" disabled>
+                </div>
+
+              </div>
+
+              <div class="row">
+                
+                <div class="form-group col-3">
+                  <label>Home phone:</label>
+                  <input type="text" value="<%= @address.home_phone %>" class="form-control" placeholder="N/A" disabled>
+                </div>
+
+                <div class="form-group col-3">
+                  <label>Cellphone:</label>
+                  <input type="text" value="<%= @address.cell_phone %>" class="form-control" placeholder="N/A" disabled>
+                </div>
+
+                <div class="form-group col-3">
+                  <label>Work phone:</label>
+                  <input type="text" value="<%= @address.work_phone %>" class="form-control" placeholder="N/A" disabled>
+                </div>
+
+                <div class="form-group col-3">
+                  <label>Street no.:</label>
+                  <input type="text" value="<%= @address.street_no %>" class="form-control" placeholder="N/A" disabled>
+                </div>
+
+              </div>
+
+              <div class="row">
+                
+                <div class="form-group col-3">
+                  <label>Sub-city:</label>
+                  <input type="text" value="<%= @address.sub_city %>" class="form-control" placeholder="N/A" disabled>
+                </div>
+
+                <div class="form-group col-3">
+                  <label>Woreda:</label>
+                  <input type="text" value="<%= @address.woreda %>" class="form-control" placeholder="N/A" disabled>
+                </div>
+
+                <div class="form-group col-3">
+                  <label>City:</label>
+                  <input type="text" value="<%= @address.city %>" class="form-control" placeholder="N/A" disabled>
+                </div>
+
+                <div class="form-group col-3">
+                  <label>State:</label>
+                  <input type="text" value="<%= @address.state %>" class="form-control" placeholder="N/A" disabled>
+                </div>
+
+              </div>
+            
+            <div class="card-footer">
+              <%= link_to 'Edit', edit_exceller_path(@exceller), :class => 'btn btn-primary' %>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
