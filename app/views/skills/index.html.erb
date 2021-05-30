@@ -1,35 +1,106 @@
-<p id="notice"><%= notice %></p>
+<!-- Content Header (Page header) -->
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark">Skills</h1>
+      </div><!-- /.col -->
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item active">Skills</li>
+        </ol>
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="title-action float-sm-right">
+              <%= link_to 'New Skill', new_skill_path, :class => "btn btn-primary"%>
+            </div>           
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <table class="table table-bordered table-striped iraps_datatable">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Skill type</th>
+                  <th>Created by</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @skills.each do |skill| %>
+                  <% @skill_type = SkillType.find_by_id(skill.skill_type_id) %>
+                  <% @created_by = User.find_by_id(skill.created_by) %>
+                  <tr>
+                    <td>
+                      <a href="<%= skill_path(skill) %>"> 
+                        <%= skill.name %>
+                      </a>
+                    </td>
+                    <td><%= skill.description %></td>
+                    <td><%= @skill_type.name %></td>
+                    <td><%= @created_by.name %></td>
+                    <td>
+                      <a href="<%= edit_skill_path(skill)%>" class="btn btn-warning btn-sm">
+                        <i class="fa fa-edit" aria-hidden="true"></i>  
+                        Edit                   
+                      </a>
+                      <%= link_to skill, method: :delete, :class => "btn btn-danger btn-sm", :data=> { :confirm => "Are you sure?" }  do %>
+                        <i class="fa fa-archive"></i>   
+                        Delete     
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Skill type</th>
+                  <th>Created by</th>
+                  <th>Actions</th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+      </div>
+      <!-- /.card -->
+    </div>
+  </div>
+</section>
+<!-- /.content -->
 
-<h1>Skills</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Skill type</th>
-      <th>Created by</th>
-      <th>Modified by</th>
-      <th>Deleted at</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @skills.each do |skill| %>
-      <tr>
-        <td><%= skill.name %></td>
-        <td><%= skill.skill_type_id %></td>
-        <td><%= skill.created_by %></td>
-        <td><%= skill.modified_by %></td>
-        <td><%= skill.deleted_at %></td>
-        <td><%= link_to 'Show', skill %></td>
-        <td><%= link_to 'Edit', edit_skill_path(skill) %></td>
-        <td><%= link_to 'Destroy', skill, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Skill', new_skill_path %>
+<script>
+  $(document).ready(function() {
+    if ( ! $.fn.DataTable.isDataTable( '.iraps_datatable' ) ) {
+      $('.iraps_datatable').DataTable({
+        "paging": true,
+        "lengthChange": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": true,
+        "responsive": true,
+        "dom": 'lBfrtip',
+        "buttons": [
+            'copy', 'csv', 'pdf', 'print'
+        ]
+      });
+    }
+    
+  });
+</script>

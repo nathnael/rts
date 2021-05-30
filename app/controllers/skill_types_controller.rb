@@ -10,6 +10,8 @@ class SkillTypesController < ApplicationController
   # GET /skill_types/1
   # GET /skill_types/1.json
   def show
+    @created_by = User.find_by_id(@skill_type.created_by)
+    @modified_by = User.find_by_id(@skill_type.modified_by)
   end
 
   # GET /skill_types/new
@@ -25,6 +27,7 @@ class SkillTypesController < ApplicationController
   # POST /skill_types.json
   def create
     @skill_type = SkillType.new(skill_type_params)
+    @skill_type.created_by = current_user.id
 
     respond_to do |format|
       if @skill_type.save
@@ -40,6 +43,7 @@ class SkillTypesController < ApplicationController
   # PATCH/PUT /skill_types/1
   # PATCH/PUT /skill_types/1.json
   def update
+    @skill_type.modified_by = current_user.id
     respond_to do |format|
       if @skill_type.update(skill_type_params)
         format.html { redirect_to @skill_type, notice: 'Skill type was successfully updated.' }
@@ -69,6 +73,6 @@ class SkillTypesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def skill_type_params
-      params.require(:skill_type).permit(:name, :created_by, :modified_by, :deleted_at)
+      params.require(:skill_type).permit(:name, :description, :created_by, :modified_by, :deleted_at)
     end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_29_072702) do
+ActiveRecord::Schema.define(version: 2021_05_30_094848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,17 +61,6 @@ ActiveRecord::Schema.define(version: 2021_05_29_072702) do
   create_table "employment_types", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.integer "created_by"
-    t.integer "modified_by"
-    t.datetime "deleted_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "exceller_addresses", force: :cascade do |t|
-    t.integer "exceller_id"
-    t.integer "address_id"
-    t.integer "status"
     t.integer "created_by"
     t.integer "modified_by"
     t.datetime "deleted_at"
@@ -167,6 +156,7 @@ ActiveRecord::Schema.define(version: 2021_05_29_072702) do
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "description"
   end
 
   create_table "permissions", force: :cascade do |t|
@@ -220,6 +210,7 @@ ActiveRecord::Schema.define(version: 2021_05_29_072702) do
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "description"
   end
 
   create_table "skills", force: :cascade do |t|
@@ -230,6 +221,7 @@ ActiveRecord::Schema.define(version: 2021_05_29_072702) do
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "description"
   end
 
   create_table "user_permissions", force: :cascade do |t|

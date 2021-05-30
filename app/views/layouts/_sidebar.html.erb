@@ -84,6 +84,24 @@
                 <p>Duty Stations</p>
               <% end %>
             </li>
+            <li class="<%= 'active' if is_active_controller('skill_types') %>">
+              <%= link_to skill_types_url, :class => "nav-link" do %>
+                <i class="nav-icon fas fa-building"></i>
+                <p>Skill Types</p>
+              <% end %>
+            </li>
+            <li class="<%= 'active' if is_active_controller('skills') %>">
+              <%= link_to skills_url, :class => "nav-link" do %>
+                <i class="nav-icon fas fa-building"></i>
+                <p>Skills</p>
+              <% end %>
+            </li>
+            <li class="<%= 'active' if is_active_controller('interviews') %>">
+              <%= link_to interviews_url, :class => "nav-link" do %>
+                <i class="nav-icon fas fa-building"></i>
+                <p>Interviews</p>
+              <% end %>
+            </li>
           </ul>
         </li>
         <li class="nav-item has-treeview menu-open">

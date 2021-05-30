@@ -10,6 +10,8 @@ class InterviewsController < ApplicationController
   # GET /interviews/1
   # GET /interviews/1.json
   def show
+    @position = Position.find_by_id(@interview.position_id)
+    @created_by = User.find_by_id(@interview.created_by)
   end
 
   # GET /interviews/new
@@ -25,6 +27,7 @@ class InterviewsController < ApplicationController
   # POST /interviews.json
   def create
     @interview = Interview.new(interview_params)
+    @interview.created_by = current_user.id
 
     respond_to do |format|
       if @interview.save
@@ -40,6 +43,7 @@ class InterviewsController < ApplicationController
   # PATCH/PUT /interviews/1
   # PATCH/PUT /interviews/1.json
   def update
+    @interview.modified_by = current_user.id
     respond_to do |format|
       if @interview.update(interview_params)
         format.html { redirect_to @interview, notice: 'Interview was successfully updated.' }
@@ -69,6 +73,6 @@ class InterviewsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def interview_params
-      params.require(:interview).permit(:name, :position_id, :created_by, :modified_by, :deleted_at)
+      params.require(:interview).permit(:name, :description, :position_id, :created_by, :modified_by, :deleted_at)
     end
 end

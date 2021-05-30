@@ -1,29 +1,72 @@
-<p id="notice"><%= notice %></p>
+<!-- Content Header (Page header) -->
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-12">
+        <h1 class="m-0 text-dark">Skills</h1>
+      </div><!-- /.col -->      
+    </div><!-- /.row -->
+    <div class="row mb-2">
+      <div class="col-sm-10">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item active">Show Skill</li>
+        </ol>
+      </div><!-- /.col -->
+      <div class="col-sm-2">
+        <div class="title-action float-sm-right">
+          <%= link_to 'Back', skills_path, :class => "btn btn-default" %>
+        </div>
+      </div><!-- /.col -->
+    </div>
+  </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-primary">
+          <div class="card-body">           
 
-<p>
-  <strong>Name:</strong>
-  <%= @skill.name %>
-</p>
+            <div class="row">
+              <div class="form-group col-3">
+                <label>Name:</label>
+                <input type="text" value="<%= @skill.name %>" class="form-control" placeholder="N/A" disabled>
+              </div>
+            </div>
 
-<p>
-  <strong>Skill type:</strong>
-  <%= @skill.skill_type_id %>
-</p>
+            <div class="row">
+              <div class="form-group col-3">
+                <label>Skill type:</label>
+                <input type="text" value="<%= @skill_type.name %>" class="form-control" placeholder="N/A" disabled>
+              </div>
+            </div>
 
-<p>
-  <strong>Created by:</strong>
-  <%= @skill.created_by %>
-</p>
+            <div class="row">
+              <div class="form-group col-3">
+                <label>Description:</label>
+                <textarea class="form-control" placeholder="N/A" disabled>
+                  <%= @skill.description %>
+                </textarea>
+              </div>
+            </div>
 
-<p>
-  <strong>Modified by:</strong>
-  <%= @skill.modified_by %>
-</p>
-
-<p>
-  <strong>Deleted at:</strong>
-  <%= @skill.deleted_at %>
-</p>
-
-<%= link_to 'Edit', edit_skill_path(@skill) %> |
-<%= link_to 'Back', skills_path %>
+            <div class="row">
+              <div class="form-group col-3">
+                <label>Created by:</label>
+                <input type="text" value="<%= @created_by.name %>" class="form-control" placeholder="N/A" disabled>
+              </div>
+            </div>
+            
+            <div class="card-footer">
+              <%= link_to 'Edit', edit_skill_path(@skill), :class => 'btn btn-primary' %>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
