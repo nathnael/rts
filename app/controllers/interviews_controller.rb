@@ -21,13 +21,21 @@ class InterviewsController < ApplicationController
 
   # GET /interviews/1/edit
   def edit
+    @interview_criteria = InterviewCriterium.includes(:skill,:interview).where( interview_id: @interview.id)
   end
 
   # POST /interviews
   # POST /interviews.json
   def create
-    @interview = Interview.new(interview_params)
-    @interview.created_by = current_user.id
+    interview_criteria_hash = interview_params[:interview_criteria][0...-1]
+    interview_criteria = interview_criteria_hash.collect { |h| InterviewCriterium.new(h)}
+
+    interview_map = interview_params.except(:interview_criteria)
+
+    interview_map[:interview_criteria] = interview_criteria
+
+    @interview = Interview.new( interview_map )
+    @interview.created_by = current_user.id    
 
     respond_to do |format|
       if @interview.save
@@ -73,6 +81,6 @@ class InterviewsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def interview_params
-      params.require(:interview).permit(:name, :description, :position_id, :created_by, :modified_by, :deleted_at)
+      params.require(:interview).permit(:name, :description, :position_id, :created_by, :modified_by, :deleted_at, :interview_criteria => [:id, :skill_id, :minimum_score])
     end
 end
