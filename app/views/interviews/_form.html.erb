@@ -58,7 +58,8 @@
                   
                   <tr class="interview-criteria-line">
                     <td>                     
-                      <input name="interview[interview_criteria[][skill_id]]" id="interview_criteria-select" value="<%= interview_criteria&.skill&.name %>" class="form-control" readonly/>
+                      <input name="interview[interview_criteria[][skill_id]]" id="interview_criteria-select" value="<%= interview_criteria&.skill_id %>" class="form-control" style="display: none"/>
+                      <input name="show_skill_set" id="interview_criteria-select" value="<%= interview_criteria&.skill&.name %>" class="form-control" readonly/>
                     </td>
                     <td>
                       <input name="interview[interview_criteria[][minimum_score]]" id="commodity-select" value="<%= interview_criteria&.minimum_score %>" class="form-control" readonly/>                      
@@ -94,8 +95,9 @@
 $( function() { 
   var REMOVE_dispatchLINE_BTN = '<a href="#" class="remove-interview-criteria"><i class="fa fa-times"></i></a>';
 
-  $('#interviewCriteriaTableBody').on('click', '.remove-interview-criteria', function(e) { 
-    $(e.target).closest( 'tr').fadeOut('slow', function(){
+  $('.remove-interview-criteria').on('click', function(e) { 
+    e.preventDefault(); 
+    $(e.target).closest('tr').fadeOut('slow', function(){
       $(this).remove();
     });
   });

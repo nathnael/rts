@@ -52,6 +52,27 @@ class InterviewsController < ApplicationController
   # PATCH/PUT /interviews/1.json
   def update
     @interview.modified_by = current_user.id
+
+    interview_criteria_ids = @interview.interview_criteria.collect { |ic| ic.id }
+
+    interview_criteria_hash = interview_params[:interview_criteria][0...-1]
+    
+    deleted_interview_criteria_ids = interview_criteria_ids -  interview_criteria_hash.collect { |r| r[:id].to_i }
+
+    InterviewCriterium.where( :id => deleted_interview_criteria_ids).destroy_all 
+
+    interview_criteria = interview_criteria_hash.collect do |h| 
+                        if h[:id] != nil
+                          InterviewCriterium.find(h[:id])
+                        else             
+                          InterviewCriterium.new(h)
+                        end
+                      end
+
+    interview_map = interview_params.except(:interview_criteria)
+
+    interview_map[:interview_criteria] = interview_criteria
+
     respond_to do |format|
       if @interview.update(interview_params)
         format.html { redirect_to @interview, notice: 'Interview was successfully updated.' }
