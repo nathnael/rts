@@ -54,9 +54,10 @@
                 </thead>
                 <tbody id="interviewCriteriaTableBody">
 
-                  <% @interview_criteria.each do |interview_criteria| %>
+                  <% @interview_criteria&.each do |interview_criteria| %>
                   
                   <tr class="interview-criteria-line">
+                    
                     <td>                     
                       <input name="interview[interview_criteria[][skill_id]]" id="interview_criteria-select" value="<%= interview_criteria&.skill_id %>" class="form-control" style="display: none"/>
                       <input name="show_skill_set" id="interview_criteria-select" value="<%= interview_criteria&.skill&.name %>" class="form-control" readonly/>
@@ -95,8 +96,8 @@
 $( function() { 
   var REMOVE_dispatchLINE_BTN = '<a href="#" class="remove-interview-criteria"><i class="fa fa-times"></i></a>';
 
-  $('.remove-interview-criteria').on('click', function(e) { 
-    e.preventDefault(); 
+  $('#interviewCriteriaTableBody').on('click', '.remove-interview-criteria', function(e) { 
+    ie8SafePreventEvent(e); 
     $(e.target).closest('tr').fadeOut('slow', function(){
       $(this).remove();
     });
@@ -158,5 +159,12 @@ $( function() {
       $interviewCriteriaForm.find(':input').val(''); 
     }
   }
+  function ie8SafePreventEvent(e){
+    if(e.preventDefault){ e.preventDefault()}
+    else{e.stop()};
+
+    e.returnValue = false;
+    e.stopPropagation();        
+  } 
 });
 </script>

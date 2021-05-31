@@ -61,11 +61,13 @@ class InterviewsController < ApplicationController
 
     InterviewCriterium.where( :id => deleted_interview_criteria_ids).destroy_all 
 
-    interview_criteria = interview_criteria_hash.collect do |h| 
-                        if h[:id] != nil
-                          InterviewCriterium.find(h[:id])
-                        else             
-                          InterviewCriterium.new(h)
+    interview_criteria = interview_criteria_hash.collect do |h|
+                        if h[:skill_id] != nil && h[:skill_id] != ""
+                          if h[:id] != nil
+                            InterviewCriterium.find(h[:id])
+                          else             
+                            InterviewCriterium.new(h)
+                          end
                         end
                       end
 
