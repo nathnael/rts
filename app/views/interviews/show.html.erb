@@ -25,48 +25,77 @@
 <!-- Main content -->
 <section class="content">
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card card-primary">
-          <div class="card-body">           
+    <div class="row">  
+    
+        <div class="col-md-12">          
+          <!-- general form elements -->
+          <div class="card card-primary">            
+            <!-- form start -->            
+              <div class="card-body">
+                            
+                <div class="row">                  
+                  <div class="form-group col-4">
+                    <label>Name:</label>
+                    <input type="text" value="<%= @interview.name %>" class="form-control" placeholder="N/A" disabled>
+                  </div>
+                
+                  <div class="form-group col-3">
+                    <label>Position:</label>
+                    <input type="text" value="<%= @position.name %>" class="form-control" placeholder="N/A" disabled>
+                  </div>
+                
+                  <div class="form-group col-4">
+                    <label>Description:</label>
+                    <textarea type="text" class="form-control" disabled>
+                      <%= @position.name %>
+                    </textarea>
+                  </div>
+                  <div class="form-group col-1 mt-4">
+                    <%= link_to 'Edit', edit_interview_path(@interview), :class => 'btn btn-primary float-right' %>
+                  </div>
+                </div>              
 
-            <div class="row">
-              <div class="form-group col-3">
-                <label>Name:</label>
-                <input type="text" value="<%= @interview.name %>" class="form-control" placeholder="N/A" disabled>
               </div>
-            </div>
+                   
+          </div>
+          <!-- /.card -->          
+        </div>
 
-            <div class="row">
-              <div class="form-group col-3">
-                <label>Position:</label>
-                <input type="text" value="<%= @position.name %>" class="form-control" placeholder="N/A" disabled>
-              </div>
-            </div>
+        <!-- left column -->
+        <div class="col-md-12">          
+          <!-- general form elements -->
+          <div class="card card-primary">            
+            <!-- form start -->            
+            <div class="card-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Skill</th>
+                    <th>Minimum score</th>   
+                  </tr>
+                </thead>
+                <tbody id="interviewCriteriaTableBody">
 
-            <div class="row">
-              <div class="form-group col-3">
-                <label>Description:</label>
-                <textarea class="form-control" placeholder="N/A" disabled>
-                  <%= @interview.description %>
-                </textarea>
-              </div>
+                  <% @interview_criteria&.each do |interview_criteria| %>
+                  
+                  <tr class="interview-criteria-line">
+                    
+                    <td>                     
+                      <input name="interview[interview_criteria[][skill_id]]" id="interview_criteria-select" value="<%= interview_criteria&.skill_id %>" class="form-control" style="display: none"/>
+                      <input name="show_skill_set" id="interview_criteria-select" value="<%= interview_criteria&.skill&.name %>" class="form-control" readonly/>
+                    </td>
+                    <td>
+                      <input name="interview[interview_criteria[][minimum_score]]" id="commodity-select" value="<%= interview_criteria&.minimum_score %>" class="form-control" readonly/>                      
+                    </td>
+                  </tr>
+                    
+                  <% end %>
+                </tbody>            
+              </table>
             </div>
-
-            <div class="row">
-              <div class="form-group col-3">
-                <label>Created by:</label>
-                <input type="text" value="<%= @created_by.name %>" class="form-control" placeholder="N/A" disabled>
-              </div>
-            </div>
-            
-            <div class="card-footer">
-              <%= link_to 'Edit', edit_interview_path(@interview), :class => 'btn btn-primary' %>
-            </div>
-            
           </div>
         </div>
-      </div>
+      
     </div>
   </div>
 </section>
