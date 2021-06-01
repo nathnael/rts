@@ -70,3 +70,37 @@
     </div>
   </div>
 </section>
+<script>
+  $(document).ready(function() {      
+      
+      $('.gregorian_datepicker').calendarsPicker({
+          format: 'DD, MM d, yyyy',
+          onSelect: function(dateText, inst) {
+              var dateAsObject = $(this).calendarsPicker('getDate');
+              // var jd = dateAsObject[0].toJD();
+              // var date_gc = $.calendars.fromJD(jd);
+              $(this).val(dateAsObject[0].formatDate('DD, MM d, yyyy'));
+          }
+      });
+
+      $('.ethiopian_datepicker').calendarsPicker({
+          calendar: $.calendars.instance('ethiopian', 'am'),
+          format: 'DD, MM d, yyyy',
+          onSelect: function(dateText, inst) {
+              var dateAsObject = $(this).calendarsPicker('getDate');
+              var jd = dateAsObject[0].toJD();
+              var date_gc = $.calendars.instance('ethiopian').fromJD(jd);
+              $(this).val(date_gc.formatDate('DD, MM d, yyyy'));
+          }
+      });
+
+      $(".amharic_input").amharicKeyboard();
+
+      $('.multiple_select').select2();
+
+      $('#image_upload_id').on('change', function() {
+        showImage(this);
+      });
+  });
+
+</script>
