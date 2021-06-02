@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
+  protect_from_forgery except: [:async_save_project_requirement, :async_remove_project_requirement]
 
   # GET /projects
   # GET /projects.json
@@ -12,6 +13,7 @@ class ProjectsController < ApplicationController
   def show
     @client = Client.find_by_id(@project.client_id)
     @created_by = User.find_by_id(@project.created_by)
+    @project_requirements = ProjectRequirement.includes(:project, :skill_type).where(project_id: @project.id)
   end
 
   # GET /projects/new
@@ -64,6 +66,39 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def async_save_project_requirement    
+    project_id = project_params["project_id"]
+    skill_type_id = project_params["skill_type_id"]
+    no_of_excellers = project_params["no_of_excellers"]   
+
+    @project_requirement = ProjectRequirement.new({project_id: project_id, skill_type_id: skill_type_id, amount: no_of_excellers, created_by: current_user.id})
+    puts "############################### @project_requirement: " + @project_requirement.inspect
+    # @flag = false
+    
+    respond_to do |format|
+      format.html
+      if(@project_requirement.save)
+        format.json { render :json => @project_requirement.id.to_json }
+      end
+    end
+  end
+
+  def async_remove_project_requirement    
+    project_requirement_id = project_params["project_requirement_id"]
+
+    @project_requirement = ProjectRequirement.find_by_id(project_requirement_id)
+    puts "############################### @project_requirement: " + @project_requirement.inspect
+    @flag = false
+    if(@project_requirement.destroy)
+        @flag = true
+    end
+    
+    respond_to do |format|
+      format.html
+      format.json { render :json =>  @flag.to_json }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project
@@ -72,6 +107,6 @@ class ProjectsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def project_params
-      params.require(:project).permit(:name, :client_id, :status, :start_date, :end_date, :created_by, :modified_by, :deleted_at)
+      params.require(:project).permit(:name, :client_id, :status, :start_date, :end_date, :created_by, :modified_by, :deleted_at, :project_id, :skill_type_id, :no_of_excellers, :project_requirement_id, :project_requirements => [:id, :project_id, :skill_type_id, :amount])
     end
 end

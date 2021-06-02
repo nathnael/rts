@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_30_103704) do
+ActiveRecord::Schema.define(version: 2021_06_01_221825) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,17 +61,6 @@ ActiveRecord::Schema.define(version: 2021_05_30_103704) do
   create_table "employment_types", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.integer "created_by"
-    t.integer "modified_by"
-    t.datetime "deleted_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "exceller_addresses", force: :cascade do |t|
-    t.integer "exceller_id"
-    t.integer "address_id"
-    t.integer "status"
     t.integer "created_by"
     t.integer "modified_by"
     t.datetime "deleted_at"
@@ -193,13 +182,14 @@ ActiveRecord::Schema.define(version: 2021_05_30_103704) do
   end
 
   create_table "project_requirements", force: :cascade do |t|
-    t.integer "skill_id"
+    t.integer "skill_type_id"
     t.integer "amount"
     t.integer "created_by"
     t.integer "modified_by"
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "project_id"
   end
 
   create_table "projects", force: :cascade do |t|

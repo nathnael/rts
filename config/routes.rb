@@ -20,7 +20,11 @@ Rails.application.routes.draw do
   resources :permissions
   
   # put '/invoices/assign_invoice/:id', to: 'invoices#assign_invoice'
-
+  # get '/projects/async_save_project_requirement', to: 'projects#async_save_project_requirement'
+  post '/projects/async_save_project_requirement', to: 'projects#async_save_project_requirement'
+  post '/projects/async_remove_project_requirement', to: 'projects#async_remove_project_requirement'
+  
+  
   put 'users/:id/updatePermissions', to: 'users#updatePermissions'
   get 'users/:id/user_permissions', to: 'users#user_permissions'
 
