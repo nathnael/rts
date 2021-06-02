@@ -11,6 +11,7 @@
     "bootstrap": "^4.5.3",
     "bootstrap-datetimepicker-4.17.37": "^4.17.37",
     "chart.js": "^2.9.4",
+    "datatables": "^1.10.18",
     "highcharts": "^8.2.2",
     "jquery": "^3.5.1",
     "jquery-datetimepicker": "^2.5.21",
@@ -20,9 +21,9 @@
   },
   "version": "0.1.0",
   "engines": {
-    "node": "15.11.0",
+    "node": "15.14.0",
     "npm": "6.14.4",
-    "yarn": "1.22.10"
+    "yarn": "1.22.5"
   },
   "devDependencies": {
     "webpack-dev-server": "^3.11.0"

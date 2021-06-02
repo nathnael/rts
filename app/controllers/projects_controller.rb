@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
-  protect_from_forgery except: [:async_save_project_requirement, :async_remove_project_requirement]
+  protect_from_forgery except: [:async_save_project_requirement, :async_remove_project_requirement, :async_get_project_requirements]
 
   # GET /projects
   # GET /projects.json
@@ -98,6 +98,19 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       format.html
       format.json { render :json =>  @flag.to_json }
+    end
+  end
+
+  def async_get_project_requirements    
+    project_id = project_params["project_id"]
+
+    @project_requirements = ProjectRequirement.joins(:project, :skill_type).select("skill_types.name as skill_type_name", :skill_type_id, :amount, :start_date, :end_date).where(project_id: project_id).pl
+
+    puts "############################### @project_requirement: " + @project_requirement.inspect
+        
+    respond_to do |format|
+      format.html
+      format.json { render :json =>  @project_requirements.to_json }
     end
   end
 

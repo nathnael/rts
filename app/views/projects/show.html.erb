@@ -125,7 +125,12 @@
                       </td>  
                       <td>
                         <input id="end_date_input" name="project[project_requirements[][end_date]]" type="text" value="<%= @project.end_date %>" class="form-control gregorian_datepicker" placeholder="N/A" />
-                      </td>             
+                      </td>  
+                      <td>
+                        <div class="progress progress-mini">
+                          <div class="progress-bar" style="width: 0%;"></div>
+                        </div>
+                      </td>           
                       <td>
                           <a href="#" class="btn btn-primary" id="add-project-requirements-line">Add</a>
                       </td>
@@ -134,7 +139,31 @@
                 </table>
               </div>
               <div class="tab-pane fade" id="custom-tabs-three-profile" role="tabpanel" aria-labelledby="custom-tabs-three-profile-tab">
-                  Mauris tincidunt mi at erat gravida, eget tristique urna bibendum. Mauris pharetra purus ut ligula tempor, et vulputate metus facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Maecenas sollicitudin, nisi a luctus interdum, nisl ligula placerat mi, quis posuere purus ligula eu lectus. Donec nunc tellus, elementum sit amet ultricies at, posuere nec nunc. Nunc euismod pellentesque diam. 
+                  <table id="example" class="display" style="width:100%">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Skill Type</th>
+                        <th>Number of Excellers</th>            
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <th></th>
+                        <th>Skill Type</th>
+                        <th>Number of Excellers</th>            
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                      </tr>
+                    </tfoot>
+                </table> 
               </div>
             </div>
           </div>
@@ -147,6 +176,7 @@
 <script>
 $( function() { 
   var REMOVE_dispatchLINE_BTN = '<a href="#" class="remove-project_requirements"><i class="fa fa-times"></i></a>';
+  var project = $('#project_id_input').val();
 
   $('#projectRequirementsTableBody').on('click', '.remove-project_requirements', function(e) { 
     ie8SafePreventEvent(e); 
@@ -191,7 +221,7 @@ $( function() {
   $("#add-project-requirements-line").click( function(e) { 
     e.preventDefault(); 
     var $this = $(this); 
-    var project = $('#project_id_input').val();
+    
     var skill_type = $('#skill_type_select').val();
     var amount = $('#amount_input').val();
     var start_date = $('#start_date_input').val();
@@ -274,6 +304,67 @@ $( function() {
       }
   });
 
+  $.ajax({
+    url:'/projects/async_get_project_requirements',
+    type:'POST',
+    dataType:'json',
+    data:{
+      project: {
+        project_id: project
+      }	            
+    },
+    before: function() {
+    
+    },
+    success:function(data){
+      console.log(data);	
+      if(data==null && data==''){                
+        return;
+      }   
+      console.log("Data: " + data);
+      var table = $('#example').DataTable({
+          "ajax": data,
+          "columns": [
+              {
+                  "className":      'details-control',
+                  "orderable":      false,
+                  "data":           null,
+                  "defaultContent": ''
+              },
+              { "data": "skill_type_name" },
+              { "data": "amount" },
+              { "data": "start_date" },
+              { "data": "end_date" }
+              
+          ],
+          "order": [[1, 'asc']]
+      });      
+      
+      // Add event listener for opening and closing details
+      $('#example tbody').on('click', 'td.details-control', function () {
+          var tr = $(this).closest('tr');
+          var row = table.row( tr );
+
+          if ( row.child.isShown() ) {
+              // This row is already open - close it
+              row.child.hide();
+              tr.removeClass('shown');
+          }
+          else {
+              // Open this row
+              row.child( format(row.data()) ).show();
+              tr.addClass('shown');
+          }
+      } );
+    },
+    error:function(data){
+        console.log(data);
+    }
+  });
+  
+  
+});
+
   function validate_project_requirements(node, project, skill_type, amount)
   {
     
@@ -285,5 +376,22 @@ $( function() {
     e.returnValue = false;
     e.stopPropagation();        
   } 
-});
+  /* Formatting function for row details - modify as you need */
+  function format ( d ) {
+      // `d` is the original data object for the row
+      return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+          '<tr>'+
+              '<td>Full name:</td>'+
+              // '<td>'+d.name+'</td>'+
+          '</tr>'+
+          '<tr>'+
+              '<td>Extension number:</td>'+
+              // '<td>'+d.extn+'</td>'+
+          '</tr>'+
+          '<tr>'+
+              '<td>Extra info:</td>'+
+              '<td>And any further details here (images etc)...</td>'+
+          '</tr>'+
+      '</table>';
+  }
 </script>

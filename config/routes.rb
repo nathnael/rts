@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   # get '/projects/async_save_project_requirement', to: 'projects#async_save_project_requirement'
   post '/projects/async_save_project_requirement', to: 'projects#async_save_project_requirement'
   post '/projects/async_remove_project_requirement', to: 'projects#async_remove_project_requirement'
+  post '/projects/async_get_project_requirements', to: 'projects#async_get_project_requirements'
   
   
   put 'users/:id/updatePermissions', to: 'users#updatePermissions'
