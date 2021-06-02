@@ -70,8 +70,10 @@ class ProjectsController < ApplicationController
     project_id = project_params["project_id"]
     skill_type_id = project_params["skill_type_id"]
     no_of_excellers = project_params["no_of_excellers"]   
+    start_date = project_params["start_date"]   
+    end_date = project_params["end_date"]   
 
-    @project_requirement = ProjectRequirement.new({project_id: project_id, skill_type_id: skill_type_id, amount: no_of_excellers, created_by: current_user.id})
+    @project_requirement = ProjectRequirement.new({project_id: project_id, skill_type_id: skill_type_id, amount: no_of_excellers, start_date: start_date, end_date: end_date, created_by: current_user.id})
     puts "############################### @project_requirement: " + @project_requirement.inspect
     # @flag = false
     
@@ -107,6 +109,6 @@ class ProjectsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def project_params
-      params.require(:project).permit(:name, :client_id, :status, :start_date, :end_date, :created_by, :modified_by, :deleted_at, :project_id, :skill_type_id, :no_of_excellers, :project_requirement_id, :project_requirements => [:id, :project_id, :skill_type_id, :amount])
+      params.require(:project).permit(:name, :client_id, :status, :start_date, :end_date, :created_by, :modified_by, :deleted_at, :project_id, :skill_type_id, :no_of_excellers, :project_requirement_id, :project_requirements => [:id, :project_id, :skill_type_id, :amount, :start_date, :end_date])
     end
 end

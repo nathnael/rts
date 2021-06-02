@@ -77,6 +77,9 @@
                     <tr>
                       <th>Skill Type</th>
                       <th>Number of Excellers</th>            
+                      <th>Start Date</th>
+                      <th>End Date</th>
+                      <th>Progress</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
@@ -90,7 +93,18 @@
                         <input name="show_skill_set" id="project_requirements-select" value="<%= project_requirement&.skill_type&.name %>" class="form-control" readonly/>
                       </td>
                       <td>
-                        <input name="project[project_requirements[][amount]]" id="commodity-select" value="<%= project_requirement&.amount %>" class="form-control" readonly/>                      
+                        <input name="project[project_requirements[][amount]]" value="<%= project_requirement&.amount %>" class="form-control" readonly/>                      
+                      </td>
+                      <td>
+                        <input name="project[project_requirements[][start_date]]" value="<%= project_requirement&.start_date %>" class="form-control gregorian_datepicker" readonly/>                      
+                      </td>
+                      <td>
+                        <input name="project[project_requirements[][end_date]]" value="<%= project_requirement&.end_date %>" class="form-control gregorian_datepicker" readonly/>                      
+                      </td>
+                      <td>
+                        <div class="progress progress-mini">
+                          <div class="progress-bar" style="width: 40%;"></div>
+                        </div>
                       </td>
                       <td>
                         <a href="#" class="remove-project_requirements"><i class="fa fa-times"></i></a>
@@ -105,6 +119,12 @@
                       </td> 
                       <td>
                         <input id="amount_input" name="project[project_requirements[][amount]]" type="number" step="any" class="form-control" data-parsley-required/>
+                      </td>  
+                      <td>
+                        <input id="start_date_input" name="project[project_requirements[][start_date]]" type="text" value="<%= @project.start_date %>" class="form-control gregorian_datepicker" placeholder="N/A" />
+                      </td>  
+                      <td>
+                        <input id="end_date_input" name="project[project_requirements[][end_date]]" type="text" value="<%= @project.end_date %>" class="form-control gregorian_datepicker" placeholder="N/A" />
                       </td>             
                       <td>
                           <a href="#" class="btn btn-primary" id="add-project-requirements-line">Add</a>
@@ -170,32 +190,18 @@ $( function() {
 
   $("#add-project-requirements-line").click( function(e) { 
     e.preventDefault(); 
+    var $this = $(this); 
     var project = $('#project_id_input').val();
     var skill_type = $('#skill_type_select').val();
     var amount = $('#amount_input').val();
+    var start_date = $('#start_date_input').val();
+    var end_date = $('#end_date_input').val();
 
     var $this = $(this); 
 
     var $projectRequirementsForm = $this.closest('tr'); 
 
-    // var valid = true; 
-
-    // $projectRequirementsForm.find(':input').each( function() { 
-    //     $(this).parsley().validate(); 
-    //     valid = $(this).parsley().isValid() && valid; 
-    // });
-
-    // if( !valid ) {
-    //   return; 
-    // }
-
-    var flag = validate_project_requirements(this, project, skill_type, amount);
-    
-  }); 
-
-  function validate_project_requirements(node, project, skill_type, amount)
-  {
-    if( project!="" && skill_type!="" && amount!="")
+    if( project!="" && skill_type!="" && amount!="" && start_date!="" && end_date!="")
     {
       $.ajax({
         url:'/projects/async_save_project_requirement',
@@ -205,7 +211,9 @@ $( function() {
           project: {
             project_id: project,
             skill_type_id: skill_type,
-            no_of_excellers: amount
+            no_of_excellers: amount,
+            start_date: start_date,
+            end_date: end_date
           }	            
         },
         before: function() {
@@ -216,7 +224,7 @@ $( function() {
           if(data==null && data==''){                
             return;
           }   
-          var $this = $(node); 
+          
 
           var $projectRequirementsForm = $this.closest('tr'); 
           
@@ -242,6 +250,33 @@ $( function() {
       });
       
     }
+    
+  }); 
+
+  $('.gregorian_datepicker').calendarsPicker({
+      format: 'DD, MM d, yyyy',
+      onSelect: function(dateText, inst) {
+          var dateAsObject = $(this).calendarsPicker('getDate');
+          // var jd = dateAsObject[0].toJD();
+          // var date_gc = $.calendars.fromJD(jd);
+          $(this).val(dateAsObject[0].formatDate('DD, MM d, yyyy'));
+      }
+  });
+
+  $('.ethiopian_datepicker').calendarsPicker({
+      calendar: $.calendars.instance('ethiopian', 'am'),
+      format: 'DD, MM d, yyyy',
+      onSelect: function(dateText, inst) {
+          var dateAsObject = $(this).calendarsPicker('getDate');
+          var jd = dateAsObject[0].toJD();
+          var date_gc = $.calendars.instance('ethiopian').fromJD(jd);
+          $(this).val(date_gc.formatDate('DD, MM d, yyyy'));
+      }
+  });
+
+  function validate_project_requirements(node, project, skill_type, amount)
+  {
+    
   }
   function ie8SafePreventEvent(e){
     if(e.preventDefault){ e.preventDefault()}

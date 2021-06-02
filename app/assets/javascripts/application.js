@@ -15,6 +15,8 @@
 //= require jquery.calendars/jquery.calendars.ethiopian.js
 //= require jquery.calendars/jquery.calendars.ethiopian-am.js
 
+//= require pace.min.js
+
 $(document).ready(function() {
     
     var activeLi = $('a.nav-link');
