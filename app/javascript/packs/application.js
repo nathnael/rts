@@ -60,6 +60,6 @@ $(document).ready(function() {
         ]
     });
 
-    $('#date_received').datetimepicker();
+    // $('#date_received').datetimepicker();
 });
 

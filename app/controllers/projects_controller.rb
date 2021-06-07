@@ -104,13 +104,13 @@ class ProjectsController < ApplicationController
   def async_get_project_requirements    
     project_id = project_params["project_id"]
 
-    @project_requirements = ProjectRequirement.joins(:project, :skill_type).select("skill_types.name as skill_type_name", :skill_type_id, :amount, :start_date, :end_date).where(project_id: project_id).pl
+    @project_requirements = ProjectRequirement.joins(:project, :skill_type).select("skill_types.name as skill_type_name", :skill_type_id, :amount, :start_date, :end_date).where(project_id: project_id).pluck_to_hash("skill_types.name as skill_type_name", "project_requirements.amount as amount", "projects.start_date as start_date", "projects.end_date as end_date", "project_requirements.id as progress")
 
-    puts "############################### @project_requirement: " + @project_requirement.inspect
+    puts "############################### @project_requirement: " + { "data" => [@project_requirements.to_json] }.inspect
         
     respond_to do |format|
       format.html
-      format.json { render :json =>  @project_requirements.to_json }
+      format.json { render :json => @project_requirements.to_json }
     end
   end
 

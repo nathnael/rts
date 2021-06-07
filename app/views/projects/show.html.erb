@@ -142,25 +142,20 @@
                   <table id="example" class="display" style="width:100%">
                     <thead>
                       <tr>
-                        <th></th>
                         <th>Skill Type</th>
                         <th>Number of Excellers</th>            
                         <th>Start Date</th>
                         <th>End Date</th>
+                        <th>Progress</th>                      
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td></td>
-                      </tr>
-                    </tbody>
                     <tfoot>
                       <tr>
-                        <th></th>
                         <th>Skill Type</th>
                         <th>Number of Excellers</th>            
                         <th>Start Date</th>
                         <th>End Date</th>
+                        <th>Progress</th>                   
                       </tr>
                     </tfoot>
                 </table> 
@@ -182,6 +177,7 @@ $( function() {
     ie8SafePreventEvent(e); 
     
     var pr_id = $(this).closest('tr').find('#project_requirement_id_input').val(); 
+    alert("pr_id: " + pr_id);
     $.ajax({
         url:'/projects/async_remove_project_requirement',
         type:'POST',
@@ -195,7 +191,7 @@ $( function() {
         
         },
         success:function(data){
-          console.log(data);	
+          // console.log(data);	
           if(!data){                   
             return;
           }   
@@ -250,7 +246,7 @@ $( function() {
         
         },
         success:function(data){
-          console.log(data);	
+          // console.log(data);	
           if(data==null && data==''){                
             return;
           }   
@@ -305,64 +301,52 @@ $( function() {
   });
 
   $.ajax({
-    url:'/projects/async_get_project_requirements',
+    url: "/projects/async_get_project_requirements",
     type:'POST',
-    dataType:'json',
     data:{
       project: {
         project_id: project
       }	            
     },
-    before: function() {
-    
-    },
-    success:function(data){
-      console.log(data);	
-      if(data==null && data==''){                
-        return;
-      }   
-      console.log("Data: " + data);
-      var table = $('#example').DataTable({
-          "ajax": data,
-          "columns": [
-              {
-                  "className":      'details-control',
-                  "orderable":      false,
-                  "data":           null,
-                  "defaultContent": ''
-              },
-              { "data": "skill_type_name" },
-              { "data": "amount" },
-              { "data": "start_date" },
-              { "data": "end_date" }
-              
-          ],
-          "order": [[1, 'asc']]
-      });      
-      
-      // Add event listener for opening and closing details
-      $('#example tbody').on('click', 'td.details-control', function () {
-          var tr = $(this).closest('tr');
-          var row = table.row( tr );
+    dataType: 'json',
+    success: function(data){
+      console.log("Data: " + JSON.stringify(data));
+      var t = $('#example').DataTable( {
+        data: data,        
+        columns: [
+          { data: 'skill_type_name' },
+          { data: 'amount' },
+          { data: 'start_date' },
+          { data: 'end_date' },
+          { data: 'progress' }
+        ],
+        columnDefs: [{
+            "targets": -1,
+            "defaultContent": "<button>Click!</button>"
+        }]
+      }); 
+      // $('#example tbody').on( 'click', 'button', function () {
+      //   var data = table.row( $(this).parents('tr') ).data();
+      //   alert( data[0] +"'s salary is: "+ data[ 5 ] );
+      // });
+      // // Add event listener for opening and closing details
+      // $('#example tbody').on('click', 'td.details-control', function () {
+      //     var tr = $(this).closest('tr');
+      //     var row = table.row( tr );
 
-          if ( row.child.isShown() ) {
-              // This row is already open - close it
-              row.child.hide();
-              tr.removeClass('shown');
-          }
-          else {
-              // Open this row
-              row.child( format(row.data()) ).show();
-              tr.addClass('shown');
-          }
-      } );
-    },
-    error:function(data){
-        console.log(data);
+      //     if ( row.child.isShown() ) {
+      //         // This row is already open - close it
+      //         row.child.hide();
+      //         tr.removeClass('shown');
+      //     }
+      //     else {
+      //         // Open this row
+      //         row.child( format(row.data()) ).show();
+      //         tr.addClass('shown');
+      //     }
+      // } );
     }
   });
-  
-  
 });
 
   function validate_project_requirements(node, project, skill_type, amount)
@@ -382,11 +366,11 @@ $( function() {
       return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
           '<tr>'+
               '<td>Full name:</td>'+
-              // '<td>'+d.name+'</td>'+
+              '<td>d.name</td>'+
           '</tr>'+
           '<tr>'+
               '<td>Extension number:</td>'+
-              // '<td>'+d.extn+'</td>'+
+              '<td>d.extn</td>'+
           '</tr>'+
           '<tr>'+
               '<td>Extra info:</td>'+
