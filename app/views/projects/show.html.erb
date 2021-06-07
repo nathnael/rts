@@ -142,20 +142,26 @@
                   <table id="example" class="display" style="width:100%">
                     <thead>
                       <tr>
+                        <th></th>
+                        <th>PR ID</th>
                         <th>Skill Type</th>
                         <th>Number of Excellers</th>            
                         <th>Start Date</th>
                         <th>End Date</th>
                         <th>Progress</th>                      
+                        <th></th>                      
                       </tr>
                     </thead>
                     <tfoot>
                       <tr>
+                        <th></th>
+                        <th>PR ID</th>
                         <th>Skill Type</th>
                         <th>Number of Excellers</th>            
                         <th>Start Date</th>
                         <th>End Date</th>
-                        <th>Progress</th>                   
+                        <th>Progress</th>                    
+                        <th></th>                    
                       </tr>
                     </tfoot>
                 </table> 
@@ -311,40 +317,71 @@ $( function() {
     dataType: 'json',
     success: function(data){
       console.log("Data: " + JSON.stringify(data));
-      var t = $('#example').DataTable( {
-        data: data,        
-        columns: [
-          { data: 'skill_type_name' },
-          { data: 'amount' },
-          { data: 'start_date' },
-          { data: 'end_date' },
-          { data: 'progress' }
-        ],
-        columnDefs: [{
-            "targets": -1,
-            "defaultContent": "<button>Click!</button>"
-        }]
-      }); 
-      // $('#example tbody').on( 'click', 'button', function () {
-      //   var data = table.row( $(this).parents('tr') ).data();
-      //   alert( data[0] +"'s salary is: "+ data[ 5 ] );
-      // });
-      // // Add event listener for opening and closing details
-      // $('#example tbody').on('click', 'td.details-control', function () {
-      //     var tr = $(this).closest('tr');
-      //     var row = table.row( tr );
 
-      //     if ( row.child.isShown() ) {
-      //         // This row is already open - close it
-      //         row.child.hide();
-      //         tr.removeClass('shown');
-      //     }
-      //     else {
-      //         // Open this row
-      //         row.child( format(row.data()) ).show();
-      //         tr.addClass('shown');
-      //     }
-      // } );
+      var table = $('#example').DataTable({
+          data: data,
+          columns: [
+            {
+                "className":      'details-control',
+                "orderable":      false,
+                "data":           null,
+                "defaultContent": ''
+            },
+            { data: 'pr_id' },
+            { data: 'skill_type_name' },
+            { data: 'amount' },
+            { data: 'start_date' },
+            { data: 'end_date' },
+            { data: 'progress' },
+            { data: 'progress' }
+          ],
+          columnDefs: [
+            {
+                "targets": [ 1 ],
+                "visible": false,
+                "searchable": false
+            },
+            {                
+              targets: 7,
+              width: "100px",  
+              render: function (data, type, row, meta) {
+                // console.log("data: " + data);
+                  return '<input type="button" class="btn btn-warning ml-1 mr-1 pr-edit" id=e-"' + data + '" value="Edit"/><input type="button" class="btn btn-danger ml-1 mr-1 pr-delete" id=d-"' + data + '" value="Delete"/>';
+              }
+            }
+          ],
+          
+      });
+
+      $('#example tbody').on('click', '.pr-edit', function () {
+        var id = $(this).attr("id").match(/\d+/)[0];
+        alert("Edit id: " + id);
+        
+      });
+        
+        
+      $('#example tbody').on('click', '.pr-delete', function () {
+        var id = $(this).attr("id").match(/\d+/)[0];
+        alert("Delete id: " + id);
+
+      });
+      
+      // Add event listener for opening and closing details
+      $('#example tbody').on('click', 'td.details-control', function () {
+          var tr = $(this).closest('tr');
+          var row = table.row( tr );
+  
+          if ( row.child.isShown() ) {
+              // This row is already open - close it
+              row.child.hide();
+              tr.removeClass('shown');
+          }
+          else {
+              // Open this row
+              row.child( format(row.data()) ).show();
+              tr.addClass('shown');
+          }
+      } );
     }
   });
 });

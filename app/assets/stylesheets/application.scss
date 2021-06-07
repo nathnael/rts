@@ -10,6 +10,8 @@ $fa-font-path: '@fortawesome/fontawesome-free/webfonts';
 @import "toastr/toastr";
 @import "Chart.min.css";
 // @import "jquery.dataTables.min.css";
+@import "bootstrap/dist/css/bootstrap";
+@import "datatables.net-bs4/css/datatables.bootstrap4.css";
 @import "datatables/dataTables.bootstrap4.css";
 @import "datatables/responsive.bootstrap4.css";
 @import "datatables/buttons.bootstrap4.css";
@@ -42,4 +44,13 @@ $fa-font-path: '@fortawesome/fontawesome-free/webfonts';
 
 .profile-picture-small {
     width: 50px !important;
+}
+
+
+td.details-control {
+    background: url('images/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.shown td.details-control {
+    background: url('images/details_close.png') no-repeat center center;
 }

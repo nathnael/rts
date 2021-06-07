@@ -2727,6 +2727,14 @@ datatables.net-bs4@^1.10.15, datatables.net-bs4@^1.10.20:
     datatables.net "1.10.22"
     jquery ">=1.7"
 
+datatables.net-bs4@^1.10.25:
+  version "1.10.25"
+  resolved "https://registry.yarnpkg.com/datatables.net-bs4/-/datatables.net-bs4-1.10.25.tgz#4474d6738bf55a25d20da79afe18e1e654cfca42"
+  integrity sha512-leoiWJWxoPKHBNC9dkFRE84PRybQcAI2Aw4UiS5zisROcYRx8YG1uQOTtID4jbqakmbwwXap/c2eH+sdVP5t2w==
+  dependencies:
+    datatables.net "1.10.25"
+    jquery ">=1.7"
+
 datatables.net-buttons-bs4@^1.6.1:
   version "1.6.5"
   resolved "https://registry.yarnpkg.com/datatables.net-buttons-bs4/-/datatables.net-buttons-bs4-1.6.5.tgz#e7802391d28e2c3786dfc0a4c278e0434e0528b1"
@@ -2901,6 +2909,13 @@ datatables.net@1.10.22, datatables.net@^1.10.15, datatables.net@^1.10.20:
   version "1.10.22"
   resolved "https://registry.yarnpkg.com/datatables.net/-/datatables.net-1.10.22.tgz#975d4ffb1eb40dec5fb772eaf93796ec1a948b55"
   integrity sha512-ujn8GvkQIBYzYH54XY7OrI0Zb35TKRd9ABYfbnXgBfwTGIFT6UsmXrfHU5Yk+MSDoF0sDu2TB+31V6c+zUZ0Pw==
+  dependencies:
+    jquery ">=1.7"
+
+datatables.net@1.10.25:
+  version "1.10.25"
+  resolved "https://registry.yarnpkg.com/datatables.net/-/datatables.net-1.10.25.tgz#fc03a239e08f91d1d64ba101aa54daf4086d162c"
+  integrity sha512-y0+C7all+MC/h1acwnjErhaJPjYGKpWTvbXrfEUbR8+P+nnhgjNn5nL1udgsTwBObMhlj1KITNBRrM/ZLSoj+Q==
   dependencies:
     jquery ">=1.7"
 
@@ -4375,6 +4390,14 @@ import-local@^2.0.0:
   dependencies:
     pkg-dir "^3.0.0"
     resolve-cwd "^2.0.0"
+
+imports-loader@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/imports-loader/-/imports-loader-3.0.0.tgz#069c314cb55a80e59ae72b5313273dafff8b3fc4"
+  integrity sha512-PhDB+rxpc95/1cM8ehxWAcuDIDi3eXhqHhax09iyUeAYBJ2bT6QbBp7aDj8IfU9Ns+2l1K226GhoWVAU823CTA==
+  dependencies:
+    source-map "^0.6.1"
+    strip-comments "^2.0.1"
 
 imurmurhash@^0.1.4:
   version "0.1.4"
@@ -7937,6 +7960,11 @@ strip-bom@^2.0.0:
   integrity sha1-YhmoVhZSBJHzV4i9vxRHqZx+aw4=
   dependencies:
     is-utf8 "^0.2.0"
+
+strip-comments@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/strip-comments/-/strip-comments-2.0.1.tgz#4ad11c3fbcac177a67a40ac224ca339ca1c1ba9b"
+  integrity sha512-ZprKx+bBLXv067WTCALv8SSz5l2+XhpYCsVtSqlMnkAXMWDq+/ekVbl1ghqP9rUHTzv6sm/DwCOiYutU/yp1fw==
 
 strip-eof@^1.0.0:
   version "1.0.0"
