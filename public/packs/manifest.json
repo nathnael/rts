@@ -1,6 +1,6 @@
 {
-  "application.js": "/packs/js/application-efd60b44aa197e0ecf31.js",
-  "application.js.map": "/packs/js/application-efd60b44aa197e0ecf31.js.map",
+  "application.js": "/packs/js/application-4669c9fc25156be9020d.js",
+  "application.js.map": "/packs/js/application-4669c9fc25156be9020d.js.map",
   "controllers/vendors.js": "/packs/js/controllers/vendors-e3afba8850a35de7ae02.js",
   "controllers/vendors.js.map": "/packs/js/controllers/vendors-e3afba8850a35de7ae02.js.map",
   "custom/mine_chart.js": "/packs/js/custom/mine_chart-cfcc5583002a9945852c.js",
@@ -11,17 +11,17 @@
   "datatables/dataTables.js.map": "/packs/js/datatables/dataTables-d635376625a234476072.js.map",
   "datatables/pdfmake.js": "/packs/js/datatables/pdfmake-7dc5767eb2018111c14d.js",
   "datatables/pdfmake.js.map": "/packs/js/datatables/pdfmake-7dc5767eb2018111c14d.js.map",
-  "datatables/responsive.js": "/packs/js/datatables/responsive-3f1c20c70a55bdf80483.js",
-  "datatables/responsive.js.map": "/packs/js/datatables/responsive-3f1c20c70a55bdf80483.js.map",
+  "datatables/responsive.js": "/packs/js/datatables/responsive-5dbce128065797d5d190.js",
+  "datatables/responsive.js.map": "/packs/js/datatables/responsive-5dbce128065797d5d190.js.map",
   "datatables/vfs_fonts.js": "/packs/js/datatables/vfs_fonts-ed61b612d87c700caf9e.js",
   "datatables/vfs_fonts.js.map": "/packs/js/datatables/vfs_fonts-ed61b612d87c700caf9e.js.map",
   "entrypoints": {
     "application": {
       "js": [
-        "/packs/js/application-efd60b44aa197e0ecf31.js"
+        "/packs/js/application-4669c9fc25156be9020d.js"
       ],
       "js.map": [
-        "/packs/js/application-efd60b44aa197e0ecf31.js.map"
+        "/packs/js/application-4669c9fc25156be9020d.js.map"
       ]
     },
     "controllers/vendors": {
@@ -66,10 +66,10 @@
     },
     "datatables/responsive": {
       "js": [
-        "/packs/js/datatables/responsive-3f1c20c70a55bdf80483.js"
+        "/packs/js/datatables/responsive-5dbce128065797d5d190.js"
       ],
       "js.map": [
-        "/packs/js/datatables/responsive-3f1c20c70a55bdf80483.js.map"
+        "/packs/js/datatables/responsive-5dbce128065797d5d190.js.map"
       ]
     },
     "datatables/vfs_fonts": {

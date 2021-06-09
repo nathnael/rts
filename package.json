@@ -12,7 +12,6 @@
     "bootstrap-datetimepicker-4.17.37": "^4.17.37",
     "chart.js": "^2.9.4",
     "datatables": "^1.10.18",
-    "datatables.net-bs4": "^1.10.25",
     "highcharts": "^8.2.2",
     "imports-loader": "^3.0.0",
     "jquery": "^3.5.1",
