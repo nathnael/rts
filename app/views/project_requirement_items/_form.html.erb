@@ -1,0 +1,17 @@
+<%= form_with(model: project_requirement_item, local: true) do |form| %>
+  <% if project_requirement_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(project_requirement_item.errors.count, "error") %> prohibited this project_requirement_item from being saved:</h2>
+
+      <ul>
+        <% project_requirement_item.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

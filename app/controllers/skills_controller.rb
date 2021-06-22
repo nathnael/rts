@@ -72,6 +72,6 @@ class SkillsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def skill_params
-      params.require(:skill).permit(:name, :description, :skill_type_id, :created_by, :modified_by, :deleted_at)
+      params.require(:skill).permit(:name, :description, :default_minimum_score, :skill_type_id, :created_by, :modified_by, :deleted_at)
     end
 end

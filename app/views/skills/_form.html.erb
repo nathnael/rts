@@ -28,6 +28,7 @@
               <div class="row">
                 <div class="form-group col-4">
                   <%= f.label :name %>
+                  <span class="required">*</span>
                   <%= f.text_field :name, :class => 'form-control' %>
                 </div>
               </div>
@@ -36,6 +37,13 @@
                   <%= f.label :skill_type %>
                   <span class="required">*</span>
                   <%= f.collection_select :skill_type_id, SkillType.all, :id, :name, {include_blank: '-- Choose --'}, {:class => 'form-control', :required => true }%>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-4">
+                  <%= f.label :default_minimum_score %>
+                  <span class="required">*</span>
+                  <%= f.number_field :default_minimum_score, :class => 'form-control', min: 0, max: 10, step: 0.1, :required => true  %>
                 </div>
               </div>
               <div class="row">

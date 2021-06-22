@@ -72,6 +72,39 @@
           <div class="card-body">
             <div class="tab-content" id="custom-tabs-three-tabContent">
               <div class="tab-pane fade active show" id="custom-tabs-three-home" role="tabpanel" aria-labelledby="custom-tabs-three-home-tab">
+                <a class="btn btn-primary float-right mb-3" data-project-id="<%= @project.id.to_s %>" data-target="#add-pr" data-toggle="modal" style="color: white">
+                  <i class="fa fa-plus"></i> Add New Project Requirement
+                </a>
+                <table id="example" class="display" style="width:100% !important">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>PR ID</th>
+                        <th>SKT ID</th>
+                        <th>Skill Type</th>
+                        <th>Number of Excellers</th>            
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Progress</th>                      
+                        <th></th>                      
+                      </tr>
+                    </thead>
+                    <tfoot>
+                      <tr>
+                        <th></th>
+                        <th>PR ID</th>
+                        <th>SKT ID</th>
+                        <th>Skill Type</th>
+                        <th>Number of Excellers</th>            
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Progress</th>                    
+                        <th></th>                    
+                      </tr>
+                    </tfoot>
+                </table> 
+              </div>
+              <div class="tab-pane fade" id="custom-tabs-three-profile" role="tabpanel" aria-labelledby="custom-tabs-three-profile-tab">
                 <table class="table">
                   <thead>
                     <tr>
@@ -138,34 +171,6 @@
                   </tbody>            
                 </table>
               </div>
-              <div class="tab-pane fade" id="custom-tabs-three-profile" role="tabpanel" aria-labelledby="custom-tabs-three-profile-tab">
-                  <table id="example" class="display" style="width:100% !important">
-                    <thead>
-                      <tr>
-                        <th></th>
-                        <th>PR ID</th>
-                        <th>Skill Type</th>
-                        <th>Number of Excellers</th>            
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Progress</th>                      
-                        <th></th>                      
-                      </tr>
-                    </thead>
-                    <tfoot>
-                      <tr>
-                        <th></th>
-                        <th>PR ID</th>
-                        <th>Skill Type</th>
-                        <th>Number of Excellers</th>            
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Progress</th>                    
-                        <th></th>                    
-                      </tr>
-                    </tfoot>
-                </table> 
-              </div>
             </div>
           </div>
           <!-- /.card -->
@@ -174,8 +179,186 @@
     </div>
   </div>
 </section>
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="add-pr">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">New Project Requirement</h4>
+        <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>        
+      </div>
+      <div class="modal-body">   
+
+        <form role="form" method="POST" enctype="multipart/form-data" action="/projects/async_save_project_requirements" >
+          <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+          <%= hidden_field_tag :id, params[:id], class: "", :name => "id", :required => true, :display => false  %>
+          <%= hidden_field_tag :id, params[:id], class: "", :name => "project[add_project_requirement[project_id]]", :required => true, :display => false  %>
+          <div class="form-group">
+            <label for="transporter">Skill type
+              <span class="required">*</span>
+            </label>
+            <div>
+              <%= select("project[add_project_requirement[skill_type_id]]", "project[add_project_requirement[skill_type_id]]", SkillType.where.not(id: @existing_skill_types) .collect{|t| [t.name, t.id ]}, {prompt: '-- Choose --'}, {:class => 'form-control', :required => true, :name => 'project[add_project_requirement[skill_type_id]]', :id => 'skill_type_id' }) %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="transporter">Number of Excellers
+              <span class="required">*</span>
+            </label>
+            <div>
+              <input id="amount" name="project[add_project_requirement[amount]]" type="number" class="form-control" value="" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="transporter">Start date
+              <span class="required">*</span>
+            </label>
+            <div>
+              <input id="start_date" name="project[add_project_requirement[start_date]]" type="text" class="form-control gregorian_datepicker" value="" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="transporter">End date
+              <span class="required">*</span>
+            </label>
+            <div>
+              <input id="end_date" name="project[add_project_requirement[end_date]]" type="text" class="form-control gregorian_datepicker" value="" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div>
+            <br>
+                <input  type="hidden" name="att" id="att" value="" />
+                <input type="submit" id="btnFormSubmit" class="btn btn-primary" value="Save" />
+            </div>
+          </div> 
+
+        </form>
+      </div>    
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="edit-pr">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Project Requirement</h4>
+        <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>        
+      </div>
+      <div class="modal-body">   
+
+        <form role="form" method="POST" enctype="multipart/form-data" action="/projects/async_edit_project_requirement" >
+          <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+          <%= hidden_field_tag :id, params[:id], class: "", :name => "id", :required => true, :display => false  %>
+          <%= hidden_field_tag :project_id, params[:id], class: "", :name => "project[add_project_requirement[project_id]]", :required => true, :display => false  %>
+          <%= hidden_field_tag :edit_project_requirement_id, "", class: "", :name => "project[add_project_requirement[id]]", :required => true, :display => false  %>
+          <div class="form-group">
+            <label for="transporter">Skill type
+              <span class="required">*</span>
+            </label>
+            <div>
+              <%= select("project[add_project_requirement[skill_type_id]]", "project[add_project_requirement[skill_type_id]]", SkillType.all .collect{|t| [t.name, t.id ]}, {prompt: '-- Choose --'}, {:class => 'form-control', :required => true, :name => 'project[add_project_requirement[skill_type_id]]', :id => 'edit_skill_type_id', :disabled => true }) %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="transporter">Number of Excellers
+              <span class="required">*</span>
+            </label>
+            <div>
+              <input id="edit_amount" name="project[add_project_requirement[amount]]" type="number" class="form-control" value="" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="transporter">Start date
+              <span class="required">*</span>
+            </label>
+            <div>
+              <input id="edit_start_date" name="project[add_project_requirement[start_date]]" type="text" class="form-control gregorian_datepicker" value="" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="transporter">End date
+              <span class="required">*</span>
+            </label>
+            <div>
+              <input id="edit_end_date" name="project[add_project_requirement[end_date]]" type="text" class="form-control gregorian_datepicker" value="" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div>
+            <br>
+                <input  type="hidden" name="att" id="att" value="" />
+                <input type="submit" id="btnFormSubmit" class="btn btn-primary" value="Update" />
+            </div>
+          </div> 
+
+        </form>
+      </div>    
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="update-pri">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Update Project Requirement Item</h4>
+        <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>        
+      </div>
+      <div class="modal-body">   
+
+        <form role="form" method="POST" enctype="multipart/form-data" action="/projects/async_update_project_requirement_item" >
+          <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+          <%= hidden_field_tag :id, params[:id], class: "", :name => "id", :required => true, :display => false  %>
+          <input type="hidden" name="project[project_requirement_item[id]]" id="pri_id" value="" class="" required="required" display="false">
+          <input type="hidden" name="project[project_requirement_item[skill_id]]" id="pri_skill_id" value="" class="" required="required" display="false">
+          <input type="hidden" name="project[project_requirement_item[description]]" id="pri_description" value="" class="" required="required" display="false">
+
+          <div class="form-group">
+            <label for="transporter">Skill
+            </label>
+            <div>
+              <input id="pri_skill_name" name="project[project_requirement_item[skill_name]]" type="text" class="form-control" value="" disabled="disabled" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="transporter">Minimum score
+              <span class="required">*</span>
+            </label>
+            <div>
+              <input id="pri_minimum_score" name="project[project_requirement_item[minimum_score]]" type="number" step=".01" class="form-control" value="" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div>
+              <br>
+              <input type="submit" id="" class="btn btn-primary" value="Save" />
+            </div>
+          </div> 
+
+        </form>
+      </div>    
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
 <script>
-$( function() { 
+$(document).ready(function() {
   var REMOVE_dispatchLINE_BTN = '<a href="#" class="remove-project_requirements"><i class="fa fa-times"></i></a>';
   var project = $('#project_id_input').val();
 
@@ -285,27 +468,7 @@ $( function() {
     
   }); 
 
-  $('.gregorian_datepicker').calendarsPicker({
-      format: 'DD, MM d, yyyy',
-      onSelect: function(dateText, inst) {
-          var dateAsObject = $(this).calendarsPicker('getDate');
-          // var jd = dateAsObject[0].toJD();
-          // var date_gc = $.calendars.fromJD(jd);
-          $(this).val(dateAsObject[0].formatDate('DD, MM d, yyyy'));
-      }
-  });
-
-  $('.ethiopian_datepicker').calendarsPicker({
-      calendar: $.calendars.instance('ethiopian', 'am'),
-      format: 'DD, MM d, yyyy',
-      onSelect: function(dateText, inst) {
-          var dateAsObject = $(this).calendarsPicker('getDate');
-          var jd = dateAsObject[0].toJD();
-          var date_gc = $.calendars.instance('ethiopian').fromJD(jd);
-          $(this).val(date_gc.formatDate('DD, MM d, yyyy'));
-      }
-  });
-
+  
   $.ajax({
     url: "/projects/async_get_project_requirements",
     type:'POST',
@@ -328,6 +491,7 @@ $( function() {
                 "defaultContent": ''
             },
             { data: 'pr_id' },
+            { data: 'skt_id' },
             { data: 'skill_type_name' },
             { data: 'amount' },
             { data: 'start_date' },
@@ -337,15 +501,15 @@ $( function() {
           ],
           columnDefs: [
             {
-                "targets": [ 1 ],
+                "targets": [ 1, 2 ],
                 "visible": false,
                 "searchable": false
             },
             {                
-              targets: 7, 
+              targets: 8, 
               render: function (data, type, row, meta) {
-                // console.log("data: " + data);
-                  return '<input type="button" class="btn btn-warning ml-1 mr-1 pr-edit" id=e-"' + data + '" value="Edit"/><input type="button" class="btn btn-danger ml-1 mr-1 pr-delete" id=d-"' + data + '" value="Delete"/>';
+                console.log("skt_id: " + JSON.stringify(row.pr_id));
+                  return '<input type="button" class="btn btn-warning ml-1 mr-1 pr-edit" id=e-"' + data + '" data-target="#edit-pr" data-toggle="modal" data-pr-id="'+row.pr_id+'" data-skt-id="'+row.skt_id+'" data-skill-type-name="'+row.skill_type_name+'" data-amount="'+row.amount+'"  data-start-date="'+row.start_date+'"  data-end-date="'+row.end_date+'"><i class="fa fa-edit" aria-hidden="true"></i>Edit</input>' + '<a class="btn btn-danger ml-1 mr-1 pr-delete" data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/projects/delete_pr/'+row.pr_id+'"><i class="fa fa-archive" aria-hidden="true"></i>Delete</a>';
               }
             }
           ],
@@ -355,16 +519,37 @@ $( function() {
       $( table.table().container() ).removeClass( 'form-inline' );
 
       $('#example tbody').on('click', '.pr-edit', function () {
-        var id = $(this).attr("id").match(/\d+/)[0];
-        alert("Edit id: " + id);
+        var data_pr_id = $(this).attr("data-pr-id");
+        var data_skt_id = $(this).attr("data-skt-id");
+        var data_skill_type_name = $(this).attr("data-skill-type-name");
+        var data_amount = $(this).attr("data-amount");
+        var data_start_date = $(this).attr("data-start-date");
+        var data_end_date = $(this).attr("data-end-date");
         
+        $("#edit_project_requirement_id").val(data_pr_id);
+        $("#edit_skill_type_id").val(data_skt_id);
+        $("#edit_amount").val(data_amount);
+        $("#edit_start_date").val(data_start_date);
+        $("#edit_end_date").val(data_end_date);        
       });
         
-        
-      $('#example tbody').on('click', '.pr-delete', function () {
-        var id = $(this).attr("id").match(/\d+/)[0];
-        alert("Delete id: " + id);
+      // $('#example tbody').on('click', '.pr-delete', function () {
+      //   var id = $(this).attr("id").match(/\d+/)[0];
+      //   alert("Delete id: " + id);
 
+      // });
+
+      $('#example tbody').on('click', '.pri-update', function () {
+        var id = $(this).attr("data-id");
+        var data_skill_name = $(this).attr("data-skill-name");
+        var data_minimum_score = $(this).attr("data-minimum-score");
+        var data_skill_id = $(this).attr("data-skill-id");
+        var data_description = $(this).attr("data-description");
+        $("#pri_skill_id").val(data_skill_id);
+        $("#pri_skill_name").val(data_skill_name);
+        $("#pri_description").val(data_description);
+        $("#pri_minimum_score").val(data_minimum_score);
+        $("#pri_id").val(id);
       });
       
       // Add event listener for opening and closing details
@@ -379,18 +564,74 @@ $( function() {
           }
           else {
               // Open this row
-              row.child( format(row.data()) ).show();
-              tr.addClass('shown');
+              // console.log("SKT ID: " + JSON.stringify(row.data().skt_id));
+              
+              $.ajax({
+                url:'/projects/async_get_project_requirement_items',
+                type:'POST',
+                dataType:'json',
+                data:{
+                  project: {
+                    project_requirement_id: row.data().pr_id,
+                    skill_type_id: row.data().skt_id
+                  }
+                },
+                before: function() {
+                
+                },
+                success:function(data){
+                  
+                  if(data==null && data==''){
+                    return;
+                  }  
+                  var rows = '<td><b>Skill name</b></td><td><b>Minimum score</b></td><td><b>Action</b></td>';
+                  data.forEach(function(obj) {
+                    // console.log('obj: ' + JSON.stringify(obj));	
+                    rows = rows +  
+                    '<tr>'+
+                    // '<td style="visiblity: false">'+ obj.pri_id +'</td>'+
+                    '<td>'+ obj.skill_name +'</td>'+
+                    '<td>'+ obj.minimum_score +'</td>'+
+                    '<td><input type="button" class="btn btn-default ml-1 mr-1 pri-update" data-target="#update-pri" data-toggle="modal" data-id="'+ obj.pri_id +'" data-skill-id="'+ obj.skill_id +'" data-skill-name="'+ obj.skill_name +'" data-minimum-score="'+ obj.minimum_score +'" data-description="'+ obj.description +'" value="Update"/></td>'+
+                    '</tr>'        
+                  });
+                  
+                  var result = '<table cellpadding="5" cellspacing="0" border="0" style="width:90%;margin-left:50px;">'+ rows +'</table>';
+                  row.child( result ).show();
+                  tr.addClass('shown');  
+                },
+                error:function(data){
+                    console.log(data);
+                }
+              });
           }
-      } );
+          
+      });  
+      
     }
   });
-});
 
-  function validate_project_requirements(node, project, skill_type, amount)
-  {
-    
-  }
+  $('.gregorian_datepicker').calendarsPicker({
+      format: 'DD, MM d, yyyy',
+      onSelect: function(dateText, inst) {
+          var dateAsObject = $(this).calendarsPicker('getDate');
+          // var jd = dateAsObject[0].toJD();
+          // var date_gc = $.calendars.fromJD(jd);
+          $(this).val(dateAsObject[0].formatDate('DD, MM d, yyyy'));
+      }
+  });
+
+  $('.ethiopian_datepicker').calendarsPicker({
+      calendar: $.calendars.instance('ethiopian', 'am'),
+      format: 'DD, MM d, yyyy',
+      onSelect: function(dateText, inst) {
+          var dateAsObject = $(this).calendarsPicker('getDate');
+          var jd = dateAsObject[0].toJD();
+          var date_gc = $.calendars.instance('ethiopian').fromJD(jd);
+          $(this).val(date_gc.formatDate('DD, MM d, yyyy'));
+      }
+  });
+});
   function ie8SafePreventEvent(e){
     if(e.preventDefault){ e.preventDefault()}
     else{e.stop()};
@@ -398,22 +639,4 @@ $( function() {
     e.returnValue = false;
     e.stopPropagation();        
   } 
-  /* Formatting function for row details - modify as you need */
-  function format ( d ) {
-      // `d` is the original data object for the row
-      return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
-          '<tr>'+
-              '<td>Full name:</td>'+
-              '<td>d.name</td>'+
-          '</tr>'+
-          '<tr>'+
-              '<td>Extension number:</td>'+
-              '<td>d.extn</td>'+
-          '</tr>'+
-          '<tr>'+
-              '<td>Extra info:</td>'+
-              '<td>And any further details here (images etc)...</td>'+
-          '</tr>'+
-      '</table>';
-  }
 </script>
