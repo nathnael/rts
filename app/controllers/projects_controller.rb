@@ -103,7 +103,7 @@ class ProjectsController < ApplicationController
   def async_get_project_requirements    
     project_id = project_params["project_id"]
 
-    @project_requirements = ProjectRequirement.joins(:project, :skill_type).select("skill_types.name as skill_type_name", :skill_type_id, :amount, :start_date, :end_date).where(project_id: project_id).pluck_to_hash("project_requirements.id as pr_id", "skill_types.id as skt_id", "skill_types.name as skill_type_name", "project_requirements.amount as amount", "projects.start_date as start_date", "projects.end_date as end_date", "project_requirements.id as progress")
+    @project_requirements = ProjectRequirement.joins(:project, :skill_type).select("skill_types.name as skill_type_name", :skill_type_id, :amount, :start_date, :end_date).where(project_id: project_id).pluck_to_hash("project_requirements.id as pr_id", "skill_types.id as skt_id", "skill_types.name as skill_type_name", "project_requirements.amount as amount", "project_requirements.start_date as start_date", "project_requirements.end_date as end_date", "project_requirements.id as progress")
         
     respond_to do |format|
       format.html
@@ -163,15 +163,27 @@ class ProjectsController < ApplicationController
 
   def async_edit_project_requirement    
     project_requirement = ProjectRequirement.find_by_id(project_params["add_project_requirement"]["id"])
+    puts "###################################### project_requirement 1: " + project_requirement.inspect
     
     respond_to do |format|
       if project_requirement.update(project_params["add_project_requirement"])
+        puts "###################################### project_requirement 2: " + project_requirement.inspect
         format.html { redirect_to @project, notice: 'Project Requirement was successfully updated.' }
         format.json { render :json => @project.to_json }
       else
         format.html { redirect_to @project, errors: 'Project Requirement was not updated.' }
         format.json { render json: @project.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def delete_pr
+    project_requirement = ProjectRequirement.find_by_id(params[:id])
+    project = Project.find_by_id(project_requirement.project_id)
+    project_requirement.destroy
+    respond_to do |format|
+      format.html { redirect_to project, notice: 'Project Requirement was successfully destroyed.' }
+      format.json { head :no_content }
     end
   end
 

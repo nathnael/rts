@@ -509,7 +509,7 @@ $(document).ready(function() {
               targets: 8, 
               render: function (data, type, row, meta) {
                 console.log("skt_id: " + JSON.stringify(row.pr_id));
-                  return '<input type="button" class="btn btn-warning ml-1 mr-1 pr-edit" id=e-"' + data + '" data-target="#edit-pr" data-toggle="modal" data-pr-id="'+row.pr_id+'" data-skt-id="'+row.skt_id+'" data-skill-type-name="'+row.skill_type_name+'" data-amount="'+row.amount+'"  data-start-date="'+row.start_date+'"  data-end-date="'+row.end_date+'"><i class="fa fa-edit" aria-hidden="true"></i>Edit</input>' + '<a class="btn btn-danger ml-1 mr-1 pr-delete" data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/projects/delete_pr/'+row.pr_id+'"><i class="fa fa-archive" aria-hidden="true"></i>Delete</a>';
+                  return '<a class="btn btn-warning ml-1 mr-1 pr-edit" id=e-"' + data + '" data-target="#edit-pr" data-toggle="modal" data-pr-id="'+row.pr_id+'" data-skt-id="'+row.skt_id+'" data-skill-type-name="'+row.skill_type_name+'" data-amount="'+row.amount+'"  data-start-date="'+row.start_date+'"  data-end-date="'+row.end_date+'"><i class="fa fa-edit" aria-hidden="true"></i>  Edit  </a><a class="btn btn-danger ml-1 mr-1 pr-delete" data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/projects/delete_pr/'+row.pr_id+'"><i class="fa fa-archive" aria-hidden="true"></i>Delete</a>';
               }
             }
           ],
@@ -547,7 +547,7 @@ $(document).ready(function() {
         var data_description = $(this).attr("data-description");
         $("#pri_skill_id").val(data_skill_id);
         $("#pri_skill_name").val(data_skill_name);
-        $("#pri_description").val(data_description);
+        $("#pri_description").val((data_description === '' || data_description === null)  ? 'N/A' : data_description);
         $("#pri_minimum_score").val(data_minimum_score);
         $("#pri_id").val(id);
       });
