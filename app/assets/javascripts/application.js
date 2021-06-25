@@ -19,6 +19,8 @@
 //= require jquery.calendars/jquery.calendars.ethiopian.js
 //= require jquery.calendars/jquery.calendars.ethiopian-am.js
 
+//= require jkanban.min.js
+
 //= require pace.min.js
 
 $(document).ready(function() {
@@ -47,4 +49,5 @@ $(document).ready(function() {
             $(this).val(date_gc.formatDate('DD, MM d, yyyy'));
         }
     });
+    
 });

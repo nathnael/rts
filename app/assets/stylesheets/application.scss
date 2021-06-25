@@ -19,6 +19,7 @@ $fa-font-path: '@fortawesome/fontawesome-free/webfonts';
 @import "icheck-bootstrap.min.css";
 @import "pace-theme-minimal.css";
 @import "jquery.dataTables.min.css";
+@import "jkanban.min.css";
 // @import "datatables.net-bs4/css/datatables.bootstrap4.css";
 
 #container {
@@ -55,3 +56,10 @@ td.details-control {
 tr.shown td.details-control {
     background: url('images/details_close.png') no-repeat center center;
 }
+
+#myKanban{overflow-x: auto; padding:20px 0;}
+
+.kanban-success{background: #00B961; color:#fff}
+.kanban-info{background: #2A92BF; color:#fff}
+.kanban-warning{background: #F4CE46; color:#fff}
+.kanban-error{background: #FB7D44; color:#fff}
