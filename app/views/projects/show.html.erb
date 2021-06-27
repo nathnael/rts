@@ -112,8 +112,209 @@
                 <div class="container-fluid">
                   <div class="row">
                       <div class="col-md-12">
-                        <p>Move potential excellers through the swimlanes to assign them to this project.</p>
-                        <div id="myKanban"></div>
+                        <% @project_requirements&.each do |project_requirement| %>
+                          <h4 style="margin: 50px 0 30px 0;">Assign Excellers to project requirement: <b><%= project_requirement.skill_type.name %></b></h4>
+                          <div id="kanban-<%= project_requirement.id.to_s %>" class="pra-kanban" style="overflow-y: scroll;"></div>
+                          <script>
+                            var KanbanTest = new jKanban({
+                                element : '#kanban-<%= project_requirement.id.to_s %>',
+                                gutter  : '10px',
+                                widthBoard : '250px', 
+                                click : function(el){
+                                    alert(el.innerHTML);
+                                    alert(el.dataset.eid)
+                                },
+                                dragBoards : false,    
+                                boards  :[
+                                    {
+                                        'id' : '_todo',
+                                        'title'  : 'Potential Excellers',
+                                        'class' : 'kanban-info',
+                                        'item'  : [
+                                            {
+                                              'id':'task-1',
+                                                'title':'Nathnael Getahun',
+                                                'description': 'description 123'
+                                            },
+                                            {
+                                              'id':'task-2',
+                                                'title':'Abenezer Germande',
+                                            },
+                                            {
+                                              'id':'task-2',
+                                                'title':'Rediet Tsigebrehan',
+                                            },
+                                            {
+                                              'id':'task-2',
+                                                'title':'Rekik Assefa',
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        'id' : '_working',
+                                        'title'  : 'Assigned Excellers',
+                                        'class' : 'kanban-success',
+                                        'item'  : [
+                                            {
+                                              'id':'task-1',
+                                                'title':'Yonathan Woldeselassie',
+                                            },
+                                            {
+                                              'id':'task-2',
+                                                'title':'Henock Ayalew',
+                                            },
+                                            {
+                                              'id':'task-2',
+                                                'title':'Rediet Tsigebrehan',
+                                            },
+                                            {
+                                              'id':'task-2',
+                                                'title':'Rekik Assefa',
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        'id' : '_working',
+                                        'title'  : 'Assigned Excellers',
+                                        'class' : 'kanban-success',
+                                        'item'  : [
+                                            {
+                                              'id':'task-1',
+                                                'title':'Yonathan Woldeselassie',
+                                            },
+                                            {
+                                              'id':'task-2',
+                                                'title':'Henock Ayalew',
+                                            },
+                                            {
+                                              'id':'task-2',
+                                                'title':'Rediet Tsigebrehan',
+                                            },
+                                            {
+                                              'id':'task-2',
+                                                'title':'Rekik Assefa',
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        'id' : '_working',
+                                        'title'  : 'Assigned Excellers',
+                                        'class' : 'kanban-success',
+                                        'item'  : [
+                                            {
+                                              'id':'task-1',
+                                                'title':'Yonathan Woldeselassie',
+                                            },
+                                            {
+                                              'id':'task-2',
+                                                'title':'Henock Ayalew',
+                                            },
+                                            {
+                                              'id':'task-2',
+                                                'title':'Rediet Tsigebrehan',
+                                            },
+                                            {
+                                              'id':'task-2',
+                                                'title':'Rekik Assefa',
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        'id' : '_working',
+                                        'title'  : 'Assigned Excellers',
+                                        'class' : 'kanban-success',
+                                        'item'  : [
+                                            {
+                                              'id':'task-1',
+                                                'title':'Yonathan Woldeselassie',
+                                            },
+                                            {
+                                              'id':'task-2',
+                                                'title':'Henock Ayalew',
+                                            },
+                                            {
+                                              'id':'task-2',
+                                                'title':'Rediet Tsigebrehan',
+                                            },
+                                            {
+                                              'id':'task-2',
+                                                'title':'Rekik Assefa',
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        'id' : '_working',
+                                        'title'  : 'Assigned Excellers',
+                                        'class' : 'kanban-success',
+                                        'item'  : [
+                                            {
+                                              'id':'task-1',
+                                                'title':'Yonathan Woldeselassie',
+                                            },
+                                            {
+                                              'id':'task-2',
+                                                'title':'Henock Ayalew',
+                                            },
+                                            {
+                                              'id':'task-2',
+                                                'title':'Rediet Tsigebrehan',
+                                            },
+                                            {
+                                              'id':'task-2',
+                                                'title':'Rekik Assefa',
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        'id' : '_working',
+                                        'title'  : 'Assigned Excellers',
+                                        'class' : 'kanban-success',
+                                        'item'  : [
+                                            {
+                                              'id':'task-1',
+                                                'title':'Yonathan Woldeselassie',
+                                            },
+                                            {
+                                              'id':'task-2',
+                                                'title':'Henock Ayalew',
+                                            },
+                                            {
+                                              'id':'task-2',
+                                                'title':'Rediet Tsigebrehan',
+                                            },
+                                            {
+                                              'id':'task-2',
+                                                'title':'Rekik Assefa',
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        'id' : '_working',
+                                        'title'  : 'Assigned Excellers',
+                                        'class' : 'kanban-success',
+                                        'item'  : [
+                                            {
+                                              'id':'task-1',
+                                                'title':'Yonathan Woldeselassie',
+                                            },
+                                            {
+                                              'id':'task-2',
+                                                'title':'Henock Ayalew',
+                                            },
+                                            {
+                                              'id':'task-2',
+                                                'title':'Rediet Tsigebrehan',
+                                            },
+                                            {
+                                              'id':'task-2',
+                                                'title':'Rekik Assefa',
+                                            }
+                                        ]
+                                    }
+                                ]
+                            });
+                          </script>
+                        <% end %>
                       </div>
                   </div>
                 </div>
@@ -646,100 +847,45 @@ $(document).ready(function() {
       }
   });
 
-  var KanbanTest = new jKanban({
-        element : '#myKanban',
-        gutter  : '10px',
-        click : function(el){
-            alert(el.innerHTML);
-            alert(el.dataset.eid)
-        },
-        boards  :[
-            {
-                'id' : '_todo',
-                'title'  : 'Potential Excellers',
-                'class' : 'kanban-info',
-                'item'  : [
-                    {
-                       'id':'task-1',
-                        'title':'Nathnael Getahun',
-                    },
-                    {
-                       'id':'task-2',
-                        'title':'Abenezer Germande',
-                    },
-                    {
-                       'id':'task-2',
-                        'title':'Rediet Tsigebrehan',
-                    },
-                    {
-                       'id':'task-2',
-                        'title':'Rekik Assefa',
-                    }
-                ]
-            },
-            {
-                'id' : '_working',
-                'title'  : 'Assigned Excellers',
-                'class' : 'kanban-success',
-                'item'  : [
-                    {
-                       'id':'task-1',
-                        'title':'Yonathan Woldeselassie',
-                    },
-                    {
-                       'id':'task-2',
-                        'title':'Henock Ayalew',
-                    },
-                    {
-                       'id':'task-2',
-                        'title':'Rediet Tsigebrehan',
-                    },
-                    {
-                       'id':'task-2',
-                        'title':'Rekik Assefa',
-                    }
-                ]
-            }
-        ]
-    });
+  
 
-    var toDoButton = document.getElementById('addToDo');
-    toDoButton.addEventListener('click',function(){
-        KanbanTest.addElement(
-            '_todo',
-            {
-                'title':'Test Add',
-            }
-        );
-    });
+    // var toDoButton = document.getElementById('addToDo');
+    // toDoButton.addEventListener('click',function(){
+    //     KanbanTest.addElement(
+    //         '_todo',
+    //         {
+    //             'title':'Test Add',
+    //         }
+    //     );
+    // });
 
-    var addBoardDefault = document.getElementById('addDefault');
-    addBoardDefault.addEventListener('click', function () {
-        KanbanTest.addBoards(
-            [{
-                'id' : '_default',
-                'title'  : 'Default (Can\'t drop in Done)',
-                'dragTo':['_todo','_working'],
-                'class' : 'kanban-error',
-                'item'  : [
-                    {
-                        'title':'Default Item',
-                    },
-                    {
-                        'title':'Default Item 2',
-                    },
-                    {
-                        'title':'Default Item 3',
-                    }
-                ]
-            }]
-        )
-    });
+    // var addBoardDefault = document.getElementById('addDefault');
+    // addBoardDefault.addEventListener('click', function () {
+    //     KanbanTest.addBoards(
+    //         [{
+    //             'id' : '_default',
+    //             'title'  : 'Default (Can\'t drop in Done)',
+    //             'dragTo':['_todo','_working'],
+    //             'class' : 'kanban-error',
+    //             'item'  : [
+    //                 {
+    //                     'title':'Default Item',
+    //                 },
+    //                 {
+    //                     'title':'Default Item 2',
+    //                 },
+    //                 {
+    //                     'title':'Default Item 3',
+    //                 }
+    //             ]
+    //         }]
+    //     )
+    // });
 
-    var removeBoard = document.getElementById('removeBoard');
-    removeBoard.addEventListener('click',function(){
-        KanbanTest.removeBoard('_done');
-    });
+    // var removeBoard = document.getElementById('removeBoard');
+    // removeBoard.addEventListener('click',function(){
+    //     KanbanTest.removeBoard('_done');
+    // });
 });
   function ie8SafePreventEvent(e){
     if(e.preventDefault){ e.preventDefault()}
