@@ -94,19 +94,18 @@
   $(document).ready(function() {
     if ( ! $.fn.DataTable.isDataTable( '.iraps_datatable' ) ) {
       $('.iraps_datatable').DataTable({
-        "paging": true,
-        "lengthChange": true,
-        "searching": true,
-        "ordering": true,
-        "info": true,
-        "autoWidth": true,
-        "responsive": true,
-        "dom": 'lBfrtip',
-        "buttons": [
-            'copy', 'csv', 'pdf', 'print'
-        ]
+          "paging": true,
+          "lengthChange": true,
+          "searching": true,
+          "ordering": true,
+          "info": true,
+          "autoWidth": true,
+          "responsive": true,
+          "dom": 'lBfrtip',
+          "buttons": [
+              'copy', 'csv', 'pdf', 'print'
+          ]
       });
-    }
-    
+    }    
   });
 </script>

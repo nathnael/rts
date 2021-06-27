@@ -36,19 +36,19 @@
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-hand-holding-usd"></i>
             <p>
-              Client Module
+              Operation Module
               <i class="right fas fa-angle-left"></i>
             </p>
           </a>
           <ul class="nav nav-treeview">            
             <li>
-              <%= link_to clients_url, :class => "nav-link" do %>
+              <%= link_to clients_url, :class => "nav-link", :data => { :reload => true } do %>
                 <i class="nav-icon fas fa-building"></i>
                 <p>Clients</p>
               <% end %>
             </li>
             <li class="<%= 'active' if is_active_controller('projects') %>">
-              <%= link_to projects_url, :class => "nav-link" do %>
+              <%= link_to projects_url, :class => "nav-link", :data => { :reload => true } do %>
                 <i class="nav-icon fas fa-building"></i>
                 <p>Projects</p>
               <% end %>
@@ -65,43 +65,43 @@
           </a>
           <ul class="nav nav-treeview">  
             <li class="<%= 'active' if is_active_controller('excellers') %>">
-              <%= link_to excellers_url, :class => "nav-link" do %>
+              <%= link_to excellers_url, :class => "nav-link", :data => { :reload => true } do %>
                 <i class="nav-icon fas fa-building"></i>
                 <p>Excellers</p>
               <% end %>
             </li>
             <li class="<%= 'active' if is_active_controller('positions') %>">
-              <%= link_to positions_url, :class => "nav-link" do %>
+              <%= link_to positions_url, :class => "nav-link", :data => { :reload => true } do %>
                 <i class="nav-icon fas fa-building"></i>
                 <p>Positions</p>
               <% end %>
             </li>
             <li class="<%= 'active' if is_active_controller('employment_types') %>">
-              <%= link_to employment_types_url, :class => "nav-link" do %>
+              <%= link_to employment_types_url, :class => "nav-link", :data => { :reload => true } do %>
                 <i class="nav-icon fas fa-building"></i>
                 <p>Employment Types</p>
               <% end %>
             </li>
             <li class="<%= 'active' if is_active_controller('duty_stations') %>">
-              <%= link_to duty_stations_url, :class => "nav-link" do %>
+              <%= link_to duty_stations_url, :class => "nav-link", :data => { :reload => true } do %>
                 <i class="nav-icon fas fa-building"></i>
                 <p>Duty Stations</p>
               <% end %>
             </li>
             <li class="<%= 'active' if is_active_controller('skill_types') %>">
-              <%= link_to skill_types_url, :class => "nav-link" do %>
+              <%= link_to skill_types_url, :class => "nav-link", :data => { :reload => true } do %>
                 <i class="nav-icon fas fa-building"></i>
                 <p>Skill Types</p>
               <% end %>
             </li>
             <li class="<%= 'active' if is_active_controller('skills') %>">
-              <%= link_to skills_url, :class => "nav-link" do %>
+              <%= link_to skills_url, :class => "nav-link", :data => { :reload => true } do %>
                 <i class="nav-icon fas fa-building"></i>
                 <p>Skills</p>
               <% end %>
             </li>
             <li class="<%= 'active' if is_active_controller('interviews') %>">
-              <%= link_to interviews_url, :class => "nav-link" do %>
+              <%= link_to interviews_url, :class => "nav-link", :data => { :reload => true } do %>
                 <i class="nav-icon fas fa-building"></i>
                 <p>Interviews</p>
               <% end %>
@@ -135,13 +135,13 @@
           </a>
           <ul class="nav nav-treeview">     
             <li class="<%= 'active' if is_active_controller('users') %>">
-              <%= link_to users_url, :class => "nav-link" do %>
+              <%= link_to users_url, :class => "nav-link", :data => { :reload => true } do %>
                 <i class="fas fa-user nav-icon"></i>
                 <p>Users</p>
               <% end %>
             </li>       
             <li class="<%= 'active' if is_active_controller('permissions') %>">
-              <%= link_to permissions_url, :class => "nav-link" do %>
+              <%= link_to permissions_url, :class => "nav-link", :data => { :reload => true } do %>
                 <i class="fas fa-user-tag nav-icon"></i>
                 <p>Permissions</p>
               <% end %>

@@ -65,7 +65,7 @@
                 <a class="nav-link active" id="custom-tabs-three-project-requirement-tab" data-toggle="pill" href="#custom-tabs-three-project-requirement" role="tab" aria-controls="custom-tabs-three-project-requirement" aria-selected="true">Project Requirement</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="custom-tabs-three-assigned-excellers-tab" data-toggle="pill" href="#custom-tabs-three-assigned-excellers" role="tab" aria-controls="custom-tabs-three-assigned-excellers" aria-selected="false">Assigned Excellers</a>
+                <a class="nav-link" id="custom-tabs-three-assigned-excellers-tab" data-toggle="pill" href="#custom-tabs-three-assigned-excellers" role="tab" aria-controls="custom-tabs-three-assigned-excellers" aria-selected="false">Assign Excellers</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="custom-tabs-three-sample-code-tab" data-toggle="pill" href="#custom-tabs-three-sample-code" role="tab" aria-controls="custom-tabs-three-sample-code" aria-selected="false">Sample Code</a>
@@ -75,6 +75,7 @@
           <div class="card-body">
             <div class="tab-content" id="custom-tabs-three-tabContent">
               <div class="tab-pane fade active show" id="custom-tabs-three-project-requirement" role="tabpanel" aria-labelledby="custom-tabs-three-project-requirement-tab">
+                <input name="project[project_requirements[][project_id]]" id="project_id_input" value="<%= @project&.id %>" class="form-control" style="display: none"/> 
                 <a class="btn btn-primary float-right mb-3" data-project-id="<%= @project.id.to_s %>" data-target="#add-pr" data-toggle="modal" style="color: white">
                   <i class="fa fa-plus"></i> Add New Project Requirement
                 </a>
@@ -111,7 +112,6 @@
                 <div class="container-fluid">
                   <div class="row">
                       <div class="col-md-12">
-                        <h3>Assigned Excellers</h3>
                         <p>Move potential excellers through the swimlanes to assign them to this project.</p>
                         <div id="myKanban"></div>
                       </div>
@@ -161,7 +161,7 @@
                     <% end %>
                     <tr>                                           
                       <td>
-                        <input name="project[project_requirements[][project_id]]" id="project_id_input" value="<%= @project&.id %>" class="form-control" style="display: none"/>  
+                         
                         <%= select_tag 'project[project_requirements[][skill_type_id]]',  options_from_collection_for_select( SkillType.all, 'id', 'name' ) , { :prompt => "-- Choose --",  'data-parsley-required' => 'true', :class => 'form-control', :id => 'skill_type_select'} %>
                       </td> 
                       <td>

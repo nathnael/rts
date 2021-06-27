@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_18_221731) do
+ActiveRecord::Schema.define(version: 2021_06_26_220537) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,12 +82,22 @@ ActiveRecord::Schema.define(version: 2021_06_18_221731) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "exceller_interviews", force: :cascade do |t|
+  create_table "exceller_interview_items", force: :cascade do |t|
+    t.integer "exceller_interview_id"
+    t.integer "interview_criteria_id"
+    t.float "score"
+    t.text "comment"
+    t.integer "created_by"
+    t.integer "modified_by"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "exceller_interviews_tables", force: :cascade do |t|
     t.integer "exceller_id"
     t.integer "interviewer_id"
-    t.integer "interview_criteria_id"
-    t.integer "score"
-    t.text "comment"
+    t.integer "interview_id"
     t.integer "created_by"
     t.integer "modified_by"
     t.datetime "deleted_at"

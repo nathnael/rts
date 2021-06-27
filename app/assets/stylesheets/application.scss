@@ -39,8 +39,7 @@ $fa-font-path: '@fortawesome/fontawesome-free/webfonts';
 }
 
 .profile-picture {
-    width: 150px !important;
-    margin:5%;
+    width: 180px !important;
     display: block;
 }
 
@@ -57,7 +56,17 @@ tr.shown td.details-control {
     background: url('images/details_close.png') no-repeat center center;
 }
 
-#myKanban{overflow-x: auto; padding:20px 0;}
+#myKanban{
+    overflow-x: auto; 
+    padding:20px 0;     
+}
+.kanban-board {
+    overflow-y: scroll; 
+    max-height:450px;
+}
+.kanban-container {
+    height: 500px;
+}
 
 .kanban-success{background: #00B961; color:#fff}
 .kanban-info{background: #2A92BF; color:#fff}

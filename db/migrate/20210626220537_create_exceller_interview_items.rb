@@ -1,10 +1,9 @@
-class CreateExcellerInterviews < ActiveRecord::Migration[6.0]
+class CreateExcellerInterviewItems < ActiveRecord::Migration[6.0]
   def change
-    create_table :exceller_interviews do |t|
-      t.integer :exceller_id
-      t.integer :interviewer_id
+    create_table :exceller_interview_items do |t|
+      t.integer :exceller_interview_id
       t.integer :interview_criteria_id
-      t.integer :score
+      t.float :score
       t.text :comment
       t.integer :created_by
       t.integer :modified_by

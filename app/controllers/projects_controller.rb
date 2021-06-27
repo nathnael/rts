@@ -115,7 +115,6 @@ class ProjectsController < ApplicationController
     
     project_requirement = ProjectRequirement.new(project_params["add_project_requirement"])
     skills = Skill.where(skill_type_id: project_requirement.skill_type_id)
-    puts "###################################### skills: " + skills.inspect
     respond_to do |format|
       if project_requirement.save
         for skill in skills do
@@ -136,7 +135,6 @@ class ProjectsController < ApplicationController
     skill_type_id = project_params["skill_type_id"]
 
     skill_ids = Skill.where(skill_type_id: skill_type_id).pluck(:id)
-    puts "###################################### skill_ids: " + skill_ids.inspect
     @project_requirement_items = ProjectRequirementItem.joins(:skill).where(project_requirement_id: project_requirement_id, skill_id: skill_ids).select("project_requirement_items.id as pri_id, skills.id as skill_id, skills.name as skill_name, project_requirement_items.minimum_score, skills.description as description")
         
     respond_to do |format|
@@ -148,8 +146,6 @@ class ProjectsController < ApplicationController
   def async_update_project_requirement_item
     project_requirement_item = ProjectRequirementItem.find_by_id(project_params["project_requirement_item"]["id"])
     
-    # project_requirement_item.minimum_score = project_params["project_requirement_item"]["minimum_score"].to_f
-    puts "###################################### minimum_score: " + project_params["project_requirement_item"]["minimum_score"].to_s
     respond_to do |format|
       if project_requirement_item.update(project_params["project_requirement_item"])
         format.html { redirect_to @project, notice: 'Project Requirement Item was successfully updated.' }
@@ -163,11 +159,9 @@ class ProjectsController < ApplicationController
 
   def async_edit_project_requirement    
     project_requirement = ProjectRequirement.find_by_id(project_params["add_project_requirement"]["id"])
-    puts "###################################### project_requirement 1: " + project_requirement.inspect
     
     respond_to do |format|
       if project_requirement.update(project_params["add_project_requirement"])
-        puts "###################################### project_requirement 2: " + project_requirement.inspect
         format.html { redirect_to @project, notice: 'Project Requirement was successfully updated.' }
         format.json { render :json => @project.to_json }
       else

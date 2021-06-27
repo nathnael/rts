@@ -46,6 +46,11 @@ require("chart.js");
 global.toastr = require("toastr");
 
 $(document).ready(function() {
+    
+    // if ( ! $.fn.DataTable.isDataTable( '.iraps_datatable' ) ) {
+        
+    // }
+
     $('.iraps_datatable').DataTable({
         "paging": true,
         "lengthChange": true,

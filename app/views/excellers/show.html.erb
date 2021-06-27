@@ -15,6 +15,7 @@
       </div><!-- /.col -->
       <div class="col-sm-2">
         <div class="title-action float-sm-right">
+          <%= link_to 'Edit', edit_exceller_path(@exceller), :class => 'btn btn-primary' %>
           <%= link_to 'Back', excellers_path, :class => "btn btn-default" %>
         </div>
       </div><!-- /.col -->
@@ -28,173 +29,457 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card card-primary">
-          <div class="card-body">       
-            <div class="row">
-              <div class="form-group col-12">
-                <h4>Exceller Profile</h4>
-              </div>
-            </div>    
+          <div class="card-body">  
 
             <div class="row">
-              <div class="form-group col-4">
+              <div class="form-group col-2">
                 <label>Exceller picture:</label>      
                 <img alt="Profile picture" id="your_preview_id" class="profile-picture" src="<%= @exceller.profile_picture_url ? '../uploads/' + @exceller.profile_picture_url : image_url('defualt-profile.png') %>">   
               </div>
+              <div class="form-group col-4">
+                <label>Exceller name:</label>
+                <input type="text" value="<%= @exceller.name %>" class="form-control m-10" placeholder="N/A" disabled>
+                <label>Position:</label>
+                <input type="text" value="<%= @position.name %>" class="form-control" placeholder="N/A" disabled>
+                <label>Status:</label>
+                <input type="text" value="<%= @exceller.status_id.humanize %>" class="form-control" placeholder="N/A" disabled>
+              </div>
             </div>
+            <div class="card card-primary card-outline card-outline-tabs">
+              <div class="card-header p-0 border-bottom-0">
+                <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="custom-tabs-three-project-requirement-tab" data-toggle="pill" href="#custom-tabs-three-project-requirement" role="tab" aria-controls="custom-tabs-three-project-requirement" aria-selected="true">Exceller Profile</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="custom-tabs-three-assigned-excellers-tab" data-toggle="pill" href="#custom-tabs-three-assigned-excellers" role="tab" aria-controls="custom-tabs-three-assigned-excellers" aria-selected="false">Exceller Address</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="custom-tabs-three-sample-code-tab" data-toggle="pill" href="#custom-tabs-three-sample-code" role="tab" aria-controls="custom-tabs-three-sample-code" aria-selected="false">Exceller Interviews</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="card-body">
+                <div class="tab-content" id="custom-tabs-three-tabContent">
+                  <div class="tab-pane fade active show" id="custom-tabs-three-project-requirement" role="tabpanel" aria-labelledby="custom-tabs-three-project-requirement-tab">
+                    
+                    <div class="row">
+                        <div class="form-group col-3">
+                          <label>First name:</label>
+                          <input type="text" value="<%= @exceller.first_name %>" class="form-control" placeholder="N/A" disabled>
+                        </div>
+                        <div class="form-group col-3">
+                          <label>Father name:</label>
+                          <input type="text" value="<%= @exceller.father_name %>" class="form-control" placeholder="N/A" disabled>
+                        </div>
+                        <div class="form-group col-3">
+                          <label>Grandfather name:</label>
+                          <input type="text" value="<%= @exceller.grandfather_name %>" class="form-control" placeholder="N/A" disabled>
+                        </div>
+                        <div class="form-group col-3">
+                          <label>Date of Birth:</label>
+                          <input type="text" value="<%= @exceller.dob.to_date.to_formatted_s(:long_ordinal) %>" class="form-control" placeholder="N/A" disabled>
+                        </div>
+                      </div>
 
-            <div class="row">
-                <div class="form-group col-3">
-                  <label>First name:</label>
-                  <input type="text" value="<%= @exceller.first_name %>" class="form-control" placeholder="N/A" disabled>
-                </div>
-                <div class="form-group col-3">
-                  <label>Father name:</label>
-                  <input type="text" value="<%= @exceller.father_name %>" class="form-control" placeholder="N/A" disabled>
-                </div>
-                <div class="form-group col-3">
-                  <label>Grandfather name:</label>
-                  <input type="text" value="<%= @exceller.grandfather_name %>" class="form-control" placeholder="N/A" disabled>
-                </div>
-                <div class="form-group col-3">
-                  <label>Date of Birth:</label>
-                  <input type="text" value="<%= @exceller.dob.to_date.to_formatted_s(:long_ordinal) %>" class="form-control" placeholder="N/A" disabled>
+                      <div class="row">
+                        
+                        <div class="form-group col-3">
+                          <label>Job position:</label>
+                          <input type="text" value="<%= @position.name %>" class="form-control" placeholder="N/A" disabled>
+                        </div>
+
+                        <div class="form-group col-3">
+                          <label>Years of Experience:</label>
+                          <input type="text" value="<%= @exceller.years_of_experience %>" class="form-control" placeholder="N/A" disabled>
+                        </div>
+
+                        <div class="form-group col-3">
+                          <label>Recommended for:</label>
+                          <input type="text" value="<%= @recommended_for.name %>" class="form-control" placeholder="N/A" disabled>
+                        </div>
+
+                        <div class="form-group col-3">
+                          <label>Contract signing date:</label>
+                          <input type="text" value="<%= @exceller.contract_signing_date %>" class="form-control" placeholder="N/A" disabled>
+                        </div>
+
+                      </div>
+
+                      <div class="row">
+                        
+                        <div class="form-group col-3">
+                          <label>Employment type:</label>
+                          <input type="text" value="<%= @employment_type.name %>" class="form-control" placeholder="N/A" disabled>
+                        </div>
+
+                        <div class="form-group col-3">
+                          <label>Duty station:</label>
+                          <input type="text" value="<%= @duty_station.name %>" class="form-control" placeholder="N/A" disabled>
+                        </div>
+
+                        <div class="form-group col-3">
+                          <label>Status:</label>
+                          <input type="text" value="<%= @exceller.status_id.humanize %>" class="form-control" placeholder="N/A" disabled>
+                        </div>
+                      </div>
+
+                      
+                  </div>
+                  <div class="tab-pane fade" id="custom-tabs-three-assigned-excellers" role="tabpanel" aria-labelledby="custom-tabs-three-assigned-excellers-tab">
+                    <div class="container-fluid">
+                      <div class="row">
+                          <div class="col-md-12">
+
+                            <div class="row">
+                              <div class="form-group col-3">
+                                <label>Country:</label>
+                                <input type="text" value="<%= @address.country %>" class="form-control" placeholder="N/A" disabled>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              
+                              <div class="form-group col-3">
+                                <label>Email:</label>
+                                <input type="text" value="<%= @address.email %>" class="form-control" placeholder="N/A" disabled>
+                              </div>
+
+                              <div class="form-group col-3">
+                                <label>Postal code:</label>
+                                <input type="text" value="<%= @address.postal_code %>" class="form-control" placeholder="N/A" disabled>
+                              </div>
+
+                              <div class="form-group col-3">
+                                <label>Zip code:</label>
+                                <input type="text" value="<%= @address.zip_code %>" class="form-control" placeholder="N/A" disabled>
+                              </div>
+
+                              <div class="form-group col-3">
+                                <label>House no.:</label>
+                                <input type="text" value="<%= @address.house_no %>" class="form-control" placeholder="N/A" disabled>
+                              </div>
+
+                            </div>
+
+                            <div class="row">
+                              
+                              <div class="form-group col-3">
+                                <label>Home phone:</label>
+                                <input type="text" value="<%= @address.home_phone %>" class="form-control" placeholder="N/A" disabled>
+                              </div>
+
+                              <div class="form-group col-3">
+                                <label>Cellphone:</label>
+                                <input type="text" value="<%= @address.cell_phone %>" class="form-control" placeholder="N/A" disabled>
+                              </div>
+
+                              <div class="form-group col-3">
+                                <label>Work phone:</label>
+                                <input type="text" value="<%= @address.work_phone %>" class="form-control" placeholder="N/A" disabled>
+                              </div>
+
+                              <div class="form-group col-3">
+                                <label>Street no.:</label>
+                                <input type="text" value="<%= @address.street_no %>" class="form-control" placeholder="N/A" disabled>
+                              </div>
+
+                            </div>
+
+                            <div class="row">
+                              
+                              <div class="form-group col-3">
+                                <label>Sub-city:</label>
+                                <input type="text" value="<%= @address.sub_city %>" class="form-control" placeholder="N/A" disabled>
+                              </div>
+
+                              <div class="form-group col-3">
+                                <label>Woreda:</label>
+                                <input type="text" value="<%= @address.woreda %>" class="form-control" placeholder="N/A" disabled>
+                              </div>
+
+                              <div class="form-group col-3">
+                                <label>City:</label>
+                                <input type="text" value="<%= @address.city %>" class="form-control" placeholder="N/A" disabled>
+                              </div>
+
+                              <div class="form-group col-3">
+                                <label>State:</label>
+                                <input type="text" value="<%= @address.state %>" class="form-control" placeholder="N/A" disabled>
+                              </div>
+
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade" id="custom-tabs-three-sample-code" role="tabpanel" aria-labelledby="custom-tabs-three-sample-code-tab">
+                    <input name="exceller[exceller_interviews[][exceller_id]]" id="exceller_id_input" value="<%= @exceller&.id %>" class="form-control" style="display: none"/> 
+                    <a class="btn btn-primary float-right mb-3" data-project-id="<%= @exceller.id.to_s %>" data-target="#add-ei" data-toggle="modal" style="color: white">
+                      <i class="fa fa-plus"></i> Add Exceller Interview
+                    </a>
+                    <table id="example" class="display" style="width:100% !important">
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th>EI ID</th>
+                            <th>Interview</th>            
+                            <th>Position</th>            
+                            <th>Interviewer</th>                     
+                            <th></th>                      
+                          </tr>
+                        </thead>
+                        <tfoot>
+                          <tr>
+                            <th></th>
+                            <th>EI ID</th>
+                            <th>Interview</th>            
+                            <th>Position</th>            
+                            <th>Interviewer</th>                     
+                            <th></th>                  
+                          </tr>
+                        </tfoot>
+                    </table> 
+                  </div>
                 </div>
               </div>
-
-              <div class="row">
-                
-                <div class="form-group col-3">
-                  <label>Job position:</label>
-                  <input type="text" value="<%= @position.name %>" class="form-control" placeholder="N/A" disabled>
-                </div>
-
-                <div class="form-group col-3">
-                  <label>Years of Experience:</label>
-                  <input type="text" value="<%= @exceller.years_of_experience %>" class="form-control" placeholder="N/A" disabled>
-                </div>
-
-                <div class="form-group col-3">
-                  <label>Recommended for:</label>
-                  <input type="text" value="<%= @recommended_for.name %>" class="form-control" placeholder="N/A" disabled>
-                </div>
-
-                <div class="form-group col-3">
-                  <label>Contract signing date:</label>
-                  <input type="text" value="<%= @exceller.contract_signing_date %>" class="form-control" placeholder="N/A" disabled>
-                </div>
-
-              </div>
-
-              <div class="row">
-                
-                <div class="form-group col-3">
-                  <label>Employment type:</label>
-                  <input type="text" value="<%= @employment_type.name %>" class="form-control" placeholder="N/A" disabled>
-                </div>
-
-                <div class="form-group col-3">
-                  <label>Duty station:</label>
-                  <input type="text" value="<%= @duty_station.name %>" class="form-control" placeholder="N/A" disabled>
-                </div>
-
-                <div class="form-group col-3">
-                  <label>Status:</label>
-                  <input type="text" value="<%= @exceller.status_id.humanize %>" class="form-control" placeholder="N/A" disabled>
-                </div>
-              </div>
-
-              <div class="row mt-2">
-                <div class="form-group col-12">
-                  <h4>Exceller Address</h4>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="form-group col-3">
-                  <label>Country:</label>
-                  <input type="text" value="<%= @address.country %>" class="form-control" placeholder="N/A" disabled>
-                </div>
-              </div>
-
-              <div class="row">
-                
-                <div class="form-group col-3">
-                  <label>Email:</label>
-                  <input type="text" value="<%= @address.email %>" class="form-control" placeholder="N/A" disabled>
-                </div>
-
-                <div class="form-group col-3">
-                  <label>Postal code:</label>
-                  <input type="text" value="<%= @address.postal_code %>" class="form-control" placeholder="N/A" disabled>
-                </div>
-
-                <div class="form-group col-3">
-                  <label>Zip code:</label>
-                  <input type="text" value="<%= @address.zip_code %>" class="form-control" placeholder="N/A" disabled>
-                </div>
-
-                <div class="form-group col-3">
-                  <label>House no.:</label>
-                  <input type="text" value="<%= @address.house_no %>" class="form-control" placeholder="N/A" disabled>
-                </div>
-
-              </div>
-
-              <div class="row">
-                
-                <div class="form-group col-3">
-                  <label>Home phone:</label>
-                  <input type="text" value="<%= @address.home_phone %>" class="form-control" placeholder="N/A" disabled>
-                </div>
-
-                <div class="form-group col-3">
-                  <label>Cellphone:</label>
-                  <input type="text" value="<%= @address.cell_phone %>" class="form-control" placeholder="N/A" disabled>
-                </div>
-
-                <div class="form-group col-3">
-                  <label>Work phone:</label>
-                  <input type="text" value="<%= @address.work_phone %>" class="form-control" placeholder="N/A" disabled>
-                </div>
-
-                <div class="form-group col-3">
-                  <label>Street no.:</label>
-                  <input type="text" value="<%= @address.street_no %>" class="form-control" placeholder="N/A" disabled>
-                </div>
-
-              </div>
-
-              <div class="row">
-                
-                <div class="form-group col-3">
-                  <label>Sub-city:</label>
-                  <input type="text" value="<%= @address.sub_city %>" class="form-control" placeholder="N/A" disabled>
-                </div>
-
-                <div class="form-group col-3">
-                  <label>Woreda:</label>
-                  <input type="text" value="<%= @address.woreda %>" class="form-control" placeholder="N/A" disabled>
-                </div>
-
-                <div class="form-group col-3">
-                  <label>City:</label>
-                  <input type="text" value="<%= @address.city %>" class="form-control" placeholder="N/A" disabled>
-                </div>
-
-                <div class="form-group col-3">
-                  <label>State:</label>
-                  <input type="text" value="<%= @address.state %>" class="form-control" placeholder="N/A" disabled>
-                </div>
-
-              </div>
-            
-            <div class="card-footer">
-              <%= link_to 'Edit', edit_exceller_path(@exceller), :class => 'btn btn-primary' %>
             </div>
-            
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="add-ei">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add Exceller Interview</h4>
+        <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>        
+      </div>
+      <div class="modal-body">   
+
+        <form role="form" method="POST" enctype="multipart/form-data" action="/excellers/async_save_exceller_interviews" >
+          <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+          <%= hidden_field_tag :id, params[:id], class: "", :name => "id", :required => true, :display => false  %>
+          <%= hidden_field_tag :id, params[:id], class: "", :name => "exceller[add_exceller_interview[exceller_id]]", :required => true, :display => false  %>
+          <div class="form-group">
+            <label for="transporter">Interview
+              <span class="required">*</span>
+            </label>
+            <div>
+              <%= select("exceller[add_exceller_interview[interview_id]]", "exceller[add_exceller_interview[interview_id]]", Interview.all .collect{|t| [t.name, t.id ]}, {prompt: '-- Choose --'}, {:class => 'form-control', :required => true, :name => 'exceller[add_exceller_interview[interview_id]]', :id => 'interview_id' }) %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="transporter">Interviewer
+              <span class="required">*</span>
+            </label>
+            <div>
+              <%= select("exceller[add_exceller_interview[interviewer_id]]", "exceller[add_exceller_interview[interviewer_id]]", Exceller.all .collect{|t| [t.name, t.id ]}, {prompt: '-- Choose --'}, {:class => 'form-control', :required => true, :name => 'exceller[add_exceller_interview[interviewer_id]]', :id => 'interview_id' }) %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div>
+            <br>
+                <input  type="hidden" name="att" id="att" value="" />
+                <input type="submit" id="btnFormSubmit" class="btn btn-primary" value="Save" />
+            </div>
+          </div> 
+
+        </form>
+      </div>    
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="update-eii">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Update Exceller Interview Item</h4>
+        <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>        
+      </div>
+      <div class="modal-body">   
+
+        <form role="form" method="POST" enctype="multipart/form-data" action="/excellers/async_update_exceller_interview_item" >
+          <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+          <%= hidden_field_tag :id, params[:id], class: "", :name => "id", :required => true, :display => false  %>
+          <input type="hidden" name="exceller[exceller_interview_item[id]]" id="eii_id" value="" class="" required="required" display="false">
+
+          <div class="form-group">
+            <label for="transporter">Skill
+            </label>
+            <div>
+              <input id="eii_skill_name" name="exceller[exceller_interview_item[skill_name]]" type="text" class="form-control" value="" disabled="disabled" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="transporter">Minimum score
+              <span class="required">*</span>
+            </label>
+            <div>
+              <input id="eii_minimum_score" name="exceller[exceller_interview_item[minimum_score]]" type="text" class="form-control" value="" disabled="disabled" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="transporter">Score
+              <span class="required">*</span>
+            </label>
+            <div>
+              <input id="eii_score" name="exceller[exceller_interview_item[score]]" type="number" step=".01" class="form-control" value="" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="transporter">Comment
+              <span class="required">*</span>
+            </label>
+            <div>
+              <textarea id="eii_comment" name="exceller[exceller_interview_item[comment]]" class="form-control" value=""></textarea>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div>
+              <br>
+              <input type="submit" id="" class="btn btn-primary" value="Save" />
+            </div>
+          </div> 
+
+        </form>
+      </div>    
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script>
+$(document).ready(function() {
+  var exceller = $('#exceller_id_input').val();
+  
+  $.ajax({
+    url: "/excellers/async_get_exceller_interviews",
+    type:'POST',
+    data:{
+      exceller: {
+        exceller_id: exceller
+      }	            
+    },
+    dataType: 'json',
+    success: function(data){
+      console.log("Data: " + JSON.stringify(data));
+
+      var table = $('#example').DataTable({
+          data: data,
+          columns: [
+            {
+                "className":      'details-control',
+                "orderable":      false,
+                "data":           null,
+                "defaultContent": ''
+            },
+            { data: 'exceller_interview_id' },
+            { data: 'interview' },
+            { data: 'position' },
+            { data: 'interviewer' },
+            { data: 'interviewer' }
+          ],
+          columnDefs: [
+            {
+                "targets": [ 1 ],
+                "visible": false,
+                "searchable": false
+            },
+            {                
+              targets: 5, 
+              render: function (data, type, row, meta) {
+                return '<a class="btn btn-danger ml-1 mr-1 pr-delete" data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/excellers/delete_ei/'+row.exceller_interview_id+'"><i class="fa fa-archive" aria-hidden="true"></i>Delete</a>';
+              }
+            }
+          ],
+          
+      });
+
+      $( table.table().container() ).removeClass( 'form-inline' );
+
+      $('#example tbody').on('click', '.eii-update', function () {
+        var id = $(this).attr("data-id");
+        var data_skill_name = $(this).attr("data-skill-name");
+        var data_minimum_score = $(this).attr("data-minimum-score");
+        var data_score = $(this).attr("data-score");
+        var data_comment = $(this).attr("data-comment");
+        $("#eii_skill_name").val(data_skill_name);
+        $("#eii_minimum_score").val(data_minimum_score);
+        $("#eii_score").val(data_score);
+        $("#eii_comment").val((data_comment === '' || data_comment === null)  ? 'N/A' : data_comment);        
+        $("#eii_id").val(id);
+      });
+      
+      // Add event listener for opening and closing details
+      $('#example tbody').on('click', 'td.details-control', function () {
+          var tr = $(this).closest('tr');
+          var row = table.row( tr );
+  
+          if ( row.child.isShown() ) {
+              // This row is already open - close it
+              row.child.hide();
+              tr.removeClass('shown');
+          }
+          else {
+              // Open this row
+              // console.log("SKT ID: " + JSON.stringify(row.data().skt_id));
+              
+              $.ajax({
+                url:'/excellers/async_get_exceller_interview_items',
+                type:'POST',
+                dataType:'json',
+                data:{
+                  exceller: {
+                    exceller_interview_id: row.data().exceller_interview_id
+                  }	  
+                },
+                before: function() {
+                
+                },
+                success:function(data){
+                  
+                  if(data==null && data==''){
+                    return;
+                  }  
+                  var rows = '<td class="col-2"><b>Skill</b></td><td class="col-2"><b>Minimum score</b></td><td class="col-2"><b>Score</b></td><td class="col-6"><b>Comment</b></td><td><b>Action</b></td>';
+                  data.forEach(function(obj) {
+                    // console.log('obj: ' + JSON.stringify(obj));	
+                    rows = rows +  
+                    '<tr>'+
+                    // '<td style="visiblity: false">'+ obj.pri_id +'</td>'+
+                    '<td class="col-2">'+ obj.skill_name +'</td>'+
+                    '<td class="col-2">'+ obj.minimum_score +'</td>'+
+                    '<td class="col-2">'+ obj.score +'</td>'+
+                    '<td class="col-6">'+ obj.comment +'</td>'+
+                    '<td><input type="button" class="btn btn-default ml-1 mr-1 eii-update" data-target="#update-eii" data-toggle="modal" data-id="'+ obj.exceller_interview_item_id +'" data-skill-id="'+ obj.skill_id +'" data-skill-name="'+ obj.skill_name +'" data-minimum-score="'+ obj.minimum_score +'" data-score="'+ obj.score +'" data-comment="'+ obj.comment +'" value="Update"/></td>'+
+                    '</tr>'        
+                  });
+                  
+                  var result = '<table cellpadding="5" cellspacing="0" border="0" style="width:90%;margin-left:50px;">'+ rows +'</table>';
+                  row.child( result ).show();
+                  tr.addClass('shown');  
+                },
+                error:function(data){
+                    console.log(data);
+                }
+              });
+          }
+          
+      });  
+      
+    }
+  });
+
+});
+</script>
