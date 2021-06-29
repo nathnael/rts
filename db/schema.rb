@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_26_220537) do
+ActiveRecord::Schema.define(version: 2021_06_29_160120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,17 @@ ActiveRecord::Schema.define(version: 2021_06_26_220537) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "exceller_addresses", force: :cascade do |t|
+    t.integer "exceller_id"
+    t.integer "address_id"
+    t.integer "status"
+    t.integer "created_by"
+    t.integer "modified_by"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "exceller_assignments", force: :cascade do |t|
     t.integer "exceller_id"
     t.integer "project_id"
@@ -94,7 +105,7 @@ ActiveRecord::Schema.define(version: 2021_06_26_220537) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "exceller_interviews_tables", force: :cascade do |t|
+  create_table "exceller_interviews", force: :cascade do |t|
     t.integer "exceller_id"
     t.integer "interviewer_id"
     t.integer "interview_id"
@@ -191,11 +202,44 @@ ActiveRecord::Schema.define(version: 2021_06_26_220537) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "project_requirement_excellers", force: :cascade do |t|
+    t.integer "project_requirement_id"
+    t.integer "exceller_id"
+    t.integer "state_id"
+    t.integer "performed_by"
+    t.datetime "date_performed"
+    t.text "comment"
+    t.boolean "current"
+    t.integer "created_by"
+    t.integer "modified_by"
+    t.datetime "deleted_at"
+  end
+
+  create_table "project_requirement_flows", force: :cascade do |t|
+    t.integer "project_requirement_id"
+    t.string "name"
+    t.integer "initial_state_id"
+    t.integer "final_state_id"
+    t.integer "created_by"
+    t.integer "modified_by"
+    t.datetime "deleted_at"
+  end
+
   create_table "project_requirement_items", force: :cascade do |t|
     t.integer "project_requirement_id"
     t.integer "skill_id"
     t.float "minimum_score"
     t.text "description"
+    t.integer "created_by"
+    t.integer "modified_by"
+    t.datetime "deleted_at"
+  end
+
+  create_table "project_requirement_states", force: :cascade do |t|
+    t.integer "project_requirement_id"
+    t.string "name"
+    t.integer "order"
+    t.integer "type"
     t.integer "created_by"
     t.integer "modified_by"
     t.datetime "deleted_at"
