@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :async_save_project_requirements, :async_update_project_requirement_item, :async_edit_project_requirement]
-  protect_from_forgery except: [:async_save_project_requirement, :async_remove_project_requirement, :async_get_project_requirements]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :async_save_project_requirements, :async_update_project_requirement_item, :async_edit_project_requirement, :async_add_project_requirement_state]
+  protect_from_forgery except: [:async_save_project_requirement, :async_remove_project_requirement, :async_get_project_requirements, :async_add_project_requirement_state]
 
   # GET /projects
   # GET /projects.json
@@ -124,12 +124,12 @@ class ProjectsController < ApplicationController
         format.html { redirect_to @project, notice: 'Project Requirement was successfully added.' }
         format.json { render :json => @project.to_json }
       else
-        format.html { redirect_to @project, notice: 'Project Requirement was not added.' }
+        format.html { redirect_to @project, flash: { error: "Project Requirement was not added." }}
         format.json { render json: @project.errors, status: :unprocessable_entity }
       end
     end
   end
-
+  
   def async_get_project_requirement_items    
     project_requirement_id = project_params["project_requirement_id"]
     skill_type_id = project_params["skill_type_id"]
@@ -151,7 +151,7 @@ class ProjectsController < ApplicationController
         format.html { redirect_to @project, notice: 'Project Requirement Item was successfully updated.' }
         format.json { render :json => @project.to_json }
       else
-        format.html { redirect_to @project, errors: 'Project Requirement Item was not updated.' }
+        format.html { redirect_to @project, flash: { error: 'Project Requirement Item was not updated.' } }
         format.json { render json: @project.errors, status: :unprocessable_entity }
       end
     end
@@ -165,7 +165,7 @@ class ProjectsController < ApplicationController
         format.html { redirect_to @project, notice: 'Project Requirement was successfully updated.' }
         format.json { render :json => @project.to_json }
       else
-        format.html { redirect_to @project, errors: 'Project Requirement was not updated.' }
+        format.html { redirect_to @project, flash: { error: 'Project Requirement was not updated.' } }
         format.json { render json: @project.errors, status: :unprocessable_entity }
       end
     end
@@ -181,6 +181,74 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def async_add_project_requirement_state     
+    project_requirement_state = ProjectRequirementState.new(project_params["project_requirement_state"])
+    respond_to do |format|
+      if project_requirement_state.save
+        format.html { redirect_to @project, notice: 'Recruitment State was successfully added.' }
+        format.json { render :json => @project.to_json }
+      else
+        format.html { redirect_to @project, flash: { error: "Recruitment State was not added." } }
+        format.json { render json: @project.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
+  def async_get_project_requirement_states    
+    project_requirement_id = project_params["project_requirement_id"]
+
+    @project_requirement_items = ProjectRequirementState.where(project_requirement_id: project_requirement_id)
+        
+    respond_to do |format|
+      format.html
+      format.json { render :json => @project_requirement_items.to_json }
+    end
+  end
+
+  def delete_prs
+    project_requirement_state = ProjectRequirementState.joins(:project_requirement).find_by_id(params[:id])
+    project = Project.find_by_id(project_requirement_state.project_requirement.project_id)
+    project_requirement_state.destroy
+    respond_to do |format|
+      format.html { redirect_to project, notice: 'Project Requirement State was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
+  def async_add_project_requirement_flow     
+    project_requirement_flow = ProjectRequirementFlow.new(project_params["project_requirement_flow"])
+    respond_to do |format|
+      if project_requirement_flow.save
+        format.html { redirect_to @project, notice: 'Recruitment Flow was successfully added.' }
+        format.json { render :json => @project.to_json }
+      else
+        format.html { redirect_to @project, flash: { error: "Recruitment Flow was not added." }}
+        format.json { render json: @project.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
+  def async_get_project_requirement_flows    
+    project_requirement_id = project_params["project_requirement_id"]
+
+    @project_requirement_flows = ProjectRequirementFlow.where(project_requirement_id: project_requirement_id)
+        
+    respond_to do |format|
+      format.html
+      format.json { render :json => @project_requirement_flows.to_json }
+    end
+  end
+
+  def delete_prf
+    project_requirement_flow = ProjectRequirementFlow.joins(:project_requirement).find_by_id(params[:id])
+    project = Project.find_by_id(project_requirement_flow.project_requirement.project_id)
+    project_requirement_flow.destroy
+    respond_to do |format|
+      format.html { redirect_to project, notice: 'Project Requirement Flow was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project
@@ -189,6 +257,6 @@ class ProjectsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def project_params
-      params.require(:project).permit(:id, :name, :client_id, :status, :start_date, :end_date, :created_by, :modified_by, :deleted_at, :project_id, :skill_type_id, :no_of_excellers, :project_requirement_id, :add_project_requirement => [:id, :project_id, :skill_type_id, :amount, :start_date, :end_date], :project_requirements => [:id, :project_id, :skill_type_id, :amount, :start_date, :end_date], :project_requirement_item => [:id, :skill_id, :minimum_score, :description])
+      params.require(:project).permit(:id, :name, :client_id, :status, :start_date, :end_date, :created_by, :modified_by, :deleted_at, :project_id, :skill_type_id, :no_of_excellers, :project_requirement_id, :add_project_requirement => [:id, :project_id, :skill_type_id, :amount, :start_date, :end_date], :project_requirements => [:id, :project_id, :skill_type_id, :amount, :start_date, :end_date], :project_requirement_item => [:id, :skill_id, :minimum_score, :description], :project_requirement_state => [:id, :project_requirement_id, :name, :description], :project_requirement_flow => [:id, :project_requirement_id, :initial_state_id, :final_state_id])
     end
 end

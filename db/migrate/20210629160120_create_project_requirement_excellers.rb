@@ -7,11 +7,12 @@ class CreateProjectRequirementExcellers < ActiveRecord::Migration[6.0]
       t.integer :performed_by
       t.datetime :date_performed
       t.text :comment
-      t.boolean :current
-      
+      t.boolean :current      
       t.integer :created_by
       t.integer :modified_by
       t.datetime :deleted_at
+
+      t.timestamps
     end
   end
 end

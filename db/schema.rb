@@ -68,17 +68,6 @@ ActiveRecord::Schema.define(version: 2021_06_29_160120) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "exceller_addresses", force: :cascade do |t|
-    t.integer "exceller_id"
-    t.integer "address_id"
-    t.integer "status"
-    t.integer "created_by"
-    t.integer "modified_by"
-    t.datetime "deleted_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "exceller_assignments", force: :cascade do |t|
     t.integer "exceller_id"
     t.integer "project_id"
@@ -105,7 +94,7 @@ ActiveRecord::Schema.define(version: 2021_06_29_160120) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "exceller_interviews", force: :cascade do |t|
+  create_table "exceller_interviews", id: :bigint, default: -> { "nextval('exceller_interviews_tables_id_seq'::regclass)" }, force: :cascade do |t|
     t.integer "exceller_id"
     t.integer "interviewer_id"
     t.integer "interview_id"
@@ -213,6 +202,8 @@ ActiveRecord::Schema.define(version: 2021_06_29_160120) do
     t.integer "created_by"
     t.integer "modified_by"
     t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "project_requirement_flows", force: :cascade do |t|
@@ -223,6 +214,8 @@ ActiveRecord::Schema.define(version: 2021_06_29_160120) do
     t.integer "created_by"
     t.integer "modified_by"
     t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "project_requirement_items", force: :cascade do |t|
@@ -233,16 +226,19 @@ ActiveRecord::Schema.define(version: 2021_06_29_160120) do
     t.integer "created_by"
     t.integer "modified_by"
     t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "project_requirement_states", force: :cascade do |t|
     t.integer "project_requirement_id"
     t.string "name"
-    t.integer "order"
-    t.integer "type"
+    t.text "description"
     t.integer "created_by"
     t.integer "modified_by"
     t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "project_requirements", force: :cascade do |t|

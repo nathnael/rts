@@ -30,6 +30,12 @@ Rails.application.routes.draw do
   post '/projects/async_update_project_requirement_item', to: 'projects#async_update_project_requirement_item'
   post '/projects/async_edit_project_requirement', to: 'projects#async_edit_project_requirement'
   delete '/projects/delete_pr/:id', to: 'projects#delete_pr'
+  delete '/projects/delete_prs/:id', to: 'projects#delete_prs'
+  post '/projects/async_add_project_requirement_state', to: 'projects#async_add_project_requirement_state'
+  post '/projects/async_get_project_requirement_states', to: 'projects#async_get_project_requirement_states'
+  delete '/projects/delete_prf/:id', to: 'projects#delete_prf'
+  post '/projects/async_add_project_requirement_flow', to: 'projects#async_add_project_requirement_flow'
+  post '/projects/async_get_project_requirement_flows', to: 'projects#async_get_project_requirement_flows'
   
   post '/excellers/async_get_exceller_interviews', to: 'excellers#async_get_exceller_interviews'
   post '/excellers/async_save_exceller_interviews', to: 'excellers#async_save_exceller_interviews'

@@ -1,3 +1,5 @@
+<% @project_requirement_states = ProjectRequirementState.all%>
+<% @project_requirement_flows = ProjectRequirementFlow.all%>
 <!-- Content Header (Page header) -->
 <div class="content-header">
   <div class="container-fluid">
@@ -31,7 +33,7 @@
           <div class="card-body">       
             <div class="row">
               <div class="form-group col-2">
-                <label>Name:</label>
+                <label>Project:</label>
                 <input type="text" value="<%= @project.name %>" class="form-control" placeholder="N/A" disabled>
               </div>
               <div class="form-group col-2">
@@ -65,6 +67,12 @@
                 <a class="nav-link active" id="custom-tabs-three-project-requirement-tab" data-toggle="pill" href="#custom-tabs-three-project-requirement" role="tab" aria-controls="custom-tabs-three-project-requirement" aria-selected="true">Project Requirement</a>
               </li>
               <li class="nav-item">
+                <a class="nav-link" id="custom-tabs-exceller-states-tab" data-toggle="pill" href="#custom-tabs-exceller-states" role="tab" aria-controls="custom-tabs-three-assigned-excellers" aria-selected="false">Recruitment States</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="custom-tabs-exceller-flows-tab" data-toggle="pill" href="#custom-tabs-exceller-flows" role="tab" aria-controls="custom-tabs-three-assigned-excellers" aria-selected="false">Recruitment Flows</a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link" id="custom-tabs-three-assigned-excellers-tab" data-toggle="pill" href="#custom-tabs-three-assigned-excellers" role="tab" aria-controls="custom-tabs-three-assigned-excellers" aria-selected="false">Assign Excellers</a>
               </li>
               <li class="nav-item">
@@ -80,6 +88,66 @@
                   <i class="fa fa-plus"></i> Add New Project Requirement
                 </a>
                 <table id="example" class="display" style="width:100% !important">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>PR ID</th>
+                        <th>SKT ID</th>
+                        <th>Skill Type</th>
+                        <th>Number of Excellers</th>            
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Progress</th>                      
+                        <th></th>                      
+                      </tr>
+                    </thead>
+                    <tfoot>
+                      <tr>
+                        <th></th>
+                        <th>PR ID</th>
+                        <th>SKT ID</th>
+                        <th>Skill Type</th>
+                        <th>Number of Excellers</th>            
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Progress</th>                    
+                        <th></th>                    
+                      </tr>
+                    </tfoot>
+                </table> 
+              </div>
+              <div class="tab-pane fade" id="custom-tabs-exceller-states" role="tabpanel" aria-labelledby="custom-tabs-exceller-states-tab">
+                <table id="exceller-states" class="display" style="width:100% !important">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>PR ID</th>
+                        <th>SKT ID</th>
+                        <th>Skill Type</th>
+                        <th>Number of Excellers</th>            
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Progress</th>                      
+                        <th></th>                      
+                      </tr>
+                    </thead>
+                    <tfoot>
+                      <tr>
+                        <th></th>
+                        <th>PR ID</th>
+                        <th>SKT ID</th>
+                        <th>Skill Type</th>
+                        <th>Number of Excellers</th>            
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Progress</th>                      
+                        <th></th>                      
+                      </tr>
+                    </tfoot>
+                </table> 
+              </div>
+              <div class="tab-pane fade" id="custom-tabs-exceller-flows" role="tabpanel" aria-labelledby="custom-tabs-exceller-flows-tab">
+                <table id="exceller-flows" class="display" style="width:100% !important">
                     <thead>
                       <tr>
                         <th></th>
@@ -572,6 +640,102 @@
 </div><!-- /.modal -->
 
 
+<div class="modal fade" tabindex="-1" role="dialog" id="add-prs">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add Recruitment State</h4>
+        <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>        
+      </div>
+      <div class="modal-body">   
+
+        <form role="form" method="POST" enctype="multipart/form-data" action="/projects/async_add_project_requirement_state" >
+          <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+          <%= hidden_field_tag :id, params[:id], class: "", :name => "id", :required => true, :display => false  %>
+          <input type="hidden" name="project[project_requirement_state[project_requirement_id]]" id="prs_id" value="" class="" required="required">
+
+          <div class="form-group">
+            <label for="transporter">State
+            <span class="required">*</span>
+            </label>
+            <div>
+              <input id="prs_state" name="project[project_requirement_state[name]]" type="text" class="form-control" value="" required="required" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="transporter">Description              
+            </label>
+            <div>
+              <textarea id="prs_description" name="project[project_requirement_state[description]]" class="form-control" value=""></textarea>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div>
+              <br>
+              <input type="submit" id="" class="btn btn-primary" value="Save" />
+            </div>
+          </div> 
+
+        </form>
+      </div>    
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" tabindex="-1" role="dialog" id="add-prf">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add Recruitment Flow</h4>
+        <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>        
+      </div>
+      <div class="modal-body">   
+
+        <form role="form" method="POST" enctype="multipart/form-data" action="/projects/async_add_project_requirement_flow" >
+          <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+          <%= hidden_field_tag :id, params[:id], class: "", :name => "id", :required => true, :display => false  %>
+          <input type="hidden" name="project[project_requirement_flow[project_requirement_id]]" id="prf_id" value="" class="" required="required">
+
+          <div class="form-group">
+            <label for="transporter">Flow
+            <span class="required">*</span>
+            </label>
+            <div>
+              <input id="prf_flow" name="project[project_requirement_flow[name]]" type="text" class="form-control" value="" required="required" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="transporter">Intial State              
+            </label>
+            <div>
+              <%= select("project[project_requirement_flow[initial_state_id]]", "project[project_requirement_flow[initial_state_id]]", ProjectRequirementState.all .collect{|t| [t.name, t.id ]}, {prompt: '-- Choose --'}, {:class => 'form-control', :required => true, :name => 'project[project_requirement_flow[initial_state_id]]', :id => 'initial_state_id' }) %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="transporter">Final State              
+            </label>
+            <div>
+              <%= select("project[project_requirement_flow[final_state_id]]", "project[project_requirement_flow[final_state_id]]", ProjectRequirementState.all .collect{|t| [t.name, t.id ]}, {prompt: '-- Choose --'}, {:class => 'form-control', :required => true, :name => 'project[project_requirement_flow[final_state_id]]', :id => 'final_state_id' }) %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div>
+              <br>
+              <input type="submit" id="" class="btn btn-primary" value="Save" />
+            </div>
+          </div> 
+
+        </form>
+      </div>    
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <script>
 $(document).ready(function() {
   var REMOVE_dispatchLINE_BTN = '<a href="#" class="remove-project_requirements"><i class="fa fa-times"></i></a>';
@@ -809,6 +973,233 @@ $(document).ready(function() {
                     '<td>'+ obj.minimum_score +'</td>'+
                     '<td><input type="button" class="btn btn-default ml-1 mr-1 pri-update" data-target="#update-pri" data-toggle="modal" data-id="'+ obj.pri_id +'" data-skill-id="'+ obj.skill_id +'" data-skill-name="'+ obj.skill_name +'" data-minimum-score="'+ obj.minimum_score +'" data-description="'+ obj.description +'" value="Update"/></td>'+
                     '</tr>'        
+                  });
+                  
+                  var result = '<table cellpadding="5" cellspacing="0" border="0" style="width:90%;margin-left:50px;">'+ rows +'</table>';
+                  row.child( result ).show();
+                  tr.addClass('shown');  
+                },
+                error:function(data){
+                    console.log(data);
+                }
+              });
+          }
+          
+      });  
+      
+    }
+  });
+
+  $.ajax({
+    url: "/projects/async_get_project_requirements",
+    type:'POST',
+    data:{
+      project: {
+        project_id: project
+      }	            
+    },
+    dataType: 'json',
+    success: function(data){
+      console.log("Data: " + JSON.stringify(data));
+
+      var table = $('#exceller-states').DataTable({
+          data: data,
+          columns: [
+            {
+                "className":      'details-control',
+                "orderable":      false,
+                "data":           null,
+                "defaultContent": ''
+            },
+            { data: 'pr_id' },
+            { data: 'skt_id' },
+            { data: 'skill_type_name' },
+            { data: 'amount' },
+            { data: 'start_date' },
+            { data: 'end_date' },
+            { data: 'progress' },
+            { data: 'progress' }            
+          ],
+          columnDefs: [
+            {
+                "targets": [ 1, 2 ],
+                "visible": false,
+                "searchable": false
+            },
+            {                
+              targets: 8, 
+              render: function (data, type, row, meta) {
+                console.log("skt_id: " + JSON.stringify(row.pr_id));
+                  return '<a class="btn btn-success ml-1 mr-1 prs-add" id=e-"' + data + '" data-target="#add-prs" data-toggle="modal" data-prs-id="'+row.pr_id+'" style="color: white;"><i class="fa fa-plus" aria-hidden="true"></i>  Add State  </a>';
+              }
+            }            
+          ],
+          
+      });
+
+      $( table.table().container() ).removeClass( 'form-inline' );
+
+      $('#exceller-states tbody').on('click', '.prs-add', function () {
+        var id = $(this).attr("data-prs-id");
+        $("#prs_id").val(id);
+      });
+      
+      // Add event listener for opening and closing details
+      $('#exceller-states tbody').on('click', 'td.details-control', function () {
+          var tr = $(this).closest('tr');
+          var row = table.row( tr );
+  
+          if ( row.child.isShown() ) {
+              // This row is already open - close it
+              row.child.hide();
+              tr.removeClass('shown');
+          }
+          else {
+              // Open this row
+              // console.log("SKT ID: " + JSON.stringify(row.data().skt_id));
+              
+              $.ajax({
+                url:'/projects/async_get_project_requirement_states',
+                type:'POST',
+                dataType:'json',
+                data:{
+                  project: {
+                    project_requirement_id: row.data().pr_id
+                  }
+                },
+                before: function() {
+                
+                },
+                success:function(data){
+                  
+                  if(data==null && data==''){
+                    return;
+                  }  
+                  var rows = '<td><b>State</b></td><td><b>description</b></td><td><b>Action</b></td>';
+                  data.forEach(function(obj) {
+                    // console.log('obj: ' + JSON.stringify(obj));	
+                    rows = rows +  
+                    '<tr>'+
+                    // '<td style="visiblity: false">'+ obj.pri_id +'</td>'+
+                    '<td>'+ obj.name +'</td>'+
+                    '<td>'+ obj.description +'</td>'+
+                    '<td><a class="btn btn-danger ml-1 mr-1 prs-delete" data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/projects/delete_prs/'+obj.id+'"><i class="fa fa-archive" aria-hidden="true"></i>Delete</a></td>' 
+                  });
+                  
+                  var result = '<table cellpadding="5" cellspacing="0" border="0" style="width:90%;margin-left:50px;">'+ rows +'</table>';
+                  row.child( result ).show();
+                  tr.addClass('shown');  
+                },
+                error:function(data){
+                    console.log(data);
+                }
+              });
+          }
+          
+      });  
+      
+    }
+  });
+
+  $.ajax({
+    url: "/projects/async_get_project_requirements",
+    type:'POST',
+    data:{
+      project: {
+        project_id: project
+      }	            
+    },
+    dataType: 'json',
+    success: function(data){
+      console.log("Data: " + JSON.stringify(data));
+
+      var table = $('#exceller-flows').DataTable({
+          data: data,
+          columns: [
+            {
+                "className":      'details-control',
+                "orderable":      false,
+                "data":           null,
+                "defaultContent": ''
+            },
+            { data: 'pr_id' },
+            { data: 'skt_id' },
+            { data: 'skill_type_name' },
+            { data: 'amount' },
+            { data: 'start_date' },
+            { data: 'end_date' },
+            { data: 'progress' },
+            { data: 'progress' }            
+          ],
+          columnDefs: [
+            {
+                "targets": [ 1, 2 ],
+                "visible": false,
+                "searchable": false
+            },
+            {                
+              targets: 8, 
+              render: function (data, type, row, meta) {
+                console.log("skt_id: " + JSON.stringify(row.pr_id));
+                  return '<a class="btn btn-success ml-1 mr-1 prf-add" id=e-"' + data + '" data-target="#add-prf" data-toggle="modal" data-prf-id="'+row.pr_id+'" style="color: white;"><i class="fa fa-plus" aria-hidden="true"></i>  Add Flow  </a>';
+              }
+            }            
+          ],
+          
+      });
+
+      $( table.table().container() ).removeClass( 'form-inline' );
+
+      $('#exceller-flows tbody').on('click', '.prf-add', function () {
+        var id = $(this).attr("data-prf-id");
+        $("#prf_id").val(id);
+        var project_requirement_states = <%= @project_requirement_states.to_json.html_safe %>
+        var filtered_project_requirement_states = $.grep(project_requirement_states, function (elem) {
+            return elem.project_requirement_id == id
+        });
+      });
+      
+      // Add event listener for opening and closing details
+      $('#exceller-flows tbody').on('click', 'td.details-control', function () {
+          var tr = $(this).closest('tr');
+          var row = table.row( tr );
+  
+          if ( row.child.isShown() ) {
+              // This row is already open - close it
+              row.child.hide();
+              tr.removeClass('shown');
+          }
+          else {
+              // Open this row
+              // console.log("SKT ID: " + JSON.stringify(row.data().skt_id));
+              
+              $.ajax({
+                url:'/projects/async_get_project_requirement_flows',
+                type:'POST',
+                dataType:'json',
+                data:{
+                  project: {
+                    project_requirement_id: row.data().pr_id
+                  }
+                },
+                before: function() {
+                
+                },
+                success:function(data){
+                  
+                  if(data==null && data==''){
+                    return;
+                  }  
+                  var rows = '<td><b>Flow</b></td><td><b>Intial State</b></td><td><b>Final State</b></td><td><b>Action</b></td>';
+                  data.forEach(function(obj) {
+                    // console.log('obj: ' + JSON.stringify(obj));	
+                    rows = rows +  
+                    '<tr>'+
+                    // '<td style="visiblity: false">'+ obj.pri_id +'</td>'+
+                    '<td>'+ obj.name +'</td>'+
+                    '<td>'+ obj.intial_state +'</td>'+
+                    '<td>'+ obj.final_state +'</td>'+
+                    '<td><a class="btn btn-danger ml-1 mr-1 prs-delete" data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/projects/delete_prf/'+obj.id+'"><i class="fa fa-archive" aria-hidden="true"></i>Delete</a></td>' 
                   });
                   
                   var result = '<table cellpadding="5" cellspacing="0" border="0" style="width:90%;margin-left:50px;">'+ rows +'</table>';
