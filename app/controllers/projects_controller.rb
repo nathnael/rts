@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :async_save_project_requirements, :async_update_project_requirement_item, :async_edit_project_requirement, :async_add_project_requirement_state]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :async_save_project_requirements, :async_update_project_requirement_item, :async_edit_project_requirement, :async_add_project_requirement_state, :async_add_project_requirement_flow]
   protect_from_forgery except: [:async_save_project_requirement, :async_remove_project_requirement, :async_get_project_requirements, :async_add_project_requirement_state]
 
   # GET /projects
@@ -15,6 +15,8 @@ class ProjectsController < ApplicationController
     @created_by = User.find_by_id(@project.created_by)
     @project_requirements = ProjectRequirement.includes(:project, :skill_type).where(project_id: @project.id)
     @existing_skill_types = ProjectRequirement.where(project_id: @project.id).pluck(:skill_type_id)
+    @project_requirement_states = ProjectRequirementState.joins(:project_requirement).where("project_requirements.project_id" => @project.id)
+    @project_requirement_flows = ProjectRequirementFlow.joins(:project_requirement).where("project_requirements.project_id" => @project.id)
   end
 
   # GET /projects/new
@@ -231,7 +233,7 @@ class ProjectsController < ApplicationController
   def async_get_project_requirement_flows    
     project_requirement_id = project_params["project_requirement_id"]
 
-    @project_requirement_flows = ProjectRequirementFlow.where(project_requirement_id: project_requirement_id)
+    @project_requirement_flows = ProjectRequirementFlow.joins("INNER JOIN project_requirement_states as initial_state ON initial_state.id = project_requirement_flows.initial_state_id INNER JOIN project_requirement_states as final_state ON final_state.id = project_requirement_flows.final_state_id").where("project_requirement_flows.project_requirement_id" => project_requirement_id).select(:id, :name, :initial_state_id, :final_state_id, "initial_state.name as initial_state_name", "final_state.name as final_state_name")
         
     respond_to do |format|
       format.html
@@ -257,6 +259,6 @@ class ProjectsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def project_params
-      params.require(:project).permit(:id, :name, :client_id, :status, :start_date, :end_date, :created_by, :modified_by, :deleted_at, :project_id, :skill_type_id, :no_of_excellers, :project_requirement_id, :add_project_requirement => [:id, :project_id, :skill_type_id, :amount, :start_date, :end_date], :project_requirements => [:id, :project_id, :skill_type_id, :amount, :start_date, :end_date], :project_requirement_item => [:id, :skill_id, :minimum_score, :description], :project_requirement_state => [:id, :project_requirement_id, :name, :description], :project_requirement_flow => [:id, :project_requirement_id, :initial_state_id, :final_state_id])
+      params.require(:project).permit(:id, :name, :client_id, :status, :start_date, :end_date, :created_by, :modified_by, :deleted_at, :project_id, :skill_type_id, :no_of_excellers, :project_requirement_id, :add_project_requirement => [:id, :project_id, :skill_type_id, :amount, :start_date, :end_date], :project_requirements => [:id, :project_id, :skill_type_id, :amount, :start_date, :end_date], :project_requirement_item => [:id, :skill_id, :minimum_score, :description], :project_requirement_state => [:id, :project_requirement_id, :name, :description], :project_requirement_flow => [:id, :name, :project_requirement_id, :initial_state_id, :final_state_id])
     end
 end

@@ -1,5 +1,3 @@
-<% @project_requirement_states = ProjectRequirementState.all%>
-<% @project_requirement_flows = ProjectRequirementFlow.all%>
 <!-- Content Header (Page header) -->
 <div class="content-header">
   <div class="container-fluid">
@@ -711,15 +709,17 @@
             <label for="transporter">Intial State              
             </label>
             <div>
-              <%= select("project[project_requirement_flow[initial_state_id]]", "project[project_requirement_flow[initial_state_id]]", ProjectRequirementState.all .collect{|t| [t.name, t.id ]}, {prompt: '-- Choose --'}, {:class => 'form-control', :required => true, :name => 'project[project_requirement_flow[initial_state_id]]', :id => 'initial_state_id' }) %>
+              <select id="prf_initial_state_id" name='project[project_requirement_flow[initial_state_id]]', class = 'form-control' required="required" %>
+              </select>
             </div>
           </div>
 
           <div class="form-group">
             <label for="transporter">Final State              
             </label>
-            <div>
-              <%= select("project[project_requirement_flow[final_state_id]]", "project[project_requirement_flow[final_state_id]]", ProjectRequirementState.all .collect{|t| [t.name, t.id ]}, {prompt: '-- Choose --'}, {:class => 'form-control', :required => true, :name => 'project[project_requirement_flow[final_state_id]]', :id => 'final_state_id' }) %>
+            <div>              
+              <select id="prf_final_state_id" name='project[project_requirement_flow[final_state_id]]', class = 'form-control' required="required" %>
+              </select>
             </div>
           </div>
 
@@ -1111,7 +1111,7 @@ $(document).ready(function() {
     },
     dataType: 'json',
     success: function(data){
-      console.log("Data: " + JSON.stringify(data));
+      // console.log("Data: " + JSON.stringify(data));
 
       var table = $('#exceller-flows').DataTable({
           data: data,
@@ -1140,7 +1140,7 @@ $(document).ready(function() {
             {                
               targets: 8, 
               render: function (data, type, row, meta) {
-                console.log("skt_id: " + JSON.stringify(row.pr_id));
+                // console.log("skt_id: " + JSON.stringify(row.pr_id));
                   return '<a class="btn btn-success ml-1 mr-1 prf-add" id=e-"' + data + '" data-target="#add-prf" data-toggle="modal" data-prf-id="'+row.pr_id+'" style="color: white;"><i class="fa fa-plus" aria-hidden="true"></i>  Add Flow  </a>';
               }
             }            
@@ -1153,69 +1153,85 @@ $(document).ready(function() {
       $('#exceller-flows tbody').on('click', '.prf-add', function () {
         var id = $(this).attr("data-prf-id");
         $("#prf_id").val(id);
+
+        var EMPTY_OPTION = '<option value="">-- Choose --</option>';
         var project_requirement_states = <%= @project_requirement_states.to_json.html_safe %>
-        var filtered_project_requirement_states = $.grep(project_requirement_states, function (elem) {
-            return elem.project_requirement_id == id
+
+        var states = $.grep(project_requirement_states, function (elem) {
+          return elem.project_requirement_id == id
         });
+
+        var options = EMPTY_OPTION;
+        for (let i = 0; i < states.length; i++) {
+          console.log("states[i]: " + JSON.stringify(states[i]));
+
+          options += '<option value="' + states[i].id + '">' + states[i].name + '</option>';
+        }
+        console.log(options);
+        $('#prf_initial_state_id').html(options);
+        $('#prf_final_state_id').html(options);
       });
       
       // Add event listener for opening and closing details
       $('#exceller-flows tbody').on('click', 'td.details-control', function () {
-          var tr = $(this).closest('tr');
-          var row = table.row( tr );
-  
-          if ( row.child.isShown() ) {
-              // This row is already open - close it
-              row.child.hide();
-              tr.removeClass('shown');
-          }
-          else {
-              // Open this row
-              // console.log("SKT ID: " + JSON.stringify(row.data().skt_id));
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+
+        if ( row.child.isShown() ) {
+          // This row is already open - close it
+          row.child.hide();
+          tr.removeClass('shown');
+        }
+        else {
+          // Open this row
+          // console.log("SKT ID: " + JSON.stringify(row.data().skt_id));
+          
+          $.ajax({
+            url:'/projects/async_get_project_requirement_flows',
+            type:'POST',
+            dataType:'json',
+            data:{
+              project: {
+                project_requirement_id: row.data().pr_id
+              }
+            },
+            before: function() {
+            
+            },
+            success:function(data){
               
-              $.ajax({
-                url:'/projects/async_get_project_requirement_flows',
-                type:'POST',
-                dataType:'json',
-                data:{
-                  project: {
-                    project_requirement_id: row.data().pr_id
-                  }
-                },
-                before: function() {
-                
-                },
-                success:function(data){
-                  
-                  if(data==null && data==''){
-                    return;
-                  }  
-                  var rows = '<td><b>Flow</b></td><td><b>Intial State</b></td><td><b>Final State</b></td><td><b>Action</b></td>';
-                  data.forEach(function(obj) {
-                    // console.log('obj: ' + JSON.stringify(obj));	
-                    rows = rows +  
-                    '<tr>'+
-                    // '<td style="visiblity: false">'+ obj.pri_id +'</td>'+
-                    '<td>'+ obj.name +'</td>'+
-                    '<td>'+ obj.intial_state +'</td>'+
-                    '<td>'+ obj.final_state +'</td>'+
-                    '<td><a class="btn btn-danger ml-1 mr-1 prs-delete" data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/projects/delete_prf/'+obj.id+'"><i class="fa fa-archive" aria-hidden="true"></i>Delete</a></td>' 
-                  });
-                  
-                  var result = '<table cellpadding="5" cellspacing="0" border="0" style="width:90%;margin-left:50px;">'+ rows +'</table>';
-                  row.child( result ).show();
-                  tr.addClass('shown');  
-                },
-                error:function(data){
-                    console.log(data);
-                }
+              if(data==null && data==''){
+                return;
+              }  
+              var rows = '<td><b>Flow</b></td><td><b>Intial State</b></td><td><b>Final State</b></td><td><b>Action</b></td>';
+              data.forEach(function(obj) {
+                console.log('obj: ' + JSON.stringify(obj));	
+                rows = rows +  
+                '<tr>'+
+                // '<td style="visiblity: false">'+ obj.pri_id +'</td>'+
+                '<td>'+ obj.name +'</td>'+
+                '<td>'+ obj.initial_state_name +'</td>'+
+                '<td>'+ obj.final_state_name +'</td>'+
+                '<td><a class="btn btn-danger ml-1 mr-1 prs-delete" data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/projects/delete_prf/'+obj.id+'"><i class="fa fa-archive" aria-hidden="true"></i>Delete</a></td>' 
               });
-          }
+              
+              var result = '<table cellpadding="5" cellspacing="0" border="0" style="width:90%;margin-left:50px;">'+ rows +'</table>';
+              row.child( result ).show();
+              tr.addClass('shown');  
+            },
+            error:function(data){
+              console.log(data);
+            }
+          });
+        }
           
       });  
       
     }
   });
+
+  
+
 
   $('.gregorian_datepicker').calendarsPicker({
       format: 'DD, MM d, yyyy',
