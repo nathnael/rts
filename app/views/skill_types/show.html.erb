@@ -29,26 +29,65 @@
       <div class="col-md-12">
         <div class="card card-primary">
           <div class="card-body">
-            <div class="form-group col-3">
-              <label>Name:</label>
-              <input type="text" value="<%= @skill_type.name %>" class="form-control" placeholder="Enter ..." disabled>
-            </div>
-            <div class="form-group col-3">
-              <label>Description:</label>
-              <input type="text" value="<%= @skill_type.description %>" class="form-control" placeholder="Enter ..." disabled>
-            </div>
-            <div class="form-group col-3">
-              <label>Created By:</label>
-              <input type="text" value="<%= @created_by.present? ? @created_by.name : "" %>" class="form-control" placeholder="N/A" disabled>
-            </div>
-            <div class="form-group col-3">
-              <label>Modified By:</label>
-              <input type="text" value="<%= @modified_by.present? ? @modified_by.name : "" %>" class="form-control" placeholder="N/A" disabled>
-            </div>
-            <div class="card-footer">
-              <%= link_to 'Edit', edit_skill_type_path(@skill_type), :class => 'btn btn-primary' %>
+            <div class="row">
+              <div class="form-group col-2">
+                <label>Name:</label>
+                <input type="text" value="<%= @skill_type.name %>" class="form-control" placeholder="Enter ..." disabled>
+              </div>
+              <div class="form-group col-4">
+                <label>Description:</label>
+                <input type="text" value="<%= @skill_type.description %>" class="form-control" placeholder="Enter ..." disabled>
+              </div>
+              <div class="form-group col-2">
+                <label>Created By:</label>
+                <input type="text" value="<%= @created_by.present? ? @created_by.name : "" %>" class="form-control" placeholder="N/A" disabled>
+              </div>
+              <div class="form-group col-2">
+                <label>Modified By:</label>
+                <input type="text" value="<%= @modified_by.present? ? @modified_by.name : "" %>" class="form-control" placeholder="N/A" disabled>
+              </div>
+              <div class="form-group col-2">
+                <%= link_to 'Edit', edit_skill_type_path(@skill_type), :class => 'btn btn-primary mt-4' %>
+              </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <!-- left column -->
+    <div class="col-md-12">          
+      <!-- general form elements -->
+      <div class="card card-primary">            
+        <!-- form start -->            
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Skill</th>
+                <th>Default Minimum score</th>   
+                <th>Description</th>   
+              </tr>
+            </thead>
+            <tbody id="skillTableBody">
+
+              <% @skills&.each do |skill| %>
+              
+              <tr class="skill-line">
+                
+                <td class="col-4">                     
+                  <input name="show_skill_set" id="interview_criteria-select" value="<%= skill&.name %>" class="form-control" readonly/>
+                </td>
+                <td class="col-4">
+                  <input name="interview[interview_criteria[][minimum_score]]" id="commodity-select" value="<%= skill&.default_minimum_score %>" class="form-control" readonly/>                      
+                </td>
+                <td class="col-4">
+                  <input name="interview[interview_criteria[][minimum_score]]" id="commodity-select" value="<%= skill&.description %>" class="form-control" readonly/>                      
+                </td>
+              </tr>
+                
+              <% end %>
+            </tbody>            
+          </table>
         </div>
       </div>
     </div>

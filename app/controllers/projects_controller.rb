@@ -116,7 +116,7 @@ class ProjectsController < ApplicationController
   def async_save_project_requirements    
     
     project_requirement = ProjectRequirement.new(project_params["add_project_requirement"])
-    skills = Skill.where(skill_type_id: project_requirement.skill_type_id)
+    skills = SkillTypeSkill.where(skill_type_id: project_requirement.skill_type_id).joins(:skill).select("skills.id", "skills.name", "skills.default_minimum_score", "skills.description")
     respond_to do |format|
       if project_requirement.save
         for skill in skills do
@@ -136,7 +136,7 @@ class ProjectsController < ApplicationController
     project_requirement_id = project_params["project_requirement_id"]
     skill_type_id = project_params["skill_type_id"]
 
-    skill_ids = Skill.where(skill_type_id: skill_type_id).pluck(:id)
+    skill_ids = Skill.joins(:skill_types).where(skill_types: {id: skill_type_id}).pluck(:id)
     @project_requirement_items = ProjectRequirementItem.joins(:skill).where(project_requirement_id: project_requirement_id, skill_id: skill_ids).select("project_requirement_items.id as pri_id, skills.id as skill_id, skills.name as skill_name, project_requirement_items.minimum_score, skills.description as description")
         
     respond_to do |format|

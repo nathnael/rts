@@ -12,6 +12,7 @@ class SkillTypesController < ApplicationController
   def show
     @created_by = User.find_by_id(@skill_type.created_by)
     @modified_by = User.find_by_id(@skill_type.modified_by)
+    @skills = Skill.joins(:skill_types).where(skill_types: {id: @skill_type.id})
   end
 
   # GET /skill_types/new
@@ -21,13 +22,21 @@ class SkillTypesController < ApplicationController
 
   # GET /skill_types/1/edit
   def edit
+    @skills = Skill.joins(:skill_types).where(skill_types: {id: @skill_type.id})
   end
 
   # POST /skill_types
   # POST /skill_types.json
   def create
-    @skill_type = SkillType.new(skill_type_params)
-    @skill_type.created_by = current_user.id
+    skill_hash = skill_type_params[:skills][0...-1]
+    skill_type_skills = skill_hash.collect { |h| SkillTypeSkill.new({ skill_id: h[:id], skill_type_id: @skill_type&.id, created_by: current_user.id})}
+
+    skill_type_map = skill_type_params.except(:skills)
+
+    skill_type_map[:skill_type_skills] = skill_type_skills
+
+    @skill_type = SkillType.new( skill_type_map )
+    @skill_type.created_by = current_user.id   
 
     respond_to do |format|
       if @skill_type.save
@@ -44,8 +53,30 @@ class SkillTypesController < ApplicationController
   # PATCH/PUT /skill_types/1.json
   def update
     @skill_type.modified_by = current_user.id
+
+    skill_ids = @skill_type.skill_type_skills.collect { |sts| sts.skill_id }
+    
+    skill_hash = skill_type_params[:skills][0...-1]
+    
+    deleted_skill_ids = skill_ids -  skill_hash.collect { |r| r[:id].to_i }
+    
+    SkillTypeSkill.where( :skill_id => deleted_skill_ids).destroy_all
+    
+    skills = skill_hash.collect do |h|  
+              existing_sts = SkillTypeSkill.where(skill_type_id: @skill_type.id, skill_id: h[:id], modified_by: current_user.id).first
+              if existing_sts.present?
+                puts "############################################### h[:id]: " + h[:id].inspect
+                existing_sts
+              else             
+                SkillTypeSkill.new({ skill_id: h[:id], skill_type_id: @skill_type.id, created_by: current_user.id})
+              end
+            end
+                        
+    skill_type_map = skill_type_params.except(:skills)
+
+    skill_type_map[:skill_type_skills] = skills
     respond_to do |format|
-      if @skill_type.update(skill_type_params)
+      if @skill_type.update(skill_type_map)
         format.html { redirect_to @skill_type, notice: 'Skill type was successfully updated.' }
         format.json { render :show, status: :ok, location: @skill_type }
       else
@@ -73,6 +104,6 @@ class SkillTypesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def skill_type_params
-      params.require(:skill_type).permit(:name, :description, :created_by, :modified_by, :deleted_at)
+      params.require(:skill_type).permit(:name, :description, :created_by, :modified_by, :deleted_at, :skills => [:id])
     end
 end

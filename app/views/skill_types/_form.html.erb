@@ -5,41 +5,81 @@
       <!-- left column -->
       <div class="col-md-12">
         <!-- general form elements -->
-        <div class="card card-primary">
+        
           
           <!-- form start -->
           <%= form_with(model: skill_type, local: true) do |f| %>
-            <div class="card-body">
-              <% if skill_type.errors.any? %>
-                <div class="panel panel-danger">
-                  <div class="panel-heading">
-                    <%= pluralize(skill_type.errors.count, "error") %> prohibited this Skill Type from being saved.
-                  </div>
+            <div class="card card-primary">
+              <div class="row card-body">
+                <% if skill_type.errors.any? %>
+                  <div class="panel panel-danger">
+                    <div class="panel-heading">
+                      <%= pluralize(skill_type.errors.count, "error") %> prohibited this Skill Type from being saved.
+                    </div>
 
-                  <div class="panel-body">
-                    <ul>
-                      <% skill_type.errors.full_messages.each do |message| %>
-                      <li><%= message %></li>
-                      <% end %>
-                    </ul>
+                    <div class="panel-body">
+                      <ul>
+                        <% skill_type.errors.full_messages.each do |message| %>
+                        <li><%= message %></li>
+                        <% end %>
+                      </ul>
+                    </div>
                   </div>
+                <% end %>
+                <div class="form-group col-4">
+                  <%= f.label :name %>
+                  <%= f.text_field :name, :class => 'form-control' %>
                 </div>
-              <% end %>
-              <div class="form-group col-3">
-                <%= f.label :name %>
-                <%= f.text_field :name, :class => 'form-control' %>
-              </div>
 
-              <div class="form-group col-3">
-                <%= f.label :description %>
-                <%= f.text_area :description, :class => 'form-control' %>
+                <div class="form-group col-4">
+                  <%= f.label :description %>
+                  <%= f.text_area :description, :class => 'form-control' %>
+                </div>
+                
+                <div class="form-group col-4 pt-4">
+                  <%= f.submit :class => 'btn btn-primary' %>
+                </div>
               </div>
-
             </div>
-            <!-- /.card-body -->
-            
-            <div class="card-footer">
-              <%= f.submit :class => 'btn btn-primary' %>
+
+            <!-- /.card-body -->            
+            <!-- general form elements -->
+            <div class="card card-primary">            
+              <!-- form start -->            
+              <div class="card-body">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Skill</th>           
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="skillTableBody">
+
+                    <% @skills&.each do |skill| %>
+                    
+                    <tr class="skill-line">
+                      
+                      <td>                     
+                        <input name="show_skill_set" id="skill-select" value="<%= skill&.name %>" class="form-control" readonly/>
+                      </td>
+                      <td>
+                        <a href="#" class="remove-skill"><i class="fa fa-times"></i></a>
+                      </td>
+                    </tr>
+                      
+                    <% end %>
+                    <tr>  
+                      <td>
+                        <%= select_tag 'skill_type[skills[][id]]',  options_from_collection_for_select( Skill.all, 'id', 'name' ) , { :prompt => "-- Choose --",  'data-parsley-required' => 'true', :class => 'form-control', :id => 'skill_select'} %>
+                      </td>      
+                      <td>
+                          <a href="#" class="btn btn-primary" id="add-skill-line">Add</a>
+                      </td>
+                    </tr>
+                  </tbody>            
+                </table>
+              </div>
             </div>
           <% end %>
         </div>
@@ -48,3 +88,74 @@
     </div>
   </div>
 </section>
+
+<script>
+$( function() { 
+  var REMOVE_dispatchLINE_BTN = '<a href="#" class="remove-skill"><i class="fa fa-times"></i></a>';
+
+  $('#skillTableBody').on('click', '.remove-skill', function(e) { 
+    ie8SafePreventEvent(e); 
+    $(e.target).closest('tr').fadeOut('slow', function(){
+      $(this).remove();
+    });
+  });
+
+  // $('#add-skill-line').click( function(e) {
+  //   if( $('.skill-line').length === 0 ) {
+  //     toastr.error("You need to add atleast one skill."); 
+  //     e.preventDefault();
+  //     return; 
+  //   }
+  // });
+
+  $("#add-skill-line").click( function(e) { 
+    e.preventDefault(); 
+    var skill = $('#skill_select').val();
+
+    var $this = $(this); 
+
+    var $skillForm = $this.closest('tr'); 
+
+    var valid = true; 
+
+    if( !valid ) {
+      return; 
+    }
+
+    var flag = validate_skill(this, skill);
+    console.log("validate quantity: ");
+    console.log(flag);
+  }); 
+
+  function validate_skill(node, skill)
+  {
+    if( skill!="")
+    {
+      var $this = $(node); 
+
+      var $skillForm = $this.closest('tr'); 
+      
+      var $newRow = $skillForm.clone();
+
+      $newRow.find('td').last().html(REMOVE_dispatchLINE_BTN); 
+
+      $newRow.find('#skill_select').val(skill); 
+
+      $newRow.find(':input').attr('readonly', true).removeAttr('id'); 
+
+      $newRow.addClass('skill-line');
+
+      $newRow.insertBefore( $skillForm); 
+
+      $skillForm.find(':input').val(''); 
+    }
+  }
+  function ie8SafePreventEvent(e){
+    if(e.preventDefault){ e.preventDefault()}
+    else{e.stop()};
+
+    e.returnValue = false;
+    e.stopPropagation();        
+  } 
+});
+</script>

@@ -34,14 +34,13 @@
                   <th>Name</th>
                   <th>Default minimum score</th>
                   <th>Description</th>
-                  <th>Skill type</th>
                   <th>Created by</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
                 <% @skills.each do |skill| %>
-                  <% @skill_type = SkillType.find_by_id(skill.skill_type_id) %>
+                  
                   <% @created_by = User.find_by_id(skill.created_by) %>
                   <tr>
                     <td>
@@ -51,7 +50,6 @@
                     </td>
                     <td><%= skill.default_minimum_score %></td>
                     <td><%= skill.description %></td>
-                    <td><%= @skill_type.name %></td>
                     <td><%= @created_by.name %></td>
                     <td>
                       <a href="<%= edit_skill_path(skill)%>" class="btn btn-warning btn-sm">
@@ -71,7 +69,6 @@
                   <th>Name</th>
                   <th>Default minimum score</th>
                   <th>Description</th>
-                  <th>Skill type</th>
                   <th>Created by</th>
                   <th>Actions</th>
                 </tr>
