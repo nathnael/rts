@@ -19,7 +19,7 @@
 //= require jquery.calendars/jquery.calendars.ethiopian.js
 //= require jquery.calendars/jquery.calendars.ethiopian-am.js
 
-//= require jkanban.min.js
+//= require jkanban.js
 
 //= require pace.min.js
 

@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   delete '/projects/delete_prf/:id', to: 'projects#delete_prf'
   post '/projects/async_add_project_requirement_flow', to: 'projects#async_add_project_requirement_flow'
   post '/projects/async_get_project_requirement_flows', to: 'projects#async_get_project_requirement_flows'
+  post '/projects/async_get_pr_assigned_excellers', to: 'projects#async_get_pr_assigned_excellers'
   
   post '/excellers/async_get_exceller_interviews', to: 'excellers#async_get_exceller_interviews'
   post '/excellers/async_save_exceller_interviews', to: 'excellers#async_save_exceller_interviews'

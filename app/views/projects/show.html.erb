@@ -182,203 +182,31 @@
                           <h4 style="margin: 50px 0 30px 0;">Assign Excellers to project requirement: <b><%= project_requirement.skill_type.name %></b></h4>
                           <div id="kanban-<%= project_requirement.id.to_s %>" class="pra-kanban" style="overflow-y: scroll;"></div>
                           <script>
-                            var KanbanTest = new jKanban({
-                                element : '#kanban-<%= project_requirement.id.to_s %>',
-                                gutter  : '10px',
-                                widthBoard : '250px', 
-                                click : function(el){
-                                    alert(el.innerHTML);
-                                    alert(el.dataset.eid)
-                                },
-                                dragBoards : false,    
-                                boards  :[
-                                    {
-                                        'id' : '_todo',
-                                        'title'  : 'Potential Excellers',
-                                        'class' : 'kanban-info',
-                                        'item'  : [
-                                            {
-                                              'id':'task-1',
-                                                'title':'Nathnael Getahun',
-                                                'description': 'description 123'
-                                            },
-                                            {
-                                              'id':'task-2',
-                                                'title':'Abenezer Germande',
-                                            },
-                                            {
-                                              'id':'task-2',
-                                                'title':'Rediet Tsigebrehan',
-                                            },
-                                            {
-                                              'id':'task-2',
-                                                'title':'Rekik Assefa',
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        'id' : '_working',
-                                        'title'  : 'Assigned Excellers',
-                                        'class' : 'kanban-success',
-                                        'item'  : [
-                                            {
-                                              'id':'task-1',
-                                                'title':'Yonathan Woldeselassie',
-                                            },
-                                            {
-                                              'id':'task-2',
-                                                'title':'Henock Ayalew',
-                                            },
-                                            {
-                                              'id':'task-2',
-                                                'title':'Rediet Tsigebrehan',
-                                            },
-                                            {
-                                              'id':'task-2',
-                                                'title':'Rekik Assefa',
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        'id' : '_working',
-                                        'title'  : 'Assigned Excellers',
-                                        'class' : 'kanban-success',
-                                        'item'  : [
-                                            {
-                                              'id':'task-1',
-                                                'title':'Yonathan Woldeselassie',
-                                            },
-                                            {
-                                              'id':'task-2',
-                                                'title':'Henock Ayalew',
-                                            },
-                                            {
-                                              'id':'task-2',
-                                                'title':'Rediet Tsigebrehan',
-                                            },
-                                            {
-                                              'id':'task-2',
-                                                'title':'Rekik Assefa',
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        'id' : '_working',
-                                        'title'  : 'Assigned Excellers',
-                                        'class' : 'kanban-success',
-                                        'item'  : [
-                                            {
-                                              'id':'task-1',
-                                                'title':'Yonathan Woldeselassie',
-                                            },
-                                            {
-                                              'id':'task-2',
-                                                'title':'Henock Ayalew',
-                                            },
-                                            {
-                                              'id':'task-2',
-                                                'title':'Rediet Tsigebrehan',
-                                            },
-                                            {
-                                              'id':'task-2',
-                                                'title':'Rekik Assefa',
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        'id' : '_working',
-                                        'title'  : 'Assigned Excellers',
-                                        'class' : 'kanban-success',
-                                        'item'  : [
-                                            {
-                                              'id':'task-1',
-                                                'title':'Yonathan Woldeselassie',
-                                            },
-                                            {
-                                              'id':'task-2',
-                                                'title':'Henock Ayalew',
-                                            },
-                                            {
-                                              'id':'task-2',
-                                                'title':'Rediet Tsigebrehan',
-                                            },
-                                            {
-                                              'id':'task-2',
-                                                'title':'Rekik Assefa',
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        'id' : '_working',
-                                        'title'  : 'Assigned Excellers',
-                                        'class' : 'kanban-success',
-                                        'item'  : [
-                                            {
-                                              'id':'task-1',
-                                                'title':'Yonathan Woldeselassie',
-                                            },
-                                            {
-                                              'id':'task-2',
-                                                'title':'Henock Ayalew',
-                                            },
-                                            {
-                                              'id':'task-2',
-                                                'title':'Rediet Tsigebrehan',
-                                            },
-                                            {
-                                              'id':'task-2',
-                                                'title':'Rekik Assefa',
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        'id' : '_working',
-                                        'title'  : 'Assigned Excellers',
-                                        'class' : 'kanban-success',
-                                        'item'  : [
-                                            {
-                                              'id':'task-1',
-                                                'title':'Yonathan Woldeselassie',
-                                            },
-                                            {
-                                              'id':'task-2',
-                                                'title':'Henock Ayalew',
-                                            },
-                                            {
-                                              'id':'task-2',
-                                                'title':'Rediet Tsigebrehan',
-                                            },
-                                            {
-                                              'id':'task-2',
-                                                'title':'Rekik Assefa',
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        'id' : '_working',
-                                        'title'  : 'Assigned Excellers',
-                                        'class' : 'kanban-success',
-                                        'item'  : [
-                                            {
-                                              'id':'task-1',
-                                                'title':'Yonathan Woldeselassie',
-                                            },
-                                            {
-                                              'id':'task-2',
-                                                'title':'Henock Ayalew',
-                                            },
-                                            {
-                                              'id':'task-2',
-                                                'title':'Rediet Tsigebrehan',
-                                            },
-                                            {
-                                              'id':'task-2',
-                                                'title':'Rekik Assefa',
-                                            }
-                                        ]
-                                    }
-                                ]
+                            $.ajax({
+                              url: "/projects/async_get_pr_assigned_excellers",
+                              type:'POST',
+                              data:{
+                                project: {
+                                  project_requirement_id: '<%= project_requirement.id.to_s %>'
+                                }	            
+                              },
+                              dataType: 'json',
+                              success: function(data){
+                                console.log("Data: " + JSON.stringify(data));
+                                var KanbanTest = new jKanban({
+                                  element : '#kanban-<%= project_requirement.id.to_s %>',
+                                  gutter  : '10px',
+                                  widthBoard : '250px', 
+                                  click : function(el){
+                                      alert(el.innerHTML);
+                                      alert(el.dataset.eid)
+                                  },
+                                  dragBoards : true,    
+                                  boards  : data
+                                });
+                              }
                             });
+                            
                           </script>
                         <% end %>
                       </div>

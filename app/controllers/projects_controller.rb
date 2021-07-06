@@ -207,6 +207,46 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def async_get_pr_assigned_excellers
+    project_requirement_id = project_params["project_requirement_id"]
+    states = ProjectRequirementState.where(project_requirement_id: project_requirement_id)
+    pr_states = []
+    
+    for state in states do
+      excellers = [
+        {
+          'id':'task-1',
+          'title':'Nathnael Getahun',
+          'description': 'description 123'
+        },
+        {
+          'id':'task-2',
+          'title':'Abenezer Germande',
+        },
+        {
+          'id':'task-2',
+          'title':'Rediet Tsigebrehan',
+        },
+        {
+          'id':'task-2',
+          'title':'Rekik Assefa',
+        }
+      ]
+
+      pr_states << {
+        "id" => state.id, 
+        "title" => state.name, 
+        "class" => "kanban-info", 
+        "item" => excellers
+      }
+    end
+
+    respond_to do |format|
+      format.html
+      format.json { render :json => pr_states.to_json }
+    end
+  end
+
   def delete_prs
     project_requirement_state = ProjectRequirementState.joins(:project_requirement).find_by_id(params[:id])
     project = Project.find_by_id(project_requirement_state.project_requirement.project_id)
