@@ -49,7 +49,7 @@
                       </a>
                     </td>
                     <td><%= skill.default_minimum_score %></td>
-                    <td><%= skill.description %></td>
+                    <td><%= truncate(skill.description, :length => 80) %></td>
                     <td><%= @created_by.name %></td>
                     <td>
                       <a href="<%= edit_skill_path(skill)%>" class="btn btn-warning btn-sm">

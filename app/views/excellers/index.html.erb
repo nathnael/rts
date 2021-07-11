@@ -27,7 +27,7 @@
             </div>           
           </div>
           <div class="card-body">
-            <table class="table table-bordered table-striped iraps_datatable">
+            <table class="table table-bordered table-striped" id="example">
               <thead>
                 <tr>
                   <th></th>
@@ -36,7 +36,6 @@
                   <th>Years of experience</th>
                   <th>Contract signing date</th>
                   <th>Employment type</th>
-                  <th>Duty station</th>
                   <th>Status</th>
                   <th>Created by</th>                   
                   <th>Actions</th>
@@ -63,7 +62,6 @@
                   <td><%= exceller.years_of_experience %></td>
                   <td><%= exceller.contract_signing_date.to_date.to_formatted_s(:long_ordinal) %></td>
                   <td><%= @employment_type.name %></td>
-                  <td><%= @duty_station.name %></td>
                   <td><%= exceller.status_id.humanize %></td>
                   <td><%= @created_by.name %></td>            
                   <td>
@@ -87,7 +85,6 @@
                   <th>Years of experience</th>
                   <th>Contract signing date</th>
                   <th>Employment type</th>
-                  <th>Duty station</th>
                   <th>Status</th>
                   <th>Created by</th>                   
                   <th>Actions</th>
@@ -106,7 +103,20 @@
 
 <script>
   $(document).ready(function() {
-    
+    $('#example').DataTable({
+        "paging": true,
+        "pageLength": 25,
+        "lengthChange": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": true,
+        "responsive": true,
+        "dom": 'lBfrtip',
+        "buttons": [
+            'copy', 'csv', 'pdf', 'print'
+        ]
+    });
     
   });
 </script>

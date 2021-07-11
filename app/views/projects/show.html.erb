@@ -73,9 +73,11 @@
               <li class="nav-item">
                 <a class="nav-link" id="custom-tabs-three-assigned-excellers-tab" data-toggle="pill" href="#custom-tabs-three-assigned-excellers" role="tab" aria-controls="custom-tabs-three-assigned-excellers" aria-selected="false">Assign Excellers</a>
               </li>
+              <!--
               <li class="nav-item">
                 <a class="nav-link" id="custom-tabs-three-sample-code-tab" data-toggle="pill" href="#custom-tabs-three-sample-code" role="tab" aria-controls="custom-tabs-three-sample-code" aria-selected="false">Sample Code</a>
               </li>
+              -->
             </ul>
           </div>
           <div class="card-body">
@@ -179,40 +181,99 @@
                   <div class="row">
                       <div class="col-md-12">
                         <% @project_requirements&.each do |project_requirement| %>
-                          <h4 style="margin: 50px 0 30px 0;">Assign Excellers to project requirement: <b><%= project_requirement.skill_type.name %></b></h4>
+                          <h4 style="margin: 50px 0 30px 0;">Screening process for: <b><%= project_requirement.skill_type.name %></b></h4>
                           <div id="kanban-<%= project_requirement.id.to_s %>" class="pra-kanban" style="overflow-y: scroll;"></div>
+                          <div class="modal fade" tabindex="-1" role="dialog" id="wf_dragdrop-exceller">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h4 class="modal-title" id="wf_modal_title">Move Exceller to Another State</h4>
+                                  <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>        
+                                </div>
+                                <div class="modal-body">   
+
+                                  <form role="form" method="POST" enctype="multipart/form-data" action="/projects/async_update_project_requirement_item" >
+                                    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                                    <%= hidden_field_tag :id, params[:id], class: "", :name => "id", :required => true, :display => false  %>
+                                    <input type="hidden" name="project[project_requirement_item[id]]" id="pri_id" value="" class="" required="required" display="false">
+
+                                    <div class="form-group">
+                                      <label for="transporter">Exceller
+                                      </label>
+                                      <div>
+                                        <input id="pr_exceller_name" name="project[project_requirement_item[skill_name]]" type="text" class="form-control" value="" disabled="disabled" />
+                                      </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                      <label for="transporter">Progress
+                                      </label>
+                                      <div>
+                                        <input id="pr_exceller_name" name="project[project_requirement_item[skill_name]]" type="text" class="form-control" value="" disabled="disabled" />
+                                      </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                      <label for="transporter">Comment
+                                        <span class="required">*</span>
+                                      </label>
+                                      <div>
+                                        <textarea id="prs_description" name="project[project_requirement_state[description]]" class="form-control" value=""></textarea>
+                                      </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                      <div>
+                                        <br>
+                                        <input type="submit" id="" class="btn btn-primary" value="Save" />
+                                      </div>
+                                    </div> 
+
+                                  </form>
+                                </div>    
+                              </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                          </div><!-- /.modal -->
                           <script>
-                            $.ajax({
-                              url: "/projects/async_get_pr_assigned_excellers",
-                              type:'POST',
-                              data:{
-                                project: {
-                                  project_requirement_id: '<%= project_requirement.id.to_s %>'
-                                }	            
-                              },
-                              dataType: 'json',
-                              success: function(data){
-                                console.log("Data: " + JSON.stringify(data));
-                                var KanbanTest = new jKanban({
-                                  element : '#kanban-<%= project_requirement.id.to_s %>',
-                                  gutter  : '10px',
-                                  widthBoard : '250px', 
-                                  click : function(el){
-                                      alert(el.innerHTML);
-                                      alert(el.dataset.eid)
-                                  },
-                                  dragBoards : true,    
-                                  boards  : data
-                                });
-                              }
-                            });
-                            
+                            $(document).ready(function() {
+                              $.ajax({
+                                url: "/projects/async_get_pr_assigned_excellers",
+                                type:'POST',
+                                data:{
+                                  project: {
+                                    project_requirement_id: '<%= project_requirement.id.to_s %>'
+                                  }	            
+                                },
+                                dataType: 'json',
+                                success: function(data){
+                                  // console.log("States Data: " + JSON.stringify(data));
+                                  var KanbanTest = new jKanban({
+                                    element : '#kanban-<%= project_requirement.id.to_s %>',
+                                    gutter  : '10px',
+                                    widthBoard : '250px', 
+                                    click : function(el){
+                                        alert(el.innerHTML);
+                                        alert(JSON.stringify(el.dataset.detail_result));
+                                    },
+                                    dropEl: function (el, target, source, sibling) {
+                                      jQuery.noConflict();
+                                      $('#wf_dragdrop-exceller').modal('show');
+                                      console.log("Element: " + JSON.stringify(el));
+                                      $('#wf_modal_title').html("Move Exceller to ");
+                                    },
+                                    dragBoards : true,    
+                                    boards  : data
+                                  });
+                                }
+                              });
+                            });  
                           </script>
                         <% end %>
                       </div>
                   </div>
                 </div>
               </div>
+              <!--
               <div class="tab-pane fade" id="custom-tabs-three-sample-code" role="tabpanel" aria-labelledby="custom-tabs-three-sample-code-tab">
                 <table class="table">
                   <thead>
@@ -279,7 +340,8 @@
                     </tr>
                   </tbody>            
                 </table>
-              </div>
+              </div> 
+              -->
             </div>
           </div>
           <!-- /.card -->
@@ -564,6 +626,8 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+
+
 <script>
 $(document).ready(function() {
   var REMOVE_dispatchLINE_BTN = '<a href="#" class="remove-project_requirements"><i class="fa fa-times"></i></a>';
@@ -686,10 +750,22 @@ $(document).ready(function() {
     },
     dataType: 'json',
     success: function(data){
-      console.log("Data: " + JSON.stringify(data));
+      // console.log("Data: " + JSON.stringify(data));
 
       var table = $('#example').DataTable({
           data: data,
+          "paging": true,
+          "pageLength": 25,
+          "lengthChange": true,
+          "searching": true,
+          "ordering": true,
+          "info": true,
+          "autoWidth": true,
+          "responsive": true,
+          "dom": 'lBfrtip',
+          "buttons": [
+              'copy', 'csv', 'pdf', 'print'
+          ],
           columns: [
             {
                 "className":      'details-control',
@@ -715,8 +791,8 @@ $(document).ready(function() {
             {                
               targets: 8, 
               render: function (data, type, row, meta) {
-                console.log("skt_id: " + JSON.stringify(row.pr_id));
-                  return '<a class="btn btn-warning ml-1 mr-1 pr-edit" id=e-"' + data + '" data-target="#edit-pr" data-toggle="modal" data-pr-id="'+row.pr_id+'" data-skt-id="'+row.skt_id+'" data-skill-type-name="'+row.skill_type_name+'" data-amount="'+row.amount+'"  data-start-date="'+row.start_date+'"  data-end-date="'+row.end_date+'"><i class="fa fa-edit" aria-hidden="true"></i>  Edit  </a><a class="btn btn-danger ml-1 mr-1 pr-delete" data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/projects/delete_pr/'+row.pr_id+'"><i class="fa fa-archive" aria-hidden="true"></i>Delete</a>';
+                // console.log("skt_id: " + JSON.stringify(row.pr_id));
+                return '<a class="btn btn-warning ml-1 mr-1 pr-edit" id=e-"' + data + '" data-target="#edit-pr" data-toggle="modal" data-pr-id="'+row.pr_id+'" data-skt-id="'+row.skt_id+'" data-skill-type-name="'+row.skill_type_name+'" data-amount="'+row.amount+'"  data-start-date="'+row.start_date+'"  data-end-date="'+row.end_date+'"><i class="fa fa-edit" aria-hidden="true"></i>  Edit  </a><a class="btn btn-danger ml-1 mr-1 pr-delete" data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/projects/delete_pr/'+row.pr_id+'"><i class="fa fa-archive" aria-hidden="true"></i>Delete</a>';
               }
             }
           ],
@@ -828,10 +904,22 @@ $(document).ready(function() {
     },
     dataType: 'json',
     success: function(data){
-      console.log("Data: " + JSON.stringify(data));
+      // console.log("Data: " + JSON.stringify(data));
 
       var table = $('#exceller-states').DataTable({
           data: data,
+          "paging": true,
+          "pageLength": 25,
+          "lengthChange": true,
+          "searching": true,
+          "ordering": true,
+          "info": true,
+          "autoWidth": true,
+          "responsive": true,
+          "dom": 'lBfrtip',
+          "buttons": [
+              'copy', 'csv', 'pdf', 'print'
+          ],
           columns: [
             {
                 "className":      'details-control',
@@ -857,8 +945,8 @@ $(document).ready(function() {
             {                
               targets: 8, 
               render: function (data, type, row, meta) {
-                console.log("skt_id: " + JSON.stringify(row.pr_id));
-                  return '<a class="btn btn-success ml-1 mr-1 prs-add" id=e-"' + data + '" data-target="#add-prs" data-toggle="modal" data-prs-id="'+row.pr_id+'" style="color: white;"><i class="fa fa-plus" aria-hidden="true"></i>  Add State  </a>';
+                // console.log("skt_id: " + JSON.stringify(row.pr_id));
+                return '<a class="btn btn-success ml-1 mr-1 prs-add" id=e-"' + data + '" data-target="#add-prs" data-toggle="modal" data-prs-id="'+row.pr_id+'" style="color: white;"><i class="fa fa-plus" aria-hidden="true"></i>  Add State  </a>';
               }
             }            
           ],
@@ -943,6 +1031,18 @@ $(document).ready(function() {
 
       var table = $('#exceller-flows').DataTable({
           data: data,
+          "paging": true,
+          "pageLength": 25,
+          "lengthChange": true,
+          "searching": true,
+          "ordering": true,
+          "info": true,
+          "autoWidth": true,
+          "responsive": true,
+          "dom": 'lBfrtip',
+          "buttons": [
+              'copy', 'csv', 'pdf', 'print'
+          ],
           columns: [
             {
                 "className":      'details-control',
@@ -991,11 +1091,11 @@ $(document).ready(function() {
 
         var options = EMPTY_OPTION;
         for (let i = 0; i < states.length; i++) {
-          console.log("states[i]: " + JSON.stringify(states[i]));
+          // console.log("states[i]: " + JSON.stringify(states[i]));
 
           options += '<option value="' + states[i].id + '">' + states[i].name + '</option>';
         }
-        console.log(options);
+        // console.log(options);
         $('#prf_initial_state_id').html(options);
         $('#prf_final_state_id').html(options);
       });

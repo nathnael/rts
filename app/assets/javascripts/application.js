@@ -25,6 +25,7 @@
 
 $(document).ready(function() {
     
+    
     var activeLi = $('a.nav-link');
     activeLi.parentsUntil('nav-link', 'a').addClass('active');
     activeLi.parentsUntil('nav-link', 'ul').removeClass('collapse');

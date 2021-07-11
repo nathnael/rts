@@ -209,36 +209,112 @@ class ProjectsController < ApplicationController
 
   def async_get_pr_assigned_excellers
     project_requirement_id = project_params["project_requirement_id"]
-    states = ProjectRequirementState.where(project_requirement_id: project_requirement_id)
-    pr_states = []
+    states = ProjectRequirementState.where(project_requirement_id: project_requirement_id).order(created_at: :asc)
+    pris = ProjectRequirementItem.where(project_requirement_id: project_requirement_id)
     
+    pr_states = []
+    excellers = []
     for state in states do
-      excellers = [
-        {
-          'id':'task-1',
-          'title':'Nathnael Getahun',
-          'description': 'description 123'
-        },
-        {
-          'id':'task-2',
-          'title':'Abenezer Germande',
-        },
-        {
-          'id':'task-2',
-          'title':'Rediet Tsigebrehan',
-        },
-        {
-          'id':'task-2',
-          'title':'Rekik Assefa',
-        }
-      ]
+      final_states = ProjectRequirementFlow.where(project_requirement_id: project_requirement_id, initial_state_id: state.id).pluck(:final_state_id)
+      if state.name.include? "Potential"
+        skills = Skill.all
+        already_assigned = ProjectRequirementExceller.where(project_requirement_id: project_requirement_id, state_id: state.id).pluck(:exceller_id)
+        active_excellers = Exceller.where(status_id: Exceller.status_ids[:active]).where.not(id: already_assigned)
+        potential_excellers = []
+        requires_interview = []
+        failed_candidates = []
+        for active_exceller in active_excellers do
+          exceller_skills = ExcellerInterviewItem.joins(:exceller_interview, interview_criterium: :skill).where("exceller_interviews.exceller_id" => active_exceller.id, "interview_criteria.skill_id" => pris.pluck(:skill_id)).group("interview_criteria.skill_id").average("exceller_interview_items.score")
 
-      pr_states << {
-        "id" => state.id, 
-        "title" => state.name, 
-        "class" => "kanban-info", 
-        "item" => excellers
-      }
+          required_scores = Hash[pris.pluck("skill_id", "minimum_score").map {|key, value| [key, value]}]
+          exceller_results = []
+          failed_status = false
+          interview_status = false
+          for required_score in required_scores do  
+            
+            
+            if exceller_skills[required_score[0]].present?
+              
+              if exceller_skills[required_score[0]].to_f >= required_score[1].to_f
+                # puts "#################################################### required_score[1]: " + required_score[1].inspect
+                exceller_results << {
+                  "required_skill_id" => required_score[0],
+                  "required_skill_name" => skills.find_by_id(required_score[0]).name,
+                  "minimum_score" => required_score[1].to_s,
+                  "exceller_ave_score" => exceller_skills[required_score[0]],
+                  "result" => "pass"
+                }
+              elsif exceller_skills[required_score[0]].to_f < required_score[1].to_f
+                # puts "#################################################### required_score[1]: " + required_score[1].inspect
+                failed_status = true
+                exceller_results << {
+                  "required_skill_id" => required_score[0],
+                  "required_skill_name" => skills.find_by_id(required_score[0]).name,
+                  "minimum_score" => required_score[1].to_s,
+                  "exceller_ave_score" => exceller_skills[required_score[0]],
+                  "result" => "fail"
+                }
+              end
+            else
+              interview_status = true
+              exceller_results << {
+                "required_skill_id" => required_score[0],
+                "required_skill_name" => skills.find_by_id(required_score[0]).name,
+                "minimum_score" => required_score[1],
+                "exceller_ave_score" => "N/A",
+                "result" => "interview"
+              }
+            end
+          end
+
+          if interview_status
+            requires_interview << {
+              'id':active_exceller.id,
+              'title':active_exceller.name,
+              # 'detail_result': exceller_results
+            }
+          elsif failed_status
+            failed_candidates << {
+              'id':active_exceller.id,
+              'title':active_exceller.name,
+              # 'detail_result': exceller_results
+            }
+          else
+            potential_excellers << {
+              'id':active_exceller.id,
+              'title':active_exceller.name,
+              # 'detail_result': exceller_results
+            }
+          end       
+        end
+        excellers = potential_excellers + failed_candidates + requires_interview
+
+        pr_states << {
+          "id" => state.id, 
+          "title" => state.name, 
+          "class" => "kanban-info", 
+          # "dragTo" => final_states, 
+          "item" => excellers          
+        }
+      else
+        puts "########################################## Other than potentials"
+        other_excellers = []
+        pres = ProjectRequirementExceller.joins(:exceller).where(project_requirement_id: project_requirement_id, state_id: state.id, current: true)
+        for pre in pres do
+          other_excellers << {
+            'id': pre.exceller.id,
+            'title':  pre.exceller.name
+          }
+        end
+        
+        pr_states << {
+          "id" => state.id, 
+          "title" => state.name, 
+          "class" => "kanban-info", 
+          # "dragTo" => final_states, 
+          "item" => other_excellers
+        }
+      end
     end
 
     respond_to do |format|

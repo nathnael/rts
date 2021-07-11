@@ -51,19 +51,19 @@ $(document).ready(function() {
         
     // }
 
-    $('.iraps_datatable').DataTable({
-        "paging": true,
-        "lengthChange": true,
-        "searching": true,
-        "ordering": true,
-        "info": true,
-        "autoWidth": true,
-        "responsive": true,
-        "dom": 'lBfrtip',
-        "buttons": [
-            'copy', 'csv', 'pdf', 'print'
-        ]
-    });
+    // $('.iraps_datatable').DataTable({
+    //     "paging": true,
+    //     "lengthChange": true,
+    //     "searching": true,
+    //     "ordering": true,
+    //     "info": true,
+    //     "autoWidth": true,
+    //     "responsive": true,
+    //     "dom": 'lBfrtip',
+    //     "buttons": [
+    //         'copy', 'csv', 'pdf', 'print'
+    //     ]
+    // });
 
     // $('#date_received').datetimepicker();
 });

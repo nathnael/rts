@@ -10,8 +10,7 @@ class SkillsController < ApplicationController
   # GET /skills/1
   # GET /skills/1.json
   def show
-    @skill_type = SkillType.find_by_id(@skill.skill_type_id)
-    @created_by = User.find_by_id(@skill_type.created_by)
+    @created_by = User.find_by_id(@skill.created_by)
   end
 
   # GET /skills/new
@@ -72,6 +71,6 @@ class SkillsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def skill_params
-      params.require(:skill).permit(:name, :description, :default_minimum_score, :skill_type_id, :created_by, :modified_by, :deleted_at)
+      params.require(:skill).permit(:name, :description, :default_minimum_score, :created_by, :modified_by, :deleted_at)
     end
 end

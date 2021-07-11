@@ -139,7 +139,7 @@ class ExcellersController < ApplicationController
   def async_get_exceller_interview_items    
     exceller_interview_id = exceller_params["exceller_interview_id"]
 
-    @exceller_interview_items = ExcellerInterviewItem.joins(interview_criterium: :skill).where(exceller_interview_id: exceller_interview_id).select("exceller_interview_items.id as exceller_interview_item_id, skills.name as skill_name, interview_criteria.minimum_score, exceller_interview_items.score", "exceller_interview_items.comment")
+    @exceller_interview_items = ExcellerInterviewItem.joins(interview_criterium: :skill).where(exceller_interview_id: exceller_interview_id).select("exceller_interview_items.id as exceller_interview_item_id, skills.name as skill_name, interview_criteria.minimum_score, exceller_interview_items.score", "exceller_interview_items.comment").order(created_at: :desc)
         
     respond_to do |format|
       format.html

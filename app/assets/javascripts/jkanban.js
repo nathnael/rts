@@ -540,7 +540,7 @@
         function __findBoardJSON (id) {
           var el = []
           self.options.boards.map(function (board) {
-            if (board.id === id) {
+            if (board.id == id) {
               return el.push(board)
             }
           })
