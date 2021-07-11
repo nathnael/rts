@@ -292,8 +292,9 @@ class ProjectsController < ApplicationController
         pr_states << {
           "id" => state.id, 
           "title" => state.name, 
+          "name" => state.name, 
           "class" => "kanban-info", 
-          # "dragTo" => final_states, 
+          "dragTo" => final_states, 
           "item" => excellers          
         }
       else
@@ -310,8 +311,9 @@ class ProjectsController < ApplicationController
         pr_states << {
           "id" => state.id, 
           "title" => state.name, 
+          "name" => state.name, 
           "class" => "kanban-info", 
-          # "dragTo" => final_states, 
+          "dragTo" => final_states, 
           "item" => other_excellers
         }
       end

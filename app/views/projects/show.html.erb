@@ -183,7 +183,7 @@
                         <% @project_requirements&.each do |project_requirement| %>
                           <h4 style="margin: 50px 0 30px 0;">Screening process for: <b><%= project_requirement.skill_type.name %></b></h4>
                           <div id="kanban-<%= project_requirement.id.to_s %>" class="pra-kanban" style="overflow-y: scroll;"></div>
-                          <div class="modal fade" tabindex="-1" role="dialog" id="wf_dragdrop-exceller">
+                          <div class="modal fade" tabindex="-1" role="dialog" id="wf-dragdrop-exceller">
                             <div class="modal-dialog" role="document">
                               <div class="modal-content">
                                 <div class="modal-header">
@@ -209,7 +209,7 @@
                                       <label for="transporter">Progress
                                       </label>
                                       <div>
-                                        <input id="pr_exceller_name" name="project[project_requirement_item[skill_name]]" type="text" class="form-control" value="" disabled="disabled" />
+                                        <input id="pr_exceller_progress" name="project[project_requirement_item[skill_name]]" type="text" class="form-control" value="" disabled="disabled" />
                                       </div>
                                     </div>
 
@@ -255,11 +255,16 @@
                                         alert(el.innerHTML);
                                         alert(JSON.stringify(el.dataset.detail_result));
                                     },
-                                    dropEl: function (el, target, source, sibling) {
+                                    dropEl : function (el, target, source, sibling) {
                                       jQuery.noConflict();
-                                      $('#wf_dragdrop-exceller').modal('show');
-                                      console.log("Element: " + JSON.stringify(el));
+                                      $('#wf-dragdrop-exceller').modal('show');
+                                      var target_board = $('#'+target.parentElement.getAttribute('data-id'))
+                                      console.log("Element: " + JSON.stringify());
+                                      // console.log(el, target, source, sibling)
                                       $('#wf_modal_title').html("Move Exceller to ");
+                                      $('#pr_exceller_name').val(el.innerHTML);
+                                      $('#pr_exceller_progress').val(target.parentElement.getAttribute('data-id'));
+                                      
                                     },
                                     dragBoards : true,    
                                     boards  : data
