@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :async_save_project_requirements, :async_update_project_requirement_item, :async_edit_project_requirement, :async_add_project_requirement_state, :async_add_project_requirement_flow]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :async_save_project_requirements, :async_update_project_requirement_item, :async_edit_project_requirement, :async_add_project_requirement_state, :async_add_project_requirement_flow, :async_add_project_requirement_exceller]
   protect_from_forgery except: [:async_save_project_requirement, :async_remove_project_requirement, :async_get_project_requirements, :async_add_project_requirement_state]
 
   # GET /projects
@@ -218,7 +218,7 @@ class ProjectsController < ApplicationController
       final_states = ProjectRequirementFlow.where(project_requirement_id: project_requirement_id, initial_state_id: state.id).pluck(:final_state_id)
       if state.name.include? "Potential"
         skills = Skill.all
-        already_assigned = ProjectRequirementExceller.where(project_requirement_id: project_requirement_id, state_id: state.id).pluck(:exceller_id)
+        already_assigned = ProjectRequirementExceller.where(project_requirement_id: project_requirement_id).pluck(:exceller_id)
         active_excellers = Exceller.where(status_id: Exceller.status_ids[:active]).where.not(id: already_assigned)
         potential_excellers = []
         requires_interview = []
@@ -271,19 +271,19 @@ class ProjectsController < ApplicationController
             requires_interview << {
               'id':active_exceller.id,
               'title':active_exceller.name,
-              # 'detail_result': exceller_results
+              'detail_result': exceller_results
             }
           elsif failed_status
             failed_candidates << {
               'id':active_exceller.id,
               'title':active_exceller.name,
-              # 'detail_result': exceller_results
+              'detail_result': exceller_results
             }
           else
             potential_excellers << {
               'id':active_exceller.id,
               'title':active_exceller.name,
-              # 'detail_result': exceller_results
+              'detail_result': exceller_results
             }
           end       
         end
@@ -359,6 +359,28 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def async_add_project_requirement_exceller     
+    project_requirement_exceller = ProjectRequirementExceller.new(project_params["project_requirement_exceller"])
+    last_state = ProjectRequirementExceller.where(project_requirement_id: project_requirement_exceller.project_requirement_id, exceller_id: project_requirement_exceller.exceller_id, current: true).first
+    if last_state.present?
+      last_state.current = false
+      last_state.save
+    end    
+    project_requirement_exceller.current = true,
+    project_requirement_exceller.performed_by = current_user.id
+    project_requirement_exceller.created_by = current_user.id
+    
+    respond_to do |format|
+      if project_requirement_exceller.save
+        format.html { redirect_to @project, notice: 'Exceller was successfully progressed.' }
+        format.json { render :json => @project.to_json }
+      else
+        format.html { redirect_to @project, flash: { error: "Exceller progress failed." }}
+        format.json { render json: @project.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def delete_prf
     project_requirement_flow = ProjectRequirementFlow.joins(:project_requirement).find_by_id(params[:id])
     project = Project.find_by_id(project_requirement_flow.project_requirement.project_id)
@@ -377,6 +399,7 @@ class ProjectsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def project_params
-      params.require(:project).permit(:id, :name, :client_id, :status, :start_date, :end_date, :created_by, :modified_by, :deleted_at, :project_id, :skill_type_id, :no_of_excellers, :project_requirement_id, :add_project_requirement => [:id, :project_id, :skill_type_id, :amount, :start_date, :end_date], :project_requirements => [:id, :project_id, :skill_type_id, :amount, :start_date, :end_date], :project_requirement_item => [:id, :skill_id, :minimum_score, :description], :project_requirement_state => [:id, :project_requirement_id, :name, :description], :project_requirement_flow => [:id, :name, :project_requirement_id, :initial_state_id, :final_state_id])
+      params.require(:project).permit(:id, :name, :client_id, :status, :start_date, :end_date, :created_by, :modified_by, :deleted_at, :project_id, :skill_type_id, :no_of_excellers, :project_requirement_id, :add_project_requirement => [:id, :project_id, :skill_type_id, :amount, :start_date, :end_date], :project_requirements => [:id, :project_id, :skill_type_id, :amount, :start_date, :end_date], :project_requirement_item => [:id, :skill_id, :minimum_score, :description], :project_requirement_state => [:id, :project_requirement_id, :name, :description], :project_requirement_flow => [:id, :name, :project_requirement_id, :initial_state_id, :final_state_id], :project_requirement_exceller => [:id, :project_requirement_id, :exceller_id, :state_id, :date_performed, :comment])
     end
 end
+

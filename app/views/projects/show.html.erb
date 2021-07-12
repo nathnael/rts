@@ -192,16 +192,18 @@
                                 </div>
                                 <div class="modal-body">   
 
-                                  <form role="form" method="POST" enctype="multipart/form-data" action="/projects/async_update_project_requirement_item" >
+                                  <form role="form" method="POST" enctype="multipart/form-data" action="/projects/async_add_project_requirement_exceller" >
                                     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
                                     <%= hidden_field_tag :id, params[:id], class: "", :name => "id", :required => true, :display => false  %>
-                                    <input type="hidden" name="project[project_requirement_item[id]]" id="pri_id" value="" class="" required="required" display="false">
+                                    <input type="hidden" name="project[project_requirement_exceller[project_requirement_id]]" id="pre_pr_id" value="" class="" required="required" display="false">
+                                    <input type="hidden" name="project[project_requirement_exceller[exceller_id]]" id="pre_exceller_id" value="" class="" required="required" display="false">
+                                    <input type="hidden" name="project[project_requirement_exceller[state_id]]" id="pre_state_id" value="" class="" required="required" display="false">
 
                                     <div class="form-group">
                                       <label for="transporter">Exceller
                                       </label>
                                       <div>
-                                        <input id="pr_exceller_name" name="project[project_requirement_item[skill_name]]" type="text" class="form-control" value="" disabled="disabled" />
+                                        <input id="pr_exceller_name" name="project[project_requirement_exceller[exceller_name]]" type="text" class="form-control" value="" disabled="disabled" />
                                       </div>
                                     </div>
 
@@ -209,16 +211,24 @@
                                       <label for="transporter">Progress
                                       </label>
                                       <div>
-                                        <input id="pr_exceller_progress" name="project[project_requirement_item[skill_name]]" type="text" class="form-control" value="" disabled="disabled" />
+                                        <input id="pr_exceller_progress" name="project[project_requirement_exceller[progress]]" type="text" class="form-control" value="" disabled="disabled" />
+                                      </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                      <label for="transporter">Performed date
+                                        <span class="required">*</span>
+                                      </label>
+                                      <div>
+                                        <input id="pre_performed_date" name="project[project_requirement_exceller[date_performed]]" type="text" class="form-control gregorian_datepicker" value="" required />
                                       </div>
                                     </div>
 
                                     <div class="form-group">
                                       <label for="transporter">Comment
-                                        <span class="required">*</span>
                                       </label>
                                       <div>
-                                        <textarea id="prs_description" name="project[project_requirement_state[description]]" class="form-control" value=""></textarea>
+                                        <textarea id="prs_description" name="project[project_requirement_exceller[comment]]" class="form-control" value=""></textarea>
                                       </div>
                                     </div>
 
@@ -236,6 +246,8 @@
                           </div><!-- /.modal -->
                           <script>
                             $(document).ready(function() {
+                              var project_requirement_states = <%= @project_requirement_states.to_json.html_safe %>
+                              
                               $.ajax({
                                 url: "/projects/async_get_pr_assigned_excellers",
                                 type:'POST',
@@ -259,11 +271,22 @@
                                       jQuery.noConflict();
                                       $('#wf-dragdrop-exceller').modal('show');
                                       var target_board = $('#'+target.parentElement.getAttribute('data-id'))
-                                      console.log("Element: " + JSON.stringify());
+                                      console.log("Element: " + JSON.stringify(source.parentElement.getAttribute('data-id')));
                                       // console.log(el, target, source, sibling)
-                                      $('#wf_modal_title').html("Move Exceller to ");
+                                      
                                       $('#pr_exceller_name').val(el.innerHTML);
-                                      $('#pr_exceller_progress').val(target.parentElement.getAttribute('data-id'));
+                                      var source_state = $.grep(project_requirement_states, function (elem) {
+                                        return elem.id == source.parentElement.getAttribute('data-id')
+                                      });
+                                      var target_state = $.grep(project_requirement_states, function (elem) {
+                                        return elem.id == target.parentElement.getAttribute('data-id')
+                                      });
+                                      // console.log("################# source_state: " + JSON.stringify(source_state[0]["name"]));
+                                      $('#wf_modal_title').html("Move Exceller to " + target_state[0]["name"]);
+                                      $('#pr_exceller_progress').val(source_state[0]["name"]+ " to " + target_state[0]["name"]);
+                                      $('#pre_exceller_id').val(el.dataset.eid);
+                                      $('#pre_state_id').val(target.parentElement.getAttribute('data-id'));
+                                      $('#pre_pr_id').val(<%= project_requirement.id.to_s %>);                                     
                                       
                                     },
                                     dragBoards : true,    
