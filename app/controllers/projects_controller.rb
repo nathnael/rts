@@ -271,18 +271,21 @@ class ProjectsController < ApplicationController
             requires_interview << {
               'id':active_exceller.id,
               'title':active_exceller.name,
+              'class': 'interview_required',
               'detail_result': exceller_results
             }
           elsif failed_status
             failed_candidates << {
               'id':active_exceller.id,
               'title':active_exceller.name,
+              'class': 'failed_candidate',
               'detail_result': exceller_results
             }
           else
             potential_excellers << {
               'id':active_exceller.id,
               'title':active_exceller.name,
+              'class': 'potential_candidate',
               'detail_result': exceller_results
             }
           end       

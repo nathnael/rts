@@ -274,7 +274,7 @@
                                       console.log("Element: " + JSON.stringify(source.parentElement.getAttribute('data-id')));
                                       // console.log(el, target, source, sibling)
                                       
-                                      $('#pr_exceller_name').val(el.innerHTML);
+                                      $('#pr_exceller_name').val(el.innerHTML.split('<')[0]);
                                       var source_state = $.grep(project_requirement_states, function (elem) {
                                         return elem.id == source.parentElement.getAttribute('data-id')
                                       });
@@ -292,6 +292,9 @@
                                     dragBoards : true,    
                                     boards  : data
                                   });
+                                  $('div[data-class="potential_candidate"]').append('<span class="position-absolute top-0 start-100 translate-middle p-2 bg-success border border-light rounded-circle"></span>');
+                                  $('div[data-class="failed_candidate"]').append('<span class="position-absolute top-0 start-100 translate-middle p-2 bg-warning border border-light rounded-circle"></span>');
+                                  $('div[data-class="interview_required"]').append('<span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle"></span>');
                                 }
                               });
                             });  
