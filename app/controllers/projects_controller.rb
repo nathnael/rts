@@ -237,56 +237,64 @@ class ProjectsController < ApplicationController
               
               if exceller_skills[required_score[0]].to_f >= required_score[1].to_f
                 # puts "#################################################### required_score[1]: " + required_score[1].inspect
-                exceller_results << {
-                  "required_skill_id" => required_score[0],
-                  "required_skill_name" => skills.find_by_id(required_score[0]).name,
-                  "minimum_score" => required_score[1].to_s,
-                  "exceller_ave_score" => exceller_skills[required_score[0]],
-                  "result" => "pass"
-                }
+                exceller_results << [
+                  # "required_skill_id" => required_score[0],
+                  skills.find_by_id(required_score[0]).name,
+                  required_score[1].to_s,
+                  exceller_skills[required_score[0]],
+                  "pass"
+                ]
               elsif exceller_skills[required_score[0]].to_f < required_score[1].to_f
                 # puts "#################################################### required_score[1]: " + required_score[1].inspect
                 failed_status = true
-                exceller_results << {
-                  "required_skill_id" => required_score[0],
-                  "required_skill_name" => skills.find_by_id(required_score[0]).name,
-                  "minimum_score" => required_score[1].to_s,
-                  "exceller_ave_score" => exceller_skills[required_score[0]],
-                  "result" => "fail"
-                }
+                exceller_results << [
+                  # "required_skill_id" => required_score[0],
+                  skills.find_by_id(required_score[0]).name,
+                  required_score[1].to_s,
+                  exceller_skills[required_score[0]],
+                  "fail"
+                ]
               end
             else
               interview_status = true
-              exceller_results << {
-                "required_skill_id" => required_score[0],
-                "required_skill_name" => skills.find_by_id(required_score[0]).name,
-                "minimum_score" => required_score[1],
-                "exceller_ave_score" => "N/A",
-                "result" => "interview"
-              }
+              exceller_results << [
+                # "required_skill_id" => required_score[0],
+                skills.find_by_id(required_score[0]).name,
+                required_score[1],
+                "N/A",
+                "interview"
+              ]
             end
           end
 
+          position = Position.find_by_id(active_exceller.position_id)
+          status = active_exceller.status_id.humanize
           if interview_status
             requires_interview << {
               'id':active_exceller.id,
               'title':active_exceller.name,
               'class': 'interview_required',
-              'detail_result': exceller_results
+              'position': position.name,
+              'status': status,
+              'detail_result': exceller_results.to_json
             }
           elsif failed_status
             failed_candidates << {
               'id':active_exceller.id,
               'title':active_exceller.name,
               'class': 'failed_candidate',
-              'detail_result': exceller_results
+              'position': position.name,
+              'status': status,
+              'detail_result': exceller_results.to_json
             }
           else
             potential_excellers << {
               'id':active_exceller.id,
               'title':active_exceller.name,
               'class': 'potential_candidate',
-              'detail_result': exceller_results
+              'position': position.name,
+              'status': status,
+              'detail_result': exceller_results.to_json
             }
           end       
         end

@@ -60,18 +60,18 @@
       <div class="col-12">
         <div class="card card-primary card-outline card-outline-tabs">
           <div class="card-header p-0 border-bottom-0">
-            <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
+            <ul class="nav nav-tabs" id="custom-tabs-exceller-detail-info" role="tablist">
               <li class="nav-item">
-                <a class="nav-link active" id="custom-tabs-three-project-requirement-tab" data-toggle="pill" href="#custom-tabs-three-project-requirement" role="tab" aria-controls="custom-tabs-three-project-requirement" aria-selected="true">Project Requirement</a>
+                <a class="nav-link active" id="custom-tabs-exceller-scores-tab" data-toggle="pill" href="#custom-tabs-exceller-scores" role="tab" aria-controls="custom-tabs-exceller-scores" aria-selected="true">Project Requirement</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="custom-tabs-exceller-states-tab" data-toggle="pill" href="#custom-tabs-exceller-states" role="tab" aria-controls="custom-tabs-three-assigned-excellers" aria-selected="false">Recruitment States</a>
+                <a class="nav-link" id="custom-tabs-exceller-states-tab" data-toggle="pill" href="#custom-tabs-exceller-states" role="tab" aria-controls="custom-tabs-workflow-history" aria-selected="false">Recruitment States</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="custom-tabs-exceller-flows-tab" data-toggle="pill" href="#custom-tabs-exceller-flows" role="tab" aria-controls="custom-tabs-three-assigned-excellers" aria-selected="false">Recruitment Flows</a>
+                <a class="nav-link" id="custom-tabs-exceller-flows-tab" data-toggle="pill" href="#custom-tabs-exceller-flows" role="tab" aria-controls="custom-tabs-workflow-history" aria-selected="false">Recruitment Flows</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="custom-tabs-three-assigned-excellers-tab" data-toggle="pill" href="#custom-tabs-three-assigned-excellers" role="tab" aria-controls="custom-tabs-three-assigned-excellers" aria-selected="false">Assign Excellers</a>
+                <a class="nav-link" id="custom-tabs-workflow-history-tab" data-toggle="pill" href="#custom-tabs-workflow-history" role="tab" aria-controls="custom-tabs-workflow-history" aria-selected="false">Assign Excellers</a>
               </li>
               <!--
               <li class="nav-item">
@@ -81,8 +81,8 @@
             </ul>
           </div>
           <div class="card-body">
-            <div class="tab-content" id="custom-tabs-three-tabContent">
-              <div class="tab-pane fade active show" id="custom-tabs-three-project-requirement" role="tabpanel" aria-labelledby="custom-tabs-three-project-requirement-tab">
+            <div class="tab-content" id="custom-tabs-exceller-score">
+              <div class="tab-pane fade active show" id="custom-tabs-exceller-scores" role="tabpanel" aria-labelledby="custom-tabs-exceller-scores-tab">
                 <input name="project[project_requirements[][project_id]]" id="project_id_input" value="<%= @project&.id %>" class="form-control" style="display: none"/> 
                 <a class="btn btn-primary float-right mb-3" data-project-id="<%= @project.id.to_s %>" data-target="#add-pr" data-toggle="modal" style="color: white">
                   <i class="fa fa-plus"></i> Add New Project Requirement
@@ -176,13 +176,25 @@
                     </tfoot>
                 </table> 
               </div>
-              <div class="tab-pane fade" id="custom-tabs-three-assigned-excellers" role="tabpanel" aria-labelledby="custom-tabs-three-assigned-excellers-tab">
+              <div class="tab-pane fade" id="custom-tabs-workflow-history" role="tabpanel" aria-labelledby="custom-tabs-workflow-history-tab">
                 <div class="container-fluid">
                   <div class="row">
                       <div class="col-md-12">
+                        <div class="row">
+                          <div class="col-2">
+                            <span class="position-absolute top-0 start-100 translate-middle p-2 bg-success border border-light rounded-circle"></span>  <span class="ml-4">Meet the requirement</span>
+                          </div>
+                          <div class="col-2">
+                            <span class="position-absolute top-0 start-100 translate-middle p-2 bg-warning border border-light rounded-circle"></span>  <span class="ml-4">Needs interview</span>
+                          </div>
+                          <div class="col-2">
+                            <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle"></span> <span class="ml-4">Not meet the requirement</span>
+                          </div>                          
+                          <div class="col-6"></div>                          
+                        </div>
                         <% @project_requirements&.each do |project_requirement| %>
                           <h4 style="margin: 50px 0 30px 0;">Screening process for: <b><%= project_requirement.skill_type.name %></b></h4>
-                          <div id="kanban-<%= project_requirement.id.to_s %>" class="pra-kanban" style="overflow-y: scroll;"></div>
+                          <div id="kanban-<%= project_requirement.id.to_s %>" class="pra-kanban" style="overflow-x: scroll;"></div>
                           <div class="modal fade" tabindex="-1" role="dialog" id="wf-dragdrop-exceller">
                             <div class="modal-dialog" role="document">
                               <div class="modal-content">
@@ -244,6 +256,90 @@
                               </div><!-- /.modal-content -->
                             </div><!-- /.modal-dialog -->
                           </div><!-- /.modal -->
+                          <div class="modal fade" tabindex="-1" role="dialog" id="wf-exceller-detail">
+                            <div class="modal-dialog modal-xl" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h4 class="modal-title" id="wf_modal_title">Exceller Detailed Info</h4>
+                                  <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>        
+                                </div>
+                                <div class="modal-body">  
+                                  <div class="row">
+                                    <div class="form-group col-2">
+                                      <label>Exceller picture:</label>      
+                                      <img alt="Profile picture" id="your_preview_id" class="profile-picture" src="<%= image_url('defualt-profile.png') %>">   
+                                    </div>
+                                    <div class="form-group col-4">
+                                      <label>Exceller name:</label>
+                                      <input type="text" value="" class="form-control m-10" placeholder="N/A" disabled>
+                                      <label>Position:</label>
+                                      <input type="text" value="" class="form-control" placeholder="N/A" disabled>
+                                      <label>Status:</label>
+                                      <input type="text" value="" class="form-control" placeholder="N/A" disabled>
+                                    </div>
+                                  </div>
+                                  <div class="card card-primary card-outline card-outline-tabs">
+                                    <div class="card-header p-0 border-bottom-0">
+                                      <ul class="nav nav-tabs" role="tablist">
+                                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab" class="nav-link active">Exceller Scores</a></li>
+                                        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab" class="nav-link">Workflow History</a></li>
+                                      </ul>  
+                                    </div>
+                                    <div class="card-body">
+                                      <div class="tab-content" style="height: 450px;">
+                                        <div role="tabpanel" class="tab-pane active" id="home">
+                                          <table id="exceller_scores" class="display" style="width:100% !important">
+                                              <thead>
+                                                <tr>
+                                                  <th>Skill</th>
+                                                  <th>Minimum Score</th>            
+                                                  <th>Exceller Score</th>            
+                                                  <th>Result</th>                     
+                                                </tr>
+                                              </thead>
+                                              <tfoot>
+                                                <tr>
+                                                  <th>Skill</th>
+                                                  <th>Minimum Score</th>            
+                                                  <th>Exceller Score</th>            
+                                                  <th>Result</th>                     
+                                                </tr>
+                                              </tfoot>
+                                          </table> 
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="profile">
+                                          <table id="workflow_history" class="display" style="width:100% !important">
+                                              <thead>
+                                                <tr>
+                                                  <th></th>
+                                                  <th>State</th>
+                                                  <th>Performed by</th>            
+                                                  <th>Performed date</th>            
+                                                  <th>Currrent</th>                     
+                                                  <th>Comment</th>                     
+                                                  <th></th>                      
+                                                </tr>
+                                              </thead>
+                                              <tfoot>
+                                                <tr>
+                                                  <th></th>
+                                                  <th>State</th>
+                                                  <th>Performed by</th>            
+                                                  <th>Performed date</th>            
+                                                  <th>Currrent</th>                     
+                                                  <th>Comment</th>                     
+                                                  <th></th>                      
+                                                </tr>
+                                              </tfoot>
+                                          </table> 
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>    
+                              </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                          </div><!-- /.modal -->
                           <script>
                             $(document).ready(function() {
                               var project_requirement_states = <%= @project_requirement_states.to_json.html_safe %>
@@ -264,8 +360,21 @@
                                     gutter  : '10px',
                                     widthBoard : '250px', 
                                     click : function(el){
-                                        alert(el.innerHTML);
-                                        alert(JSON.stringify(el.dataset.detail_result));
+                                      jQuery.noConflict();
+                                      $('#wf-exceller-detail').modal('show');
+                                      var detail_result = el.getAttribute('data-detail_result');
+                                      console.log("Detail result: " + detail_result);
+                                      var table = $('#exceller_scores').DataTable({
+                                          data: detail_result,
+                                          columns: [
+                                            { title: "Skill" },
+                                            { title: "Minimum Score" },
+                                            { title: "Exceller Score" },
+                                            { title: "Result" }            
+                                          ]
+                                          
+                                      });
+                                      $( table.table().container() ).removeClass( 'form-inline' );
                                     },
                                     dropEl : function (el, target, source, sibling) {
                                       jQuery.noConflict();
@@ -293,8 +402,8 @@
                                     boards  : data
                                   });
                                   $('div[data-class="potential_candidate"]').append('<span class="position-absolute top-0 start-100 translate-middle p-2 bg-success border border-light rounded-circle"></span>');
-                                  $('div[data-class="failed_candidate"]').append('<span class="position-absolute top-0 start-100 translate-middle p-2 bg-warning border border-light rounded-circle"></span>');
-                                  $('div[data-class="interview_required"]').append('<span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle"></span>');
+                                  $('div[data-class="interview_required"]').append('<span class="position-absolute top-0 start-100 translate-middle p-2 bg-warning border border-light rounded-circle"></span>');
+                                  $('div[data-class="failed_candidate"]').append('<span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle"></span>');
                                 }
                               });
                             });  
