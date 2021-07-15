@@ -258,7 +258,7 @@
                           </div><!-- /.modal -->
                           <div class="modal fade" tabindex="-1" role="dialog" id="wf-exceller-detail">
                             <div class="modal-dialog modal-xl" role="document">
-                              <div class="modal-content">
+                              <div class="modal-content" style="overflow-y: auto;">
                                 <div class="modal-header">
                                   <h4 class="modal-title" id="wf_modal_title">Exceller Detailed Info</h4>
                                   <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>        
@@ -267,15 +267,15 @@
                                   <div class="row">
                                     <div class="form-group col-2">
                                       <label>Exceller picture:</label>      
-                                      <img alt="Profile picture" id="your_preview_id" class="profile-picture" src="<%= image_url('defualt-profile.png') %>">   
+                                      <img alt="Profile picture" id="exceller_picture_id" class="profile-picture" src="<%= image_url('defualt-profile.png') %>">   
                                     </div>
                                     <div class="form-group col-4">
                                       <label>Exceller name:</label>
-                                      <input type="text" value="" class="form-control m-10" placeholder="N/A" disabled>
+                                      <input id="edi_exceller_name" type="text" value="" class="form-control m-10" placeholder="N/A" disabled>
                                       <label>Position:</label>
-                                      <input type="text" value="" class="form-control" placeholder="N/A" disabled>
+                                      <input id="edi_exceller_position" type="text" value="" class="form-control" placeholder="N/A" disabled>
                                       <label>Status:</label>
-                                      <input type="text" value="" class="form-control" placeholder="N/A" disabled>
+                                      <input id="edi_exceller_status" type="text" value="" class="form-control" placeholder="N/A" disabled>
                                     </div>
                                   </div>
                                   <div class="card card-primary card-outline card-outline-tabs">
@@ -292,7 +292,7 @@
                                               <thead>
                                                 <tr>
                                                   <th>Skill</th>
-                                                  <th>Minimum Score</th>            
+                                                  <th>Required Score</th>            
                                                   <th>Exceller Score</th>            
                                                   <th>Result</th>                     
                                                 </tr>
@@ -300,7 +300,7 @@
                                               <tfoot>
                                                 <tr>
                                                   <th>Skill</th>
-                                                  <th>Minimum Score</th>            
+                                                  <th>Required Score</th>            
                                                   <th>Exceller Score</th>            
                                                   <th>Result</th>                     
                                                 </tr>
@@ -311,24 +311,20 @@
                                           <table id="workflow_history" class="display" style="width:100% !important">
                                               <thead>
                                                 <tr>
-                                                  <th></th>
                                                   <th>State</th>
                                                   <th>Performed by</th>            
                                                   <th>Performed date</th>            
                                                   <th>Currrent</th>                     
                                                   <th>Comment</th>                     
-                                                  <th></th>                      
                                                 </tr>
                                               </thead>
                                               <tfoot>
                                                 <tr>
-                                                  <th></th>
                                                   <th>State</th>
                                                   <th>Performed by</th>            
                                                   <th>Performed date</th>            
                                                   <th>Currrent</th>                     
-                                                  <th>Comment</th>                     
-                                                  <th></th>                      
+                                                  <th>Comment</th>                         
                                                 </tr>
                                               </tfoot>
                                           </table> 
@@ -362,19 +358,38 @@
                                     click : function(el){
                                       jQuery.noConflict();
                                       $('#wf-exceller-detail').modal('show');
-                                      var detail_result = el.getAttribute('data-detail_result');
+                                      $('#exceller_picture_id').attr('src', '../uploads/' + el.getAttribute('data-profile_picture_url'));
+                                      $('#edi_exceller_name').val(el.getAttribute('data-exceller_name'));
+                                      $('#edi_exceller_position').val(el.getAttribute('data-exceller_position'));
+                                      $('#edi_exceller_status').val(el.getAttribute('data-exceller_status'));
+                                      $('#exceller_scores').DataTable().destroy();                                    
+                                      $('#workflow_history').DataTable().destroy();                                    
+                                      var detail_result = JSON.parse(el.getAttribute('data-detail_result'));
+                                      var workflow_history = JSON.parse(el.getAttribute('data-workflow_history'));
+                                      
                                       console.log("Detail result: " + detail_result);
-                                      var table = $('#exceller_scores').DataTable({
+                                      console.log("Workflow history: " + workflow_history);
+                                      var exceller_scores_table = $('#exceller_scores').DataTable({
                                           data: detail_result,
                                           columns: [
                                             { title: "Skill" },
-                                            { title: "Minimum Score" },
+                                            { title: "Required Score" },
                                             { title: "Exceller Score" },
                                             { title: "Result" }            
-                                          ]
-                                          
+                                          ]                                          
                                       });
-                                      $( table.table().container() ).removeClass( 'form-inline' );
+                                      $( exceller_scores_table.table().container() ).removeClass( 'form-inline' );
+                                      var workflow_history_table = $('#workflow_history').DataTable({
+                                          data: workflow_history,
+                                          columns: [
+                                            { title: "State" },
+                                            { title: "Performed by" },
+                                            { title: "Performed date" },
+                                            { title: "Currrent" },           
+                                            { title: "Comment" }           
+                                          ]                                          
+                                      });
+                                      $( workflow_history_table.table().container() ).removeClass( 'form-inline' );
                                     },
                                     dropEl : function (el, target, source, sibling) {
                                       jQuery.noConflict();

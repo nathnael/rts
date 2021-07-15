@@ -242,7 +242,7 @@ class ProjectsController < ApplicationController
                   skills.find_by_id(required_score[0]).name,
                   required_score[1].to_s,
                   exceller_skills[required_score[0]],
-                  "pass"
+                  "Pass"
                 ]
               elsif exceller_skills[required_score[0]].to_f < required_score[1].to_f
                 # puts "#################################################### required_score[1]: " + required_score[1].inspect
@@ -252,7 +252,7 @@ class ProjectsController < ApplicationController
                   skills.find_by_id(required_score[0]).name,
                   required_score[1].to_s,
                   exceller_skills[required_score[0]],
-                  "fail"
+                  "Fail"
                 ]
               end
             else
@@ -262,10 +262,12 @@ class ProjectsController < ApplicationController
                 skills.find_by_id(required_score[0]).name,
                 required_score[1],
                 "N/A",
-                "interview"
+                "Interview Required"
               ]
             end
           end
+
+          workflow_history = ProjectRequirementExceller.joins(:exceller, :state, :performed).where(project_requirement_id: project_requirement_id, exceller_id: active_exceller.id).order(created_at: :desc).pluck("project_requirement_states.name as state", "CONCAT(users.first_name, ' ',users.last_name) AS full_name","project_requirement_excellers.date_performed", "project_Requirement_excellers.current", "project_requirement_excellers.comment")
 
           position = Position.find_by_id(active_exceller.position_id)
           status = active_exceller.status_id.humanize
@@ -274,27 +276,36 @@ class ProjectsController < ApplicationController
               'id':active_exceller.id,
               'title':active_exceller.name,
               'class': 'interview_required',
-              'position': position.name,
-              'status': status,
-              'detail_result': exceller_results.to_json
+              'profile_picture_url': active_exceller.profile_picture_url,
+              'exceller_name': active_exceller.name,
+              'exceller_position': position.name,
+              'exceller_status': status,
+              'detail_result': exceller_results.to_json,
+              'workflow_history': workflow_history.to_json
             }
           elsif failed_status
             failed_candidates << {
               'id':active_exceller.id,
               'title':active_exceller.name,
               'class': 'failed_candidate',
-              'position': position.name,
-              'status': status,
-              'detail_result': exceller_results.to_json
+              'profile_picture_url': active_exceller.profile_picture_url,
+              'exceller_name': active_exceller.name,
+              'exceller_position': position.name,
+              'exceller_status': status,
+              'detail_result': exceller_results.to_json,
+              'workflow_history': workflow_history.to_json
             }
           else
             potential_excellers << {
               'id':active_exceller.id,
               'title':active_exceller.name,
               'class': 'potential_candidate',
-              'position': position.name,
-              'status': status,
-              'detail_result': exceller_results.to_json
+              'profile_picture_url': active_exceller.profile_picture_url,
+              'exceller_name': active_exceller.name,
+              'exceller_position': position.name,
+              'exceller_status': status,
+              'detail_result': exceller_results.to_json,
+              'workflow_history': workflow_history.to_json
             }
           end       
         end
@@ -313,9 +324,59 @@ class ProjectsController < ApplicationController
         other_excellers = []
         pres = ProjectRequirementExceller.joins(:exceller).where(project_requirement_id: project_requirement_id, state_id: state.id, current: true)
         for pre in pres do
+          exceller_skills = ExcellerInterviewItem.joins(:exceller_interview, interview_criterium: :skill).where("exceller_interviews.exceller_id" => pre.exceller.id, "interview_criteria.skill_id" => pris.pluck(:skill_id)).group("interview_criteria.skill_id").average("exceller_interview_items.score")
+          skills = Skill.all
+          required_scores = Hash[pris.pluck("skill_id", "minimum_score").map {|key, value| [key, value]}]
+          exceller_results = []
+          failed_status = false
+          interview_status = false
+          for required_score in required_scores do              
+            
+            if exceller_skills[required_score[0]].present?
+              
+              if exceller_skills[required_score[0]].to_f >= required_score[1].to_f
+                # puts "#################################################### required_score[1]: " + required_score[1].inspect
+                exceller_results << [
+                  # "required_skill_id" => required_score[0],
+                  skills.find_by_id(required_score[0]).name,
+                  required_score[1].to_s,
+                  exceller_skills[required_score[0]],
+                  "Pass"
+                ]
+              elsif exceller_skills[required_score[0]].to_f < required_score[1].to_f
+                # puts "#################################################### required_score[1]: " + required_score[1].inspect
+                failed_status = true
+                exceller_results << [
+                  # "required_skill_id" => required_score[0],
+                  skills.find_by_id(required_score[0]).name,
+                  required_score[1].to_s,
+                  exceller_skills[required_score[0]],
+                  "Fail"
+                ]
+              end
+            else
+              interview_status = true
+              exceller_results << [
+                # "required_skill_id" => required_score[0],
+                skills.find_by_id(required_score[0]).name,
+                required_score[1],
+                "N/A",
+                "Interview Required"
+              ]
+            end
+          end
+          workflow_history = ProjectRequirementExceller.joins(:exceller, :state, :performed).where(project_requirement_id: project_requirement_id, exceller_id: pre.exceller.id).pluck("project_requirement_states.name as state", "CONCAT(users.first_name, ' ',users.last_name) AS full_name","project_requirement_excellers.date_performed", "project_Requirement_excellers.current", "project_requirement_excellers.comment")
+          position = Position.find_by_id(pre.exceller.position_id)
+          status = pre.exceller.status_id.humanize
           other_excellers << {
             'id': pre.exceller.id,
-            'title':  pre.exceller.name
+            'title':  pre.exceller.name,
+            'profile_picture_url': pre.exceller.profile_picture_url,
+            'exceller_name': pre.exceller.name,
+            'exceller_position': position.name,
+            'exceller_status': status,
+            'detail_result': exceller_results.to_json,
+            'workflow_history': workflow_history.to_json
           }
         end
         
@@ -372,6 +433,7 @@ class ProjectsController < ApplicationController
 
   def async_add_project_requirement_exceller     
     project_requirement_exceller = ProjectRequirementExceller.new(project_params["project_requirement_exceller"])
+    puts "##################### project_requirement_exceller: " + project_requirement_exceller.inspect
     last_state = ProjectRequirementExceller.where(project_requirement_id: project_requirement_exceller.project_requirement_id, exceller_id: project_requirement_exceller.exceller_id, current: true).first
     if last_state.present?
       last_state.current = false
