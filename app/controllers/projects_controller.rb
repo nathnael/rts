@@ -433,7 +433,7 @@ class ProjectsController < ApplicationController
   def async_get_project_requirement_flows    
     project_requirement_id = project_params["project_requirement_id"]
 
-    @project_requirement_flows = ProjectRequirementFlow.joins("INNER JOIN project_requirement_states as initial_state ON initial_state.id = project_requirement_flows.initial_state_id INNER JOIN project_requirement_states as final_state ON final_state.id = project_requirement_flows.final_state_id").where("project_requirement_flows.project_requirement_id" => project_requirement_id).select(:id, :name, :initial_state_id, :final_state_id, "initial_state.name as initial_state_name", "final_state.name as final_state_name")
+    @project_requirement_flows = ProjectRequirementFlow.joins("INNER JOIN project_requirement_states as initial_state ON initial_state.id = project_requirement_flows.initial_state_id INNER JOIN project_requirement_states as final_state ON final_state.id = project_requirement_flows.final_state_id").where("project_requirement_flows.project_requirement_id" => project_requirement_id).select(:id, :name, :initial_state_id, :final_state_id, "initial_state.name as initial_state_name", "final_state.name as final_state_name").order("initial_state.order")
         
     respond_to do |format|
       format.html
@@ -469,7 +469,7 @@ class ProjectsController < ApplicationController
     project = Project.find_by_id(project_requirement_flow.project_requirement.project_id)
     project_requirement_flow.destroy
     respond_to do |format|
-      format.html { redirect_to project, notice: 'Project Requirement Flow was successfully destroyed.' }
+      format.html { redirect_to project, flash: { error: "Project Requirement State was successfully destroyed." } }
       format.json { head :no_content }
     end
   end
