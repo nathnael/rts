@@ -209,7 +209,7 @@ class ProjectsController < ApplicationController
   def async_get_project_requirement_states    
     project_requirement_id = project_params["project_requirement_id"]
 
-    @project_requirement_items = ProjectRequirementState.where(project_requirement_id: project_requirement_id)
+    @project_requirement_items = ProjectRequirementState.where(project_requirement_id: project_requirement_id).order(order: :asc)
         
     respond_to do |format|
       format.html
