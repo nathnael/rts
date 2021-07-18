@@ -34,7 +34,7 @@
               with font-awesome or any other icon font library -->
         <li class="nav-item has-treeview menu-open">
           <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-hand-holding-usd"></i>
+            <i class="fa fa-american-sign-language-interpreting" aria-hidden="true"></i>
             <p>
               Operation Module
               <i class="right fas fa-angle-left"></i>
@@ -43,13 +43,13 @@
           <ul class="nav nav-treeview">            
             <li>
               <%= link_to clients_url, :class => "nav-link", :data => { :reload => true } do %>
-                <i class="nav-icon fas fa-building"></i>
+                <i class="fa fa-users" aria-hidden="true"></i>
                 <p>Clients</p>
               <% end %>
             </li>
             <li class="<%= 'active' if is_active_controller('projects') %>">
-              <%= link_to projects_url, :class => "nav-link", :data => { :reload => true } do %>
-                <i class="nav-icon fas fa-building"></i>
+              <%= link_to projects_url, :class => "nav-link", :data => { :reload => true } do %>                
+                <i class="fa fa-handshake" aria-hidden="true"></i>
                 <p>Projects</p>
               <% end %>
             </li>
@@ -57,7 +57,7 @@
         </li> 
         <li class="nav-item has-treeview menu-open">
           <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-truck"></i>
+            <i class="fa fa-filter" aria-hidden="true"></i>
             <p>
               Recruitment Module
               <i class="right fas fa-angle-left"></i>
@@ -66,43 +66,43 @@
           <ul class="nav nav-treeview">  
             <li class="<%= 'active' if is_active_controller('excellers') %>">
               <%= link_to excellers_url, :class => "nav-link", :data => { :reload => true } do %>
-                <i class="nav-icon fas fa-building"></i>
+                <i class="fa fa-briefcase" aria-hidden="true"></i>
                 <p>Excellers</p>
               <% end %>
             </li>
             <li class="<%= 'active' if is_active_controller('positions') %>">
               <%= link_to positions_url, :class => "nav-link", :data => { :reload => true } do %>
-                <i class="nav-icon fas fa-building"></i>
+                <i class="fa fa-anchor" aria-hidden="true"></i>
                 <p>Positions</p>
               <% end %>
             </li>
             <li class="<%= 'active' if is_active_controller('employment_types') %>">
               <%= link_to employment_types_url, :class => "nav-link", :data => { :reload => true } do %>
-                <i class="nav-icon fas fa-building"></i>
+                <i class="fa fa-cubes" aria-hidden="true"></i>
                 <p>Employment Types</p>
               <% end %>
             </li>
             <li class="<%= 'active' if is_active_controller('duty_stations') %>">
               <%= link_to duty_stations_url, :class => "nav-link", :data => { :reload => true } do %>
-                <i class="nav-icon fas fa-building"></i>
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
                 <p>Duty Stations</p>
               <% end %>
             </li>
             <li class="<%= 'active' if is_active_controller('skill_types') %>">
               <%= link_to skill_types_url, :class => "nav-link", :data => { :reload => true } do %>
-                <i class="nav-icon fas fa-building"></i>
+                <i class="fa fa-object-group" aria-hidden="true"></i>
                 <p>Skill Types</p>
               <% end %>
             </li>
             <li class="<%= 'active' if is_active_controller('skills') %>">
               <%= link_to skills_url, :class => "nav-link", :data => { :reload => true } do %>
-                <i class="nav-icon fas fa-building"></i>
+                <i class="fa fa-keyboard" aria-hidden="true"></i>
                 <p>Skills</p>
               <% end %>
             </li>
             <li class="<%= 'active' if is_active_controller('interviews') %>">
               <%= link_to interviews_url, :class => "nav-link", :data => { :reload => true } do %>
-                <i class="nav-icon fas fa-building"></i>
+                <i class="fa fa-street-view" aria-hidden="true"></i>
                 <p>Interviews</p>
               <% end %>
             </li>
@@ -110,7 +110,7 @@
         </li>
         <li class="nav-item has-treeview menu-open">
           <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-file-word"></i>
+            <i class="fa fa-tasks" aria-hidden="true"></i>
             <p>
               Report
               <i class="right fas fa-angle-left"></i>

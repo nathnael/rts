@@ -110,7 +110,10 @@ class ProjectsController < ApplicationController
     project_requirement_progress = []
     for project_requirement in project_requirements do      
       final_state = ProjectRequirementState.where(project_requirement_id: project_requirement["pr_id"]).order(order: :desc).first
-      no_of_assigned_excellers = ProjectRequirementExceller.where(project_requirement_id: project_requirement["pr_id"], state_id: final_state.id).count
+      no_of_assigned_excellers = 0
+      if final_state.present?
+        no_of_assigned_excellers = ProjectRequirementExceller.where(project_requirement_id: project_requirement["pr_id"], state_id: final_state.id).count
+      end
       progress = (no_of_assigned_excellers.to_f / project_requirement["amount"].to_f).round(2) * 100
       puts "##################################### project_requirement['amount']: " + project_requirement["amount"].inspect
       project_requirement.merge!(progress: progress)
@@ -455,7 +458,7 @@ class ProjectsController < ApplicationController
     
     respond_to do |format|
       if project_requirement_exceller.save
-        format.html { redirect_to @project, notice: 'Exceller was successfully progressed.' }
+        format.html { redirect_to @project, notice: 'Exceller has successfully progressed.' }
         format.json { render :json => @project.to_json }
       else
         format.html { redirect_to @project, flash: { error: "Exceller progress failed." }}

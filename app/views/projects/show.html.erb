@@ -62,16 +62,16 @@
           <div class="card-header p-0 border-bottom-0">
             <ul class="nav nav-tabs" id="custom-tabs-exceller-detail-info" role="tablist">
               <li class="nav-item">
-                <a class="nav-link active" id="custom-tabs-exceller-scores-tab" data-toggle="pill" href="#custom-tabs-exceller-scores" role="tab" aria-controls="custom-tabs-exceller-scores" aria-selected="true">Project Requirement</a>
+                <a class="nav-link main-nl active" id="custom-tabs-exceller-scores-tab" data-toggle="tab" href="#custom-tabs-exceller-scores" role="tab" aria-controls="custom-tabs-exceller-scores" aria-selected="true">Project Requirement</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="custom-tabs-exceller-states-tab" data-toggle="pill" href="#custom-tabs-exceller-states" role="tab" aria-controls="custom-tabs-workflow-history" aria-selected="false">Recruitment States</a>
+                <a class="nav-link main-nl" id="custom-tabs-exceller-states-tab" data-toggle="tab" href="#custom-tabs-exceller-states" role="tab" aria-controls="custom-tabs-workflow-history" aria-selected="false">Recruitment States</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="custom-tabs-exceller-flows-tab" data-toggle="pill" href="#custom-tabs-exceller-flows" role="tab" aria-controls="custom-tabs-workflow-history" aria-selected="false">Recruitment Flows</a>
+                <a class="nav-link main-nl" id="custom-tabs-exceller-flows-tab" data-toggle="tab" href="#custom-tabs-exceller-flows" role="tab" aria-controls="custom-tabs-workflow-history" aria-selected="false">Recruitment Flows</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" id="custom-tabs-workflow-history-tab" data-toggle="pill" href="#custom-tabs-workflow-history" role="tab" aria-controls="custom-tabs-workflow-history" aria-selected="false">Assign Excellers</a>
+              <li class="nav-item main-nl">
+                <a class="nav-link" id="custom-tabs-workflow-history-tab" data-toggle="tab" href="#custom-tabs-workflow-history" role="tab" aria-controls="custom-tabs-workflow-history" aria-selected="false">Assign Excellers</a>
               </li>
               <!--
               <li class="nav-item">
@@ -82,7 +82,7 @@
           </div>
           <div class="card-body">
             <div class="tab-content" id="custom-tabs-exceller-score">
-              <div class="tab-pane fade active show" id="custom-tabs-exceller-scores" role="tabpanel" aria-labelledby="custom-tabs-exceller-scores-tab">
+              <div class="tab-pane main-tp fade active show" id="custom-tabs-exceller-scores" role="tabpanel" aria-labelledby="custom-tabs-exceller-scores-tab">
                 <input name="project[project_requirements[][project_id]]" id="project_id_input" value="<%= @project&.id %>" class="form-control" style="display: none"/> 
                 <a class="btn btn-primary float-right mb-3" data-project-id="<%= @project.id.to_s %>" data-target="#add-pr" data-toggle="modal" style="color: white">
                   <i class="fa fa-plus"></i> Add New Project Requirement
@@ -116,7 +116,7 @@
                     </tfoot>
                 </table> 
               </div>
-              <div class="tab-pane fade" id="custom-tabs-exceller-states" role="tabpanel" aria-labelledby="custom-tabs-exceller-states-tab">
+              <div class="tab-pane main-tp fade" id="custom-tabs-exceller-states" role="tabpanel" aria-labelledby="custom-tabs-exceller-states-tab">
                 <table id="exceller-states" class="display" style="width:100% !important">
                     <thead>
                       <tr>
@@ -146,7 +146,7 @@
                     </tfoot>
                 </table> 
               </div>
-              <div class="tab-pane fade" id="custom-tabs-exceller-flows" role="tabpanel" aria-labelledby="custom-tabs-exceller-flows-tab">
+              <div class="tab-pane main-tp fade" id="custom-tabs-exceller-flows" role="tabpanel" aria-labelledby="custom-tabs-exceller-flows-tab">
                 <table id="exceller-flows" class="display" style="width:100% !important">
                     <thead>
                       <tr>
@@ -176,7 +176,7 @@
                     </tfoot>
                 </table> 
               </div>
-              <div class="tab-pane fade" id="custom-tabs-workflow-history" role="tabpanel" aria-labelledby="custom-tabs-workflow-history-tab">
+              <div class="tab-pane main-tp fade" id="custom-tabs-workflow-history" role="tabpanel" aria-labelledby="custom-tabs-workflow-history-tab">
                 <div class="container-fluid">
                   <div class="row">
                       <div class="col-md-12">
@@ -281,8 +281,8 @@
                                   <div class="card card-primary card-outline card-outline-tabs">
                                     <div class="card-header p-0 border-bottom-0">
                                       <ul class="nav nav-tabs" role="tablist">
-                                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab" class="nav-link active">Exceller Scores</a></li>
-                                        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab" class="nav-link">Workflow History</a></li>
+                                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab" class="nav-link active">Exceller Score Card</a></li>
+                                        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab" class="nav-link">Progress History</a></li>
                                       </ul>  
                                     </div>
                                     <div class="card-body">
@@ -796,6 +796,20 @@
 $(document).ready(function() {
   var REMOVE_dispatchLINE_BTN = '<a href="#" class="remove-project_requirements"><i class="fa fa-times"></i></a>';
   var project = $('#project_id_input').val();
+
+  $('a[data-toggle="tab"]').on('click', function(e) {
+      localStorage.setItem('activeTab', $(e.target).attr('href'));
+      console.log("activeTab: " + localStorage.getItem('activeTab'));
+  });
+  var activeTab = localStorage.getItem('activeTab');
+  if(activeTab){
+    $('.main-nl').removeClass("active");
+    $(activeTab+"-tab").addClass('active');
+    $('.main-tp').removeClass("active");
+    $('.main-tp').removeClass("show");
+    $(activeTab).addClass('active');
+    $(activeTab).addClass('show');
+  }
 
   $('#projectRequirementsTableBody').on('click', '.remove-project_requirements', function(e) { 
     ie8SafePreventEvent(e); 
@@ -1369,44 +1383,6 @@ $(document).ready(function() {
   });
 
   
-
-    // var toDoButton = document.getElementById('addToDo');
-    // toDoButton.addEventListener('click',function(){
-    //     KanbanTest.addElement(
-    //         '_todo',
-    //         {
-    //             'title':'Test Add',
-    //         }
-    //     );
-    // });
-
-    // var addBoardDefault = document.getElementById('addDefault');
-    // addBoardDefault.addEventListener('click', function () {
-    //     KanbanTest.addBoards(
-    //         [{
-    //             'id' : '_default',
-    //             'title'  : 'Default (Can\'t drop in Done)',
-    //             'dragTo':['_todo','_working'],
-    //             'class' : 'kanban-error',
-    //             'item'  : [
-    //                 {
-    //                     'title':'Default Item',
-    //                 },
-    //                 {
-    //                     'title':'Default Item 2',
-    //                 },
-    //                 {
-    //                     'title':'Default Item 3',
-    //                 }
-    //             ]
-    //         }]
-    //     )
-    // });
-
-    // var removeBoard = document.getElementById('removeBoard');
-    // removeBoard.addEventListener('click',function(){
-    //     KanbanTest.removeBoard('_done');
-    // });
 });
   function ie8SafePreventEvent(e){
     if(e.preventDefault){ e.preventDefault()}
