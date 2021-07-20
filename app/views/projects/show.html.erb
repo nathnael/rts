@@ -802,6 +802,7 @@ $(document).ready(function() {
       console.log("activeTab: " + localStorage.getItem('activeTab'));
   });
   var activeTab = localStorage.getItem('activeTab');
+  // if(activeTab!=null && activeTab!=''){
   if(activeTab){
     $('.main-nl').removeClass("active");
     $(activeTab+"-tab").addClass('active');
@@ -929,7 +930,7 @@ $(document).ready(function() {
     dataType: 'json',
     success: function(data){
       // console.log("Data: " + JSON.stringify(data));
-
+      $('#example').DataTable().destroy();
       var table = $('#example').DataTable({
           data: data,
           stateSave: true,
@@ -1090,7 +1091,7 @@ $(document).ready(function() {
     dataType: 'json',
     success: function(data){
       // console.log("Data: " + JSON.stringify(data));
-
+      $('#exceller-states').DataTable().destroy();
       var table = $('#exceller-states').DataTable({
           data: data,
           stateSave: true,
@@ -1221,7 +1222,7 @@ $(document).ready(function() {
     dataType: 'json',
     success: function(data){
       // console.log("Data: " + JSON.stringify(data));
-
+      $('#exceller-flows').DataTable().destroy();
       var table = $('#exceller-flows').DataTable({
           data: data,
           stateSave: true,
