@@ -134,39 +134,85 @@ $(document).ready(function() {
   // Sales chart
   // var salesChartCanvas = document.getElementById('revenue-chart-canvas').getContext('2d');
   //$('#revenue-chart').get(0).getContext('2d');
-  if(salesChartCanvas && salesChart !== null){ 
-    salesChart.destroy(); 
-  }
-  var salesChartCanvas = document.getElementById('salesChart');
-
-  var salesChartData = {
-    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    datasets: [{
-      label: '# of Votes',
-      data: [50, 30, 60, 10, 20, 40],
-      backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'],
-      borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
-      borderWidth: 1
-    }]
-  };
-
-  var salesChartOptions = {
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
-        }
-      }]
-    }
-  };
   
-  // This will get the first returned node in the jQuery collection.
-  var salesChart = new Chart(salesChartCanvas, {
-      type: 'bar', 
-      data: salesChartData, 
-      options: salesChartOptions
+
+  $('#dashboard_select_project').change(function(){
+    var project_id = $(this).val();
+
+    var project_requirements = $.grep(all_project_requirements, function (elem) {
+        return elem.project_id == project_id
+    });
+
+    var options = "";
+    for (let i = 0; i < project_requirements.length; i++) {
+        console.log("project_requirements[i]: " + project_requirements[i]["id"]);
+        options += '<option value="' + project_requirements[i]["id"] + '">' + project_requirements[i]["name"] + '</option>';
     }
-  );
+    $('#dashboard_select_project_requirement').html(options);
+    get_project_requirement_status(project_requirements[0]["id"]);
+  });
+
+  $('#dashboard_select_project_requirement').change(function(){
+    var project_requirement_id = $(this).val();    
+    get_project_requirement_status(project_requirement_id);
+  });
+
+  function get_project_requirement_status(project_requirement_id){
+    $.ajax({
+        url: "/dashboard/get_project_staffing_status",
+        type:'POST',
+        data:{
+            project_requirement_id: project_requirement_id          
+        },
+        dataType: 'json',
+        success: function(result){            
+            var labels = $.map( result, function( a ) {
+                return [ a["state_name"] ];
+            });
+            var data = $.map( result, function( a ) {
+                return [ a["no_of_excellers"] ];
+            });
+            console.log("Labels: " + JSON.stringify(labels));
+            console.log("Data: " + JSON.stringify(data));
+
+            if(salesChartCanvas && salesChart !== null){ 
+                salesChart.destroy(); 
+            }
+            var salesChartCanvas = document.getElementById('salesChart');
+        
+            var salesChartData = {
+                labels: labels,
+                datasets: [{
+                    label: '# of Votes',
+                    data: data,
+                    // backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'],
+                    // borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
+                    backgroundColor: ['rgba(255, 99, 132, 0.2)'],
+                    borderColor: ['rgba(255, 99, 132, 1)'],
+                    borderWidth: 1
+                }]
+            };
+        
+            var salesChartOptions = {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            };
+            
+            // This will get the first returned node in the jQuery collection.
+            var salesChart = new Chart(salesChartCanvas, {
+                    type: 'bar', 
+                    data: salesChartData, 
+                    options: salesChartOptions
+                }
+            );
+        }
+    });
+  }
 
   //---------------------------
   //- END MONTHLY SALES CHART -

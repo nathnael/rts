@@ -350,7 +350,7 @@
                                 },
                                 dataType: 'json',
                                 success: function(data){
-                                  // console.log("States Data: " + JSON.stringify(data));
+                                  $('#kanban-<%= project_requirement.id.to_s %>').html("");
                                   var KanbanTest = new jKanban({
                                     element : '#kanban-<%= project_requirement.id.to_s %>',
                                     gutter  : '10px',

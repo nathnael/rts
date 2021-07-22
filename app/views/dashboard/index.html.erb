@@ -50,7 +50,8 @@
 
       <div class="col-12 col-sm-6 col-md-2">
         <div class="info-box mb-3">
-          <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+          <span class="info-box-icon bg-warning elevation-1"><i class="fa fa-play-circle" aria-hidden="true"></i>
+</span>
 
           <div class="info-box-content">
             <span class="info-box-text">Active Projects</span>
@@ -115,27 +116,37 @@
       <div class="col-md-8">
         <div class="card">
           <div class="card-header">
-            <h5 class="card-title">Monthly Recap Report V2.0</h5>
+            <h5 class="card-title col-4">Project Staffing Status</h5>
 
-            <div class="card-tools">
-              <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                <i class="fas fa-minus"></i>
-              </button>
-              <div class="btn-group">
-                <button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown">
-                  <i class="fas fa-wrench"></i>
+            <div class="card-tools col-8">
+              <div class="pull-right" style="width: auto;float: right;">
+                <span class="pull-right">
+                  <%= select_tag 'dashboard_select_project',  options_from_collection_for_select( @projects, 'id', 'name' ) , { 'data-parsley-required' => 'true', :class => '', :id => 'dashboard_select_project'} %>
+                </span>
+                <span class="pull-right">
+                  <%= select_tag 'dashboard_select_project_requirement', options_for_select(@project_requirements.map { |obj| [obj['name'], obj['id']] }), { 'data-parsley-required' => 'true', :class => '', :id => 'dashboard_select_project_requirement'} %>
+                </span>
+                <button type="button" class="btn btn-tool pull-right" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
                 </button>
-                <div class="dropdown-menu dropdown-menu-right" role="menu">
-                  <a href="#" class="dropdown-item">Action</a>
-                  <a href="#" class="dropdown-item">Another action</a>
-                  <a href="#" class="dropdown-item">Something else here</a>
-                  <a class="dropdown-divider"></a>
-                  <a href="#" class="dropdown-item">Separated link</a>
+                <!--
+                <div class="btn-group pull-right">
+                  <button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown">
+                    <i class="fas fa-wrench"></i>
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-right" role="menu">
+                    <a href="#" class="dropdown-item">Action</a>
+                    <a href="#" class="dropdown-item">Another action</a>
+                    <a href="#" class="dropdown-item">Something else here</a>
+                    <a class="dropdown-divider"></a>
+                    <a href="#" class="dropdown-item">Separated link</a>
+                  </div>
                 </div>
+                -->
+                <button type="button" class="btn btn-tool pull-right" data-card-widget="remove">
+                  <i class="fas fa-times"></i>
+                </button>
               </div>
-              <button type="button" class="btn btn-tool" data-card-widget="remove">
-                <i class="fas fa-times"></i>
-              </button>
             </div>
           </div>
           <!-- /.card-header -->
@@ -938,4 +949,7 @@
   </div><!--/. container-fluid -->
 </section>
 <!-- /.content -->
+<script>
+  var all_project_requirements = <%= @all_project_requirements.to_json.html_safe %>;
+</script>
 <%= javascript_pack_tag 'custom/mine_chart' %>

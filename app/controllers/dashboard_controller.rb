@@ -1,4 +1,6 @@
 class DashboardController < ApplicationController
+    protect_from_forgery except: [:get_project_staffing_status]
+
     def index 
         @no_of_projects = Project.all.count
         @no_of_clients = Client.all.count
@@ -7,6 +9,10 @@ class DashboardController < ApplicationController
         @no_of_excellers = Exceller.all.count
         already_assigned = ProjectRequirementExceller.where(current: true).pluck(:exceller_id)
         @no_of_unassigned_excellers = Exceller.where(status_id: Exceller.status_ids[:active]).where.not(id: already_assigned).count
+        @projects = Project.all.order(created_at: :desc)
+        # @project_requirements = ProjectRequirement.where(project_id: @projects.first.id)
+        @project_requirements = ProjectRequirement.joins(:skill_type).where(project_id: @projects.first.id).pluck_to_hash(:id, "skill_types.name as name")
+        @all_project_requirements = ProjectRequirement.joins(:skill_type).order(created_at: :desc).pluck_to_hash(:id, :project_id, "skill_types.name as name")
     end
 
     def get_unfulfilled_projects
@@ -31,6 +37,23 @@ class DashboardController < ApplicationController
             end
         end
         return open_project_progress
+    end
+
+    def get_project_staffing_status
+        puts "project_requirement_id: " + params["project_requirement_id"].to_s
+
+        states = ProjectRequirementState.where(project_requirement_id: params["project_requirement_id"]).order(created_at: :asc)
+        puts "states: " + states.inspect
+        project_requirement_status = []
+        for state in states do
+            no_of_excellers = ProjectRequirementExceller.where(project_requirement_id: params["project_requirement_id"], state_id: state.id, current: true).count
+            project_requirement_status << {state_name: state.name, no_of_excellers: no_of_excellers}
+        end
+
+        respond_to do |format|
+            format.html
+            format.json { render :json => project_requirement_status.to_json }
+        end
     end
 
     def load_data    

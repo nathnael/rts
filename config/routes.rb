@@ -49,5 +49,7 @@ Rails.application.routes.draw do
   put 'users/:id/updatePermissions', to: 'users#updatePermissions'
   get 'users/:id/user_permissions', to: 'users#user_permissions'
 
+  post 'dashboard/get_project_staffing_status', to: 'dashboard#get_project_staffing_status'
+
   root to: 'dashboard#index'
 end
