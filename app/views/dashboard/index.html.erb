@@ -120,9 +120,12 @@
 
             <div class="card-tools col-8">
               <div class="pull-right" style="width: auto;float: right;">
+                <span><strong>Project:</strong></span>
                 <span class="pull-right">
                   <%= select_tag 'dashboard_select_project',  options_from_collection_for_select( @projects, 'id', 'name' ) , { 'data-parsley-required' => 'true', :class => '', :id => 'dashboard_select_project'} %>
                 </span>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span><strong>Project requirement:</strong></span>
                 <span class="pull-right">
                   <%= select_tag 'dashboard_select_project_requirement', options_for_select(@project_requirements.map { |obj| [obj['name'], obj['id']] }), { 'data-parsley-required' => 'true', :class => '', :id => 'dashboard_select_project_requirement'} %>
                 </span>
@@ -153,9 +156,11 @@
           <div class="card-body">
             <div class="row">
               <div class="col-md-12">
-                <p class="text-center">
-                  <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
-                </p>
+                <div id="pr_title_status" class="text-center">
+                  <span>Skill Type: <strong><span id="pr_name"></span></strong></span>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <span>Require Excellers: <strong><span id="pr_amount"></span></strong></span>
+                </div>
 
                 <div class="chart">
                   <!-- Sales Chart Canvas -->
@@ -169,50 +174,76 @@
           </div>
           <!-- ./card-body -->
           <div class="card-footer">
-            <div class="row">
+            <!--<div class="row">
               <div class="col-sm-3 col-6">
                 <div class="description-block border-right">
                   <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 17%</span>
                   <h5 class="description-header">$35,210.43</h5>
                   <span class="description-text">TOTAL REVENUE</span>
                 </div>
-                <!-- /.description-block -->
               </div>
-              <!-- /.col -->
               <div class="col-sm-3 col-6">
                 <div class="description-block border-right">
                   <span class="description-percentage text-warning"><i class="fas fa-caret-left"></i> 0%</span>
                   <h5 class="description-header">$10,390.90</h5>
                   <span class="description-text">TOTAL COST</span>
                 </div>
-                <!-- /.description-block -->
               </div>
-              <!-- /.col -->
               <div class="col-sm-3 col-6">
                 <div class="description-block border-right">
                   <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 20%</span>
                   <h5 class="description-header">$24,813.53</h5>
                   <span class="description-text">TOTAL PROFIT</span>
                 </div>
-                <!-- /.description-block -->
               </div>
-              <!-- /.col -->
               <div class="col-sm-3 col-6">
                 <div class="description-block">
                   <span class="description-percentage text-danger"><i class="fas fa-caret-down"></i> 18%</span>
                   <h5 class="description-header">1200</h5>
                   <span class="description-text">GOAL COMPLETIONS</span>
                 </div>
-                <!-- /.description-block -->
               </div>
-            </div>
-            <!-- /.row -->
+            </div>-->
           </div>
           <!-- /.card-footer -->
         </div>
-        <!-- /.card -->
-        <!-- /.col -->
-        <!-- /.card -->
+        <div class="card">
+          <div class="card-header border-0">
+            <div class="d-flex justify-content-between">
+              <h3 class="card-title">Sales</h3>
+              <a href="javascript:void(0);">View Report</a>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="d-flex">
+              <p class="d-flex flex-column">
+                <span class="text-bold text-lg">$18,230.00</span>
+                <span>Sales Over Time</span>
+              </p>
+              <p class="ml-auto d-flex flex-column text-right">
+                <span class="text-success">
+                  <i class="fas fa-arrow-up"></i> 33.1%
+                </span>
+                <span class="text-muted">Since last month</span>
+              </p>
+            </div>
+            <!-- /.d-flex -->
+
+            <div class="position-relative mb-4">
+              <canvas id="sales-chart" height="200"></canvas>
+            </div>
+
+            <div class="d-flex flex-row justify-content-end">
+              <span class="mr-2">
+                <i class="fas fa-square text-primary"></i> This year
+              </span>
+
+              <span>
+                <i class="fas fa-square text-gray"></i> Last year
+              </span>
+            </div>
+          </div>
+        </div>
         <!--<div class="row">
           <div class="col-md-6">
             <div class="card direct-chat direct-chat-warning">

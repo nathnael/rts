@@ -42,6 +42,8 @@ class DashboardController < ApplicationController
     def get_project_staffing_status
         puts "project_requirement_id: " + params["project_requirement_id"].to_s
 
+        project_requirement = ProjectRequirement.joins(:skill_type).find_by_id(params["project_requirement_id"])
+        # .select(:id, :amount, "skill_types.name as name")
         states = ProjectRequirementState.where(project_requirement_id: params["project_requirement_id"]).order(created_at: :asc)
         puts "states: " + states.inspect
         project_requirement_status = []
@@ -50,9 +52,18 @@ class DashboardController < ApplicationController
             project_requirement_status << {state_name: state.name, no_of_excellers: no_of_excellers}
         end
 
+        project_requirement_status_with_header = {
+            id: params["project_requirement_id"],
+            name: project_requirement.skill_type.name,  
+            amount: project_requirement.amount,  
+            project_requirement_status: project_requirement_status
+        }
+
+        puts "project_requirement_status_with_header: " + project_requirement_status_with_header.inspect
+
         respond_to do |format|
             format.html
-            format.json { render :json => project_requirement_status.to_json }
+            format.json { render :json => project_requirement_status_with_header.to_json }
         end
     end
 
