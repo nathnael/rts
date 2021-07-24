@@ -172,6 +172,7 @@ $(document).ready(function() {
         success: function(result){           
             $("#pr_name").html(result["name"]); 
             $("#pr_amount").html(result["amount"]); 
+            $("#project_link").html("<a href='/projects/" + result["project_id"] + "'>Go to project detail</a>");             
             var labels = $.map( result["project_requirement_status"], function( a ) {
                 return [ a["state_name"] ];
             });
@@ -186,12 +187,14 @@ $(document).ready(function() {
             }
             var salesChartCanvas = document.getElementById('salesChart');
 
-            var chartColors = [ 'rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)' ];
+            // var chartColors = [ 'rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)' ];
+            var chartColors = [ '#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc' ];
+            
 
-            const backgroundColorConstruct = [];
+            var backgroundColorConstruct = [];
             var count = 0;
             for(var i=0; i<data.length; i++){
-                if (count==5){
+                if (count==chartColors.length){
                     count = 0;
                 }
                 backgroundColorConstruct.push(chartColors[count]);
@@ -203,8 +206,6 @@ $(document).ready(function() {
                 datasets: [{
                     label: '# of Excellers',
                     data: data,
-                    // backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'],
-                    // borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
                     backgroundColor: backgroundColorConstruct,
                     borderColor: backgroundColorConstruct,
                     borderWidth: 1
@@ -215,9 +216,16 @@ $(document).ready(function() {
                 scales: {
                     yAxes: [{
                         ticks: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                            stepSize: 1
                         }
                     }]
+                },
+                legend: {
+                    display: false
+                },
+                tooltips: {
+                    enabled: true
                 }
             };
             
@@ -232,47 +240,179 @@ $(document).ready(function() {
     });
   }
 
-  //---------------------------
-  //- END MONTHLY SALES CHART -
-  //---------------------------
+  $.ajax({
+        url: "/dashboard/get_required_assigned_excellers",
+        type:'POST',
+        data:{},
+        dataType: 'json',
+        success: function(result){      
+            var projects = $.map( result, function( a ) {
+                return [ a["project"] ];
+            });
+            var required_excellers = $.map( result, function( a ) {
+                return [ a["required_excellers"] ];
+            });
+            var assigned_excellers = $.map( result, function( a ) {
+                return [ a["assigned_excellers"] ];
+            });
+            var ticksStyle = {
+                fontColor: '#495057',
+                fontStyle: 'bold'
+            }
+            var mode      = 'index'
+            var intersect = true
 
-  //-------------
-  //- PIE CHART -
-  //-------------
-  // Get context with jQuery - using jQuery's .get() method.
-  var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
-  var pieData        = {
-    labels: [
-        'Chrome', 
-        'IE',
-        'FireFox', 
-        'Safari', 
-        'Opera', 
-        'Navigator', 
-    ],
-    datasets: [
-      {
-        data: [700,500,400,600,300,100],
-        backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
-      }
-    ]
-  }
-  var pieOptions     = {
-    legend: {
-      display: false
-    }
-  }
-  //Create pie or douhnut chart
-  // You can switch between pie and douhnut using the method below.
-  var pieChart = new Chart(pieChartCanvas, {
-    type: 'doughnut',
-    data: pieData,
-    options: pieOptions      
-  })
+            var $requiredAssignedChart = $('#required-assigned-chart')
+            var requiredAssignedChart  = new Chart($requiredAssignedChart, {
+                type   : 'bar',
+                data   : {
+                labels  : projects,
+                datasets: [
+                    {
+                        backgroundColor: '#00A4CCFF',
+                        borderColor    : '#007bff',
+                        data           : required_excellers
+                    },
+                    {
+                        backgroundColor: '#F95700FF',
+                        borderColor    : '#ced4da',
+                        data           : assigned_excellers
+                    }
+                ]
+                },
+                options: {
+                maintainAspectRatio: false,
+                tooltips           : {
+                    mode     : mode,
+                    intersect: intersect
+                },
+                hover              : {
+                    mode     : mode,
+                    intersect: intersect
+                },
+                legend             : {
+                    display: false
+                },
+                scales             : {
+                    yAxes: [{
+                    // display: false,
+                    gridLines: {
+                        display      : true,
+                        lineWidth    : '4px',
+                        color        : 'rgba(0, 0, 0, .2)',
+                        zeroLineColor: 'transparent'
+                    },
+                    ticks    : $.extend({
+                        beginAtZero: true,
+
+                        // Include a dollar sign in the ticks
+                        // callback: function (value, index, values) {
+                        //   if (value >= 1000) {
+                        //     value /= 1000
+                        //     value += 'k'
+                        //   }
+                        //   return '$' + value
+                        // }
+                    }, ticksStyle)
+                    }],
+                    xAxes: [{
+                    display  : true,
+                    gridLines: {
+                        display: false
+                    },
+                    ticks    : ticksStyle
+                    }]
+                }
+                }
+            })
+        }
+    });
+
+    //---------------------------
+    //- END MONTHLY SALES CHART -
+    //---------------------------
+
+    //-------------
+    //- PIE CHART -
+    //-------------
+    // Get context with jQuery - using jQuery's .get() method.
+    $.ajax({
+        url: "/dashboard/get_frequently_requested_skills",
+        type:'POST',
+        data:{},
+        dataType: 'json',
+        success: function(result){  
+            var skills = $.map( result, function( a ) {
+                return [ a[0] ];
+            });
+            var amount = $.map( result, function( a ) {
+                return [ a[1] ];
+            });    
+            var pieColors = [ '#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc' ];
+
+            var legend = "";
+            var backgroundColorConstruct = [];
+            var count = 0;
+            for(var i=0; i<result.length; i++){
+                if (count==pieColors.length-1){
+                    count = 0;
+                }
+                backgroundColorConstruct.push(pieColors[count]);
+                legend += '<li><i class="far fa-circle" style="color:' + pieColors[count] + '"></i>' + skills[i] + '</li>';
+                count++;
+            }
+            
+            $('#pieChartLegend').html(legend);            
+
+            var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+            var pieData        = {
+                labels: skills,
+                datasets: [
+                    {
+                        data: amount,
+                        backgroundColor : backgroundColorConstruct,
+                    }
+                ]
+            }
+            var pieOptions     = {
+                legend: {
+                display: false
+                }
+            }
+            //Create pie or douhnut chart
+            // You can switch between pie and douhnut using the method below.
+            var pieChart = new Chart(pieChartCanvas, {
+                type: 'doughnut',
+                data: pieData,
+                options: pieOptions      
+            })
+        }
+    });
 
   //-----------------
   //- END PIE CHART -
   //-----------------
+
+    $.ajax({
+        url: "/dashboard/get_new_excellers",
+        type:'POST',
+        data:{},
+        dataType: 'json',
+        success: function(result) {
+            console.log("result: " + JSON.stringify(result));
+            
+            var excellers = '';
+
+            for(var i=0; i<result.length; i++){
+                let contract_signing_date = moment(result[i]["contract_signing_date"], "YYYY-MM-DD");
+                // console.log(date.fromNow());
+                excellers += '<li><img src="uploads/' + result[i]["profile_picture_url"] + '" alt="User Image"><a class="users-list-name" href="#">' + result[i]["first_name"] + '</a><span class="users-list-date">' + contract_signing_date.fromNow() + '</span></li>';                
+            }
+            
+            $('#new_excellers_list').html(excellers);   
+
+        }
+    });
 
   // /* jVector Maps
   // * ------------

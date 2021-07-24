@@ -21,6 +21,8 @@
 
 //= require jkanban.js
 
+//= require moment.min.js
+
 //= require pace.min.js
 
 $(document).ready(function() {

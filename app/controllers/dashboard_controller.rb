@@ -44,7 +44,7 @@ class DashboardController < ApplicationController
 
         project_requirement = ProjectRequirement.joins(:skill_type).find_by_id(params["project_requirement_id"])
         # .select(:id, :amount, "skill_types.name as name")
-        states = ProjectRequirementState.where(project_requirement_id: params["project_requirement_id"]).order(created_at: :asc)
+        states = ProjectRequirementState.where(project_requirement_id: params["project_requirement_id"]).order(created_at: :asc).drop(1)
         puts "states: " + states.inspect
         project_requirement_status = []
         for state in states do
@@ -54,6 +54,7 @@ class DashboardController < ApplicationController
 
         project_requirement_status_with_header = {
             id: params["project_requirement_id"],
+            project_id: project_requirement.project_id,
             name: project_requirement.skill_type.name,  
             amount: project_requirement.amount,  
             project_requirement_status: project_requirement_status
@@ -64,6 +65,39 @@ class DashboardController < ApplicationController
         respond_to do |format|
             format.html
             format.json { render :json => project_requirement_status_with_header.to_json }
+        end
+    end
+
+    def get_required_assigned_excellers
+        required_assigned_excellers = get_unfulfilled_projects()
+
+        respond_to do |format|
+            format.html
+            format.json { render :json => required_assigned_excellers.to_json }
+        end
+    end
+
+    def get_frequently_requested_skills
+        skill_count = ProjectRequirementItem.joins(:skill).group("skills.id", "skills.name").count
+        top_skills = Hash[skill_count.sort_by{|k, v| v}].take(9)
+        top_skill_ids = top_skills.map{|k, v| k[0]}
+        skill_count = ProjectRequirementItem.where.not(skill_id: top_skill_ids).count
+
+        results = top_skills.map{|k, v| [k[1], v]}
+        results << ["Others", skill_count]
+
+        respond_to do |format|
+            format.html
+            format.json { render :json => results.to_json }
+        end
+    end
+
+    def get_new_excellers
+        new_excellers = Exceller.order(contract_signing_date: :desc).pluck_to_hash(:id, :first_name, :contract_signing_date, :profile_picture_url).take(8)
+
+        respond_to do |format|
+            format.html
+            format.json { render :json => new_excellers.to_json }
         end
     end
 

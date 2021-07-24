@@ -50,6 +50,10 @@ Rails.application.routes.draw do
   get 'users/:id/user_permissions', to: 'users#user_permissions'
 
   post 'dashboard/get_project_staffing_status', to: 'dashboard#get_project_staffing_status'
+  post 'dashboard/get_required_assigned_excellers', to: 'dashboard#get_required_assigned_excellers'
+  post 'dashboard/get_frequently_requested_skills', to: 'dashboard#get_frequently_requested_skills'
+  post 'dashboard/get_new_excellers', to: 'dashboard#get_new_excellers'
+  
 
   root to: 'dashboard#index'
 end

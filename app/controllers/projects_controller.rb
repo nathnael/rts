@@ -249,19 +249,15 @@ class ProjectsController < ApplicationController
             if exceller_skills[required_score[0]].present?
               
               if exceller_skills[required_score[0]].to_f >= required_score[1].to_f
-                # puts "#################################################### required_score[1]: " + required_score[1].inspect
                 exceller_results << [
-                  # "required_skill_id" => required_score[0],
                   skills.find_by_id(required_score[0]).name,
                   required_score[1].to_s,
                   exceller_skills[required_score[0]],
                   "Pass"
                 ]
               elsif exceller_skills[required_score[0]].to_f < required_score[1].to_f
-                # puts "#################################################### required_score[1]: " + required_score[1].inspect
                 failed_status = true
                 exceller_results << [
-                  # "required_skill_id" => required_score[0],
                   skills.find_by_id(required_score[0]).name,
                   required_score[1].to_s,
                   exceller_skills[required_score[0]],
@@ -271,7 +267,6 @@ class ProjectsController < ApplicationController
             else
               interview_status = true
               exceller_results << [
-                # "required_skill_id" => required_score[0],
                 skills.find_by_id(required_score[0]).name,
                 required_score[1],
                 "N/A",
