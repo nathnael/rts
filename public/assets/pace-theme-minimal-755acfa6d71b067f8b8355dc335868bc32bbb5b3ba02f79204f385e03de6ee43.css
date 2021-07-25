@@ -1,17 +1,19 @@
 /* This is a compiled file, to make changes persist, consider editing under the templates directory */
+/* line 2, app/assets/stylesheets/pace-theme-minimal.scss */
 .pace {
   -webkit-pointer-events: none;
   pointer-events: none;
-
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
 }
 
+/* line 11, app/assets/stylesheets/pace-theme-minimal.scss */
 .pace-inactive {
   display: none;
 }
 
+/* line 15, app/assets/stylesheets/pace-theme-minimal.scss */
 .pace .pace-progress {
   background: #2299dd;
   position: fixed;

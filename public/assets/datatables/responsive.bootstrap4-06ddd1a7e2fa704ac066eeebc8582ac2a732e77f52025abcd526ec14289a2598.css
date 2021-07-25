@@ -1,19 +1,26 @@
+/* line 1, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
 table.dataTable.dtr-inline.collapsed > tbody > tr > td.child,
 table.dataTable.dtr-inline.collapsed > tbody > tr > th.child,
 table.dataTable.dtr-inline.collapsed > tbody > tr > td.dataTables_empty {
   cursor: default !important;
 }
+
+/* line 6, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
 table.dataTable.dtr-inline.collapsed > tbody > tr > td.child:before,
 table.dataTable.dtr-inline.collapsed > tbody > tr > th.child:before,
 table.dataTable.dtr-inline.collapsed > tbody > tr > td.dataTables_empty:before {
   display: none !important;
 }
+
+/* line 11, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
 table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > td.dtr-control,
 table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > th.dtr-control {
   position: relative;
   padding-left: 30px;
   cursor: pointer;
 }
+
+/* line 17, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
 table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > td.dtr-control:before,
 table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > th.dtr-control:before {
   top: 50%;
@@ -35,15 +42,21 @@ table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > th.dtr-control:b
   content: '+';
   background-color: #0275d8;
 }
+
+/* line 38, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
 table.dataTable.dtr-inline.collapsed > tbody > tr.parent > td.dtr-control:before,
 table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th.dtr-control:before {
   content: '-';
   background-color: #d33333;
 }
+
+/* line 43, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
 table.dataTable.dtr-inline.collapsed.compact > tbody > tr > td.dtr-control,
 table.dataTable.dtr-inline.collapsed.compact > tbody > tr > th.dtr-control {
   padding-left: 27px;
 }
+
+/* line 47, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
 table.dataTable.dtr-inline.collapsed.compact > tbody > tr > td.dtr-control:before,
 table.dataTable.dtr-inline.collapsed.compact > tbody > tr > th.dtr-control:before {
   left: 4px;
@@ -53,6 +66,8 @@ table.dataTable.dtr-inline.collapsed.compact > tbody > tr > th.dtr-control:befor
   line-height: 14px;
   text-indent: 3px;
 }
+
+/* line 56, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
 table.dataTable.dtr-column > tbody > tr > td.dtr-control,
 table.dataTable.dtr-column > tbody > tr > th.dtr-control,
 table.dataTable.dtr-column > tbody > tr > td.control,
@@ -60,6 +75,8 @@ table.dataTable.dtr-column > tbody > tr > th.control {
   position: relative;
   cursor: pointer;
 }
+
+/* line 63, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
 table.dataTable.dtr-column > tbody > tr > td.dtr-control:before,
 table.dataTable.dtr-column > tbody > tr > th.dtr-control:before,
 table.dataTable.dtr-column > tbody > tr > td.control:before,
@@ -84,6 +101,8 @@ table.dataTable.dtr-column > tbody > tr > th.control:before {
   content: '+';
   background-color: #0275d8;
 }
+
+/* line 87, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
 table.dataTable.dtr-column > tbody > tr.parent td.dtr-control:before,
 table.dataTable.dtr-column > tbody > tr.parent th.dtr-control:before,
 table.dataTable.dtr-column > tbody > tr.parent td.control:before,
@@ -91,34 +110,49 @@ table.dataTable.dtr-column > tbody > tr.parent th.control:before {
   content: '-';
   background-color: #d33333;
 }
+
+/* line 94, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
 table.dataTable > tbody > tr.child {
   padding: 0.5em 1em;
 }
+
+/* line 97, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
 table.dataTable > tbody > tr.child:hover {
   background: transparent !important;
 }
+
+/* line 100, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
 table.dataTable > tbody > tr.child ul.dtr-details {
   display: inline-block;
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
+
+/* line 106, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
 table.dataTable > tbody > tr.child ul.dtr-details > li {
   border-bottom: 1px solid #efefef;
   padding: 0.5em 0;
 }
+
+/* line 110, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
 table.dataTable > tbody > tr.child ul.dtr-details > li:first-child {
   padding-top: 0;
 }
+
+/* line 113, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
 table.dataTable > tbody > tr.child ul.dtr-details > li:last-child {
   border-bottom: none;
 }
+
+/* line 116, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
 table.dataTable > tbody > tr.child span.dtr-title {
   display: inline-block;
   min-width: 75px;
   font-weight: bold;
 }
 
+/* line 122, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
 div.dtr-modal {
   position: fixed;
   box-sizing: border-box;
@@ -129,6 +163,8 @@ div.dtr-modal {
   z-index: 100;
   padding: 10em 1em;
 }
+
+/* line 132, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
 div.dtr-modal div.dtr-modal-display {
   position: absolute;
   top: 0;
@@ -146,10 +182,14 @@ div.dtr-modal div.dtr-modal-display {
   border-radius: 0.5em;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
 }
+
+/* line 149, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
 div.dtr-modal div.dtr-modal-content {
   position: relative;
   padding: 1em;
 }
+
+/* line 153, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
 div.dtr-modal div.dtr-modal-close {
   position: absolute;
   top: 6px;
@@ -163,9 +203,13 @@ div.dtr-modal div.dtr-modal-close {
   cursor: pointer;
   z-index: 12;
 }
+
+/* line 166, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
 div.dtr-modal div.dtr-modal-close:hover {
   background-color: #eaeaea;
 }
+
+/* line 169, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
 div.dtr-modal div.dtr-modal-background {
   position: fixed;
   top: 0;
@@ -177,14 +221,18 @@ div.dtr-modal div.dtr-modal-background {
 }
 
 @media screen and (max-width: 767px) {
+  /* line 180, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
   div.dtr-modal div.dtr-modal-display {
     width: 95%;
   }
 }
+
+/* line 184, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
 div.dtr-bs-modal table.table tr:first-child td {
   border-top: none;
 }
 
+/* line 188, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
 table.dataTable.dtr-inline.collapsed.table-sm > tbody > tr > td:first-child:before,
 table.dataTable.dtr-inline.collapsed.table-sm > tbody > tr > th:first-child:before {
   top: 5px;

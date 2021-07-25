@@ -4,14 +4,6 @@
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&lang=en");
-@import url(Chart.min.css);
-@import url(datatables/dataTables.bootstrap4.css);
-@import url(datatables/responsive.bootstrap4.css);
-@import url(datatables/buttons.bootstrap4.css);
-@import url(icheck-bootstrap.min.css);
-@import url(pace-theme-minimal.css);
-@import url(jquery.dataTables.min.css);
-@import url(jkanban.min.css);
 /* line 4, node_modules/@fortawesome/fontawesome-free/scss/_core.scss */
 .fa,
 .fas,
@@ -60686,6 +60678,822 @@ button.toast-close-button {
   }
 }
 
+@keyframes chartjs-render-animation {
+  from {
+    opacity: .99;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* line 1, app/assets/stylesheets/Chart.min.scss */
+.chartjs-render-monitor {
+  animation: chartjs-render-animation 1ms;
+}
+
+/* line 1, app/assets/stylesheets/Chart.min.scss */
+.chartjs-size-monitor, .chartjs-size-monitor-expand, .chartjs-size-monitor-shrink {
+  position: absolute;
+  direction: ltr;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  pointer-events: none;
+  visibility: hidden;
+  z-index: -1;
+}
+
+/* line 1, app/assets/stylesheets/Chart.min.scss */
+.chartjs-size-monitor-expand > div {
+  position: absolute;
+  width: 1000000px;
+  height: 1000000px;
+  left: 0;
+  top: 0;
+}
+
+/* line 1, app/assets/stylesheets/Chart.min.scss */
+.chartjs-size-monitor-shrink > div {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  left: 0;
+  top: 0;
+}
+
+/* line 1, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+table.dataTable {
+  clear: both;
+  margin-top: 6px !important;
+  margin-bottom: 6px !important;
+  max-width: none !important;
+  border-collapse: separate !important;
+  border-spacing: 0;
+}
+
+/* line 9, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+table.dataTable td,
+table.dataTable th {
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+/* line 14, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+table.dataTable td.dataTables_empty,
+table.dataTable th.dataTables_empty {
+  text-align: center;
+}
+
+/* line 18, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+table.dataTable.nowrap th,
+table.dataTable.nowrap td {
+  white-space: nowrap;
+}
+
+/* line 23, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+div.dataTables_wrapper div.dataTables_length label {
+  font-weight: normal;
+  text-align: left;
+  white-space: nowrap;
+}
+
+/* line 28, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+div.dataTables_wrapper div.dataTables_length select {
+  width: auto;
+  display: inline-block;
+}
+
+/* line 32, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+div.dataTables_wrapper div.dataTables_filter {
+  text-align: right;
+}
+
+/* line 35, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+div.dataTables_wrapper div.dataTables_filter label {
+  font-weight: normal;
+  white-space: nowrap;
+  text-align: left;
+}
+
+/* line 40, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+div.dataTables_wrapper div.dataTables_filter input {
+  margin-left: 0.5em;
+  display: inline-block;
+  width: auto;
+}
+
+/* line 45, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+div.dataTables_wrapper div.dataTables_info {
+  padding-top: 0.85em;
+}
+
+/* line 48, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+div.dataTables_wrapper div.dataTables_paginate {
+  margin: 0;
+  white-space: nowrap;
+  text-align: right;
+}
+
+/* line 53, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+  margin: 2px 0;
+  white-space: nowrap;
+  justify-content: flex-end;
+}
+
+/* line 58, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+div.dataTables_wrapper div.dataTables_processing {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  margin-left: -100px;
+  margin-top: -26px;
+  text-align: center;
+  padding: 1em 0;
+}
+
+/* line 69, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+table.dataTable > thead > tr > th:active,
+table.dataTable > thead > tr > td:active {
+  outline: none;
+}
+
+/* line 73, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+table.dataTable > thead > tr > th:not(.sorting_disabled),
+table.dataTable > thead > tr > td:not(.sorting_disabled) {
+  padding-right: 30px;
+}
+
+/* line 77, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+table.dataTable > thead .sorting,
+table.dataTable > thead .sorting_asc,
+table.dataTable > thead .sorting_desc,
+table.dataTable > thead .sorting_asc_disabled,
+table.dataTable > thead .sorting_desc_disabled {
+  cursor: pointer;
+  position: relative;
+}
+
+/* line 85, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+table.dataTable > thead .sorting:before, table.dataTable > thead .sorting:after,
+table.dataTable > thead .sorting_asc:before,
+table.dataTable > thead .sorting_asc:after,
+table.dataTable > thead .sorting_desc:before,
+table.dataTable > thead .sorting_desc:after,
+table.dataTable > thead .sorting_asc_disabled:before,
+table.dataTable > thead .sorting_asc_disabled:after,
+table.dataTable > thead .sorting_desc_disabled:before,
+table.dataTable > thead .sorting_desc_disabled:after {
+  position: absolute;
+  bottom: 0.9em;
+  display: block;
+  opacity: 0.3;
+}
+
+/* line 99, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+table.dataTable > thead .sorting:before,
+table.dataTable > thead .sorting_asc:before,
+table.dataTable > thead .sorting_desc:before,
+table.dataTable > thead .sorting_asc_disabled:before,
+table.dataTable > thead .sorting_desc_disabled:before {
+  right: 1em;
+  content: "\2191";
+}
+
+/* line 107, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+table.dataTable > thead .sorting:after,
+table.dataTable > thead .sorting_asc:after,
+table.dataTable > thead .sorting_desc:after,
+table.dataTable > thead .sorting_asc_disabled:after,
+table.dataTable > thead .sorting_desc_disabled:after {
+  right: 0.5em;
+  content: "\2193";
+}
+
+/* line 115, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+table.dataTable > thead .sorting_asc:before,
+table.dataTable > thead .sorting_desc:after {
+  opacity: 1;
+}
+
+/* line 119, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+table.dataTable > thead .sorting_asc_disabled:before,
+table.dataTable > thead .sorting_desc_disabled:after {
+  opacity: 0;
+}
+
+/* line 124, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+div.dataTables_scrollHead table.dataTable {
+  margin-bottom: 0 !important;
+}
+
+/* line 128, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+div.dataTables_scrollBody table {
+  border-top: none;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* line 133, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+div.dataTables_scrollBody table thead .sorting:before,
+div.dataTables_scrollBody table thead .sorting_asc:before,
+div.dataTables_scrollBody table thead .sorting_desc:before,
+div.dataTables_scrollBody table thead .sorting:after,
+div.dataTables_scrollBody table thead .sorting_asc:after,
+div.dataTables_scrollBody table thead .sorting_desc:after {
+  display: none;
+}
+
+/* line 141, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+div.dataTables_scrollBody table tbody tr:first-child th,
+div.dataTables_scrollBody table tbody tr:first-child td {
+  border-top: none;
+}
+
+/* line 146, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+div.dataTables_scrollFoot > .dataTables_scrollFootInner {
+  box-sizing: content-box;
+}
+
+/* line 149, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
+  margin-top: 0 !important;
+  border-top: none;
+}
+
+@media screen and (max-width: 767px) {
+  /* line 155, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+  div.dataTables_wrapper div.dataTables_length,
+div.dataTables_wrapper div.dataTables_filter,
+div.dataTables_wrapper div.dataTables_info,
+div.dataTables_wrapper div.dataTables_paginate {
+    text-align: center;
+  }
+  /* line 161, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+  div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+    justify-content: center !important;
+  }
+}
+
+/* line 165, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+table.dataTable.table-sm > thead > tr > th:not(.sorting_disabled) {
+  padding-right: 20px;
+}
+
+/* line 168, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+table.dataTable.table-sm .sorting:before,
+table.dataTable.table-sm .sorting_asc:before,
+table.dataTable.table-sm .sorting_desc:before {
+  top: 5px;
+  right: 0.85em;
+}
+
+/* line 174, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+table.dataTable.table-sm .sorting:after,
+table.dataTable.table-sm .sorting_asc:after,
+table.dataTable.table-sm .sorting_desc:after {
+  top: 5px;
+}
+
+/* line 180, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+table.table-bordered.dataTable {
+  border-right-width: 0;
+}
+
+/* line 183, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+table.table-bordered.dataTable th,
+table.table-bordered.dataTable td {
+  border-left-width: 0;
+}
+
+/* line 187, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+table.table-bordered.dataTable th:last-child, table.table-bordered.dataTable th:last-child,
+table.table-bordered.dataTable td:last-child,
+table.table-bordered.dataTable td:last-child {
+  border-right-width: 1px;
+}
+
+/* line 192, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+table.table-bordered.dataTable tbody th,
+table.table-bordered.dataTable tbody td {
+  border-bottom-width: 0;
+}
+
+/* line 197, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+div.dataTables_scrollHead table.table-bordered {
+  border-bottom-width: 0;
+}
+
+/* line 201, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+div.table-responsive > div.dataTables_wrapper > div.row {
+  margin: 0;
+}
+
+/* line 204, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+div.table-responsive > div.dataTables_wrapper > div.row > div[class^="col-"]:first-child {
+  padding-left: 0;
+}
+
+/* line 207, app/assets/stylesheets/datatables/dataTables.bootstrap4.scss */
+div.table-responsive > div.dataTables_wrapper > div.row > div[class^="col-"]:last-child {
+  padding-right: 0;
+}
+
+/* line 1, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
+table.dataTable.dtr-inline.collapsed > tbody > tr > td.child,
+table.dataTable.dtr-inline.collapsed > tbody > tr > th.child,
+table.dataTable.dtr-inline.collapsed > tbody > tr > td.dataTables_empty {
+  cursor: default !important;
+}
+
+/* line 6, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
+table.dataTable.dtr-inline.collapsed > tbody > tr > td.child:before,
+table.dataTable.dtr-inline.collapsed > tbody > tr > th.child:before,
+table.dataTable.dtr-inline.collapsed > tbody > tr > td.dataTables_empty:before {
+  display: none !important;
+}
+
+/* line 11, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
+table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > td.dtr-control,
+table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > th.dtr-control {
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+}
+
+/* line 17, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
+table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > td.dtr-control:before,
+table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > th.dtr-control:before {
+  top: 50%;
+  left: 5px;
+  height: 1em;
+  width: 1em;
+  margin-top: -9px;
+  display: block;
+  position: absolute;
+  color: white;
+  border: 0.15em solid white;
+  border-radius: 1em;
+  box-shadow: 0 0 0.2em #444;
+  box-sizing: content-box;
+  text-align: center;
+  text-indent: 0 !important;
+  font-family: 'Courier New', Courier, monospace;
+  line-height: 1em;
+  content: '+';
+  background-color: #0275d8;
+}
+
+/* line 38, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
+table.dataTable.dtr-inline.collapsed > tbody > tr.parent > td.dtr-control:before,
+table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th.dtr-control:before {
+  content: '-';
+  background-color: #d33333;
+}
+
+/* line 43, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
+table.dataTable.dtr-inline.collapsed.compact > tbody > tr > td.dtr-control,
+table.dataTable.dtr-inline.collapsed.compact > tbody > tr > th.dtr-control {
+  padding-left: 27px;
+}
+
+/* line 47, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
+table.dataTable.dtr-inline.collapsed.compact > tbody > tr > td.dtr-control:before,
+table.dataTable.dtr-inline.collapsed.compact > tbody > tr > th.dtr-control:before {
+  left: 4px;
+  height: 14px;
+  width: 14px;
+  border-radius: 14px;
+  line-height: 14px;
+  text-indent: 3px;
+}
+
+/* line 56, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
+table.dataTable.dtr-column > tbody > tr > td.dtr-control,
+table.dataTable.dtr-column > tbody > tr > th.dtr-control,
+table.dataTable.dtr-column > tbody > tr > td.control,
+table.dataTable.dtr-column > tbody > tr > th.control {
+  position: relative;
+  cursor: pointer;
+}
+
+/* line 63, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
+table.dataTable.dtr-column > tbody > tr > td.dtr-control:before,
+table.dataTable.dtr-column > tbody > tr > th.dtr-control:before,
+table.dataTable.dtr-column > tbody > tr > td.control:before,
+table.dataTable.dtr-column > tbody > tr > th.control:before {
+  top: 50%;
+  left: 50%;
+  height: 0.8em;
+  width: 0.8em;
+  margin-top: -0.5em;
+  margin-left: -0.5em;
+  display: block;
+  position: absolute;
+  color: white;
+  border: 0.15em solid white;
+  border-radius: 1em;
+  box-shadow: 0 0 0.2em #444;
+  box-sizing: content-box;
+  text-align: center;
+  text-indent: 0 !important;
+  font-family: 'Courier New', Courier, monospace;
+  line-height: 1em;
+  content: '+';
+  background-color: #0275d8;
+}
+
+/* line 87, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
+table.dataTable.dtr-column > tbody > tr.parent td.dtr-control:before,
+table.dataTable.dtr-column > tbody > tr.parent th.dtr-control:before,
+table.dataTable.dtr-column > tbody > tr.parent td.control:before,
+table.dataTable.dtr-column > tbody > tr.parent th.control:before {
+  content: '-';
+  background-color: #d33333;
+}
+
+/* line 94, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
+table.dataTable > tbody > tr.child {
+  padding: 0.5em 1em;
+}
+
+/* line 97, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
+table.dataTable > tbody > tr.child:hover {
+  background: transparent !important;
+}
+
+/* line 100, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
+table.dataTable > tbody > tr.child ul.dtr-details {
+  display: inline-block;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* line 106, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
+table.dataTable > tbody > tr.child ul.dtr-details > li {
+  border-bottom: 1px solid #efefef;
+  padding: 0.5em 0;
+}
+
+/* line 110, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
+table.dataTable > tbody > tr.child ul.dtr-details > li:first-child {
+  padding-top: 0;
+}
+
+/* line 113, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
+table.dataTable > tbody > tr.child ul.dtr-details > li:last-child {
+  border-bottom: none;
+}
+
+/* line 116, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
+table.dataTable > tbody > tr.child span.dtr-title {
+  display: inline-block;
+  min-width: 75px;
+  font-weight: bold;
+}
+
+/* line 122, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
+div.dtr-modal {
+  position: fixed;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 100;
+  padding: 10em 1em;
+}
+
+/* line 132, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
+div.dtr-modal div.dtr-modal-display {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 50%;
+  height: 50%;
+  overflow: auto;
+  margin: auto;
+  z-index: 102;
+  overflow: auto;
+  background-color: #f5f5f7;
+  border: 1px solid black;
+  border-radius: 0.5em;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+}
+
+/* line 149, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
+div.dtr-modal div.dtr-modal-content {
+  position: relative;
+  padding: 1em;
+}
+
+/* line 153, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
+div.dtr-modal div.dtr-modal-close {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 22px;
+  height: 22px;
+  border: 1px solid #eaeaea;
+  background-color: #f9f9f9;
+  text-align: center;
+  border-radius: 3px;
+  cursor: pointer;
+  z-index: 12;
+}
+
+/* line 166, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
+div.dtr-modal div.dtr-modal-close:hover {
+  background-color: #eaeaea;
+}
+
+/* line 169, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
+div.dtr-modal div.dtr-modal-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 101;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+@media screen and (max-width: 767px) {
+  /* line 180, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
+  div.dtr-modal div.dtr-modal-display {
+    width: 95%;
+  }
+}
+
+/* line 184, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
+div.dtr-bs-modal table.table tr:first-child td {
+  border-top: none;
+}
+
+/* line 188, app/assets/stylesheets/datatables/responsive.bootstrap4.scss */
+table.dataTable.dtr-inline.collapsed.table-sm > tbody > tr > td:first-child:before,
+table.dataTable.dtr-inline.collapsed.table-sm > tbody > tr > th:first-child:before {
+  top: 5px;
+}
+
+@keyframes dtb-spinner {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@-o-keyframes dtb-spinner {
+  100% {
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@-ms-keyframes dtb-spinner {
+  /* line 13, app/assets/stylesheets/datatables/buttons.bootstrap4.scss */
+  100% {
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes dtb-spinner {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes dtb-spinner {
+  100% {
+    -moz-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+/* line 30, app/assets/stylesheets/datatables/buttons.bootstrap4.scss */
+div.dt-button-info {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  margin-top: -100px;
+  margin-left: -200px;
+  background-color: white;
+  border: 2px solid #111;
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  text-align: center;
+  z-index: 21;
+}
+
+/* line 44, app/assets/stylesheets/datatables/buttons.bootstrap4.scss */
+div.dt-button-info h2 {
+  padding: 0.5em;
+  margin: 0;
+  font-weight: normal;
+  border-bottom: 1px solid #ddd;
+  background-color: #f3f3f3;
+}
+
+/* line 51, app/assets/stylesheets/datatables/buttons.bootstrap4.scss */
+div.dt-button-info > div {
+  padding: 1em;
+}
+
+/* line 55, app/assets/stylesheets/datatables/buttons.bootstrap4.scss */
+div.dt-button-collection-title {
+  text-align: center;
+  padding: 0.3em 0 0.5em;
+  font-size: 0.9em;
+}
+
+/* line 61, app/assets/stylesheets/datatables/buttons.bootstrap4.scss */
+div.dt-button-collection-title:empty {
+  display: none;
+}
+
+/* line 65, app/assets/stylesheets/datatables/buttons.bootstrap4.scss */
+div.dt-button-collection {
+  position: absolute;
+  z-index: 2001;
+}
+
+/* line 69, app/assets/stylesheets/datatables/buttons.bootstrap4.scss */
+div.dt-button-collection div.dropdown-menu {
+  display: block;
+  z-index: 2002;
+  min-width: 100%;
+}
+
+/* line 74, app/assets/stylesheets/datatables/buttons.bootstrap4.scss */
+div.dt-button-collection div.dt-button-collection-title {
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+/* line 78, app/assets/stylesheets/datatables/buttons.bootstrap4.scss */
+div.dt-button-collection.fixed {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-left: -75px;
+  border-radius: 0;
+}
+
+/* line 85, app/assets/stylesheets/datatables/buttons.bootstrap4.scss */
+div.dt-button-collection.fixed.two-column {
+  margin-left: -200px;
+}
+
+/* line 88, app/assets/stylesheets/datatables/buttons.bootstrap4.scss */
+div.dt-button-collection.fixed.three-column {
+  margin-left: -225px;
+}
+
+/* line 91, app/assets/stylesheets/datatables/buttons.bootstrap4.scss */
+div.dt-button-collection.fixed.four-column {
+  margin-left: -300px;
+}
+
+/* line 94, app/assets/stylesheets/datatables/buttons.bootstrap4.scss */
+div.dt-button-collection > :last-child {
+  display: block !important;
+  -webkit-column-gap: 8px;
+  -moz-column-gap: 8px;
+  -ms-column-gap: 8px;
+  -o-column-gap: 8px;
+  column-gap: 8px;
+}
+
+/* line 102, app/assets/stylesheets/datatables/buttons.bootstrap4.scss */
+div.dt-button-collection > :last-child > * {
+  -webkit-column-break-inside: avoid;
+  break-inside: avoid;
+}
+
+/* line 106, app/assets/stylesheets/datatables/buttons.bootstrap4.scss */
+div.dt-button-collection.two-column {
+  width: 400px;
+}
+
+/* line 109, app/assets/stylesheets/datatables/buttons.bootstrap4.scss */
+div.dt-button-collection.two-column > :last-child {
+  padding-bottom: 1px;
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+  -ms-column-count: 2;
+  -o-column-count: 2;
+  column-count: 2;
+}
+
+/* line 117, app/assets/stylesheets/datatables/buttons.bootstrap4.scss */
+div.dt-button-collection.three-column {
+  width: 450px;
+}
+
+/* line 120, app/assets/stylesheets/datatables/buttons.bootstrap4.scss */
+div.dt-button-collection.three-column > :last-child {
+  padding-bottom: 1px;
+  -webkit-column-count: 3;
+  -moz-column-count: 3;
+  -ms-column-count: 3;
+  -o-column-count: 3;
+  column-count: 3;
+}
+
+/* line 128, app/assets/stylesheets/datatables/buttons.bootstrap4.scss */
+div.dt-button-collection.four-column {
+  width: 600px;
+}
+
+/* line 131, app/assets/stylesheets/datatables/buttons.bootstrap4.scss */
+div.dt-button-collection.four-column > :last-child {
+  padding-bottom: 1px;
+  -webkit-column-count: 4;
+  -moz-column-count: 4;
+  -ms-column-count: 4;
+  -o-column-count: 4;
+  column-count: 4;
+}
+
+/* line 139, app/assets/stylesheets/datatables/buttons.bootstrap4.scss */
+div.dt-button-collection .dt-button {
+  border-radius: 0;
+}
+
+/* line 142, app/assets/stylesheets/datatables/buttons.bootstrap4.scss */
+div.dt-button-collection.fixed {
+  max-width: none;
+}
+
+/* line 145, app/assets/stylesheets/datatables/buttons.bootstrap4.scss */
+div.dt-button-collection.fixed:before, div.dt-button-collection.fixed:after {
+  display: none;
+}
+
+/* line 149, app/assets/stylesheets/datatables/buttons.bootstrap4.scss */
+div.dt-button-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+}
+
+@media screen and (max-width: 767px) {
+  /* line 159, app/assets/stylesheets/datatables/buttons.bootstrap4.scss */
+  div.dt-buttons {
+    float: none;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0.5em;
+  }
+  /* line 165, app/assets/stylesheets/datatables/buttons.bootstrap4.scss */
+  div.dt-buttons a.btn {
+    float: none;
+  }
+}
+
+/* line 169, app/assets/stylesheets/datatables/buttons.bootstrap4.scss */
+div.dt-buttons button.btn.processing,
+div.dt-buttons div.btn.processing,
+div.dt-buttons a.btn.processing {
+  color: rgba(0, 0, 0, 0.2);
+}
+
+/* line 174, app/assets/stylesheets/datatables/buttons.bootstrap4.scss */
+div.dt-buttons button.btn.processing:after,
+div.dt-buttons div.btn.processing:after,
+div.dt-buttons a.btn.processing:after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  box-sizing: border-box;
+  display: block;
+  content: ' ';
+  border: 2px solid #282828;
+  border-radius: 50%;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  animation: dtb-spinner 1500ms infinite linear;
+  -o-animation: dtb-spinner 1500ms infinite linear;
+  -ms-animation: dtb-spinner 1500ms infinite linear;
+  -webkit-animation: dtb-spinner 1500ms infinite linear;
+  -moz-animation: dtb-spinner 1500ms infinite linear;
+}
+
 /* Redmond styling for jQuery Calendars Picker v2.0.0. */
 /* line 2, app/assets/stylesheets/jquery.calendars/redmond.calendars.picker.css */
 .calendars {
@@ -60971,6 +61779,1131 @@ button.calendars-cmd {
 /* line 197, app/assets/stylesheets/jquery.calendars/redmond.calendars.picker.css */
 .calendars-clear-fix {
   clear: both;
+}
+
+/*!
+ * icheck-bootstrap v3.0.1 (https://github.com/bantikyan/icheck-bootstrap)
+ * Copyright 2018 Hovhannes Bantikyan.
+ * Licensed under MIT (https://github.com/bantikyan/icheck-bootstrap/blob/master/LICENSE)
+ */
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+[class*=icheck-] {
+  min-height: 22px;
+  margin-top: 6px !important;
+  margin-bottom: 6px !important;
+  padding-left: 0;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-inline {
+  display: inline-block;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-inline + .icheck-inline {
+  margin-left: .75rem;
+  margin-top: 6px;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+[class*=icheck-] > label {
+  padding-left: 29px !important;
+  min-height: 22px;
+  line-height: 22px;
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+  margin-bottom: 0;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+[class*=icheck-] > input:first-child {
+  position: absolute !important;
+  opacity: 0;
+  margin: 0;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+[class*=icheck-] > input:first-child:disabled {
+  cursor: default;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+[class*=icheck-] > input:first-child + input[type=hidden] + label::before, [class*=icheck-] > input:first-child + label::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border: 1px solid #D3CFC8;
+  border-radius: 0;
+  margin-left: -29px;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+[class*=icheck-] > input:first-child:checked + input[type=hidden] + label::after, [class*=icheck-] > input:first-child:checked + label::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 7px;
+  height: 10px;
+  border: 2px solid #fff;
+  border-left: none;
+  border-top: none;
+  transform: translate(7.75px, 4.5px) rotate(45deg);
+  -ms-transform: translate(7.75px, 4.5px) rotate(45deg);
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+[class*=icheck-] > input[type=radio]:first-child + input[type=hidden] + label::before, [class*=icheck-] > input[type=radio]:first-child + label::before {
+  border-radius: 50%;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+[class*=icheck-] > input:first-child:not(:checked):not(:disabled):hover + input[type=hidden] + label::before, [class*=icheck-] > input:first-child:not(:checked):not(:disabled):hover + label::before {
+  border-width: 2px;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+[class*=icheck-] > input:first-child:disabled + input[type=hidden] + label, [class*=icheck-] > input:first-child:disabled + input[type=hidden] + label::before, [class*=icheck-] > input:first-child:disabled + label, [class*=icheck-] > input:first-child:disabled + label::before {
+  pointer-events: none;
+  cursor: default;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  opacity: .65;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-default > input:first-child:not(:checked):not(:disabled):hover + input[type=hidden] + label::before, .icheck-default > input:first-child:not(:checked):not(:disabled):hover + label::before {
+  border-color: #adadad;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-default > input:first-child:checked + input[type=hidden] + label::before, .icheck-default > input:first-child:checked + label::before {
+  background-color: #e6e6e6;
+  border-color: #adadad;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-default > input:first-child:checked + input[type=hidden] + label::after, .icheck-default > input:first-child:checked + label::after {
+  border-bottom-color: #333;
+  border-right-color: #333;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-primary > input:first-child:not(:checked):not(:disabled):hover + input[type=hidden] + label::before, .icheck-primary > input:first-child:not(:checked):not(:disabled):hover + label::before {
+  border-color: #2e6da4;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-primary > input:first-child:checked + input[type=hidden] + label::before, .icheck-primary > input:first-child:checked + label::before {
+  background-color: #337ab7;
+  border-color: #2e6da4;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-success > input:first-child:not(:checked):not(:disabled):hover + input[type=hidden] + label::before, .icheck-success > input:first-child:not(:checked):not(:disabled):hover + label::before {
+  border-color: #4cae4c;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-success > input:first-child:checked + input[type=hidden] + label::before, .icheck-success > input:first-child:checked + label::before {
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-info > input:first-child:not(:checked):not(:disabled):hover + input[type=hidden] + label::before, .icheck-info > input:first-child:not(:checked):not(:disabled):hover + label::before {
+  border-color: #46b8da;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-info > input:first-child:checked + input[type=hidden] + label::before, .icheck-info > input:first-child:checked + label::before {
+  background-color: #5bc0de;
+  border-color: #46b8da;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-warning > input:first-child:not(:checked):not(:disabled):hover + input[type=hidden] + label::before, .icheck-warning > input:first-child:not(:checked):not(:disabled):hover + label::before {
+  border-color: #eea236;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-warning > input:first-child:checked + input[type=hidden] + label::before, .icheck-warning > input:first-child:checked + label::before {
+  background-color: #f0ad4e;
+  border-color: #eea236;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-danger > input:first-child:not(:checked):not(:disabled):hover + input[type=hidden] + label::before, .icheck-danger > input:first-child:not(:checked):not(:disabled):hover + label::before {
+  border-color: #d43f3a;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-danger > input:first-child:checked + input[type=hidden] + label::before, .icheck-danger > input:first-child:checked + label::before {
+  background-color: #d9534f;
+  border-color: #d43f3a;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-turquoise > input:first-child:not(:checked):not(:disabled):hover + input[type=hidden] + label::before, .icheck-turquoise > input:first-child:not(:checked):not(:disabled):hover + label::before {
+  border-color: #1abc9c;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-turquoise > input:first-child:checked + input[type=hidden] + label::before, .icheck-turquoise > input:first-child:checked + label::before {
+  background-color: #1abc9c;
+  border-color: #1abc9c;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-emerland > input:first-child:not(:checked):not(:disabled):hover + input[type=hidden] + label::before, .icheck-emerland > input:first-child:not(:checked):not(:disabled):hover + label::before {
+  border-color: #2ecc71;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-emerland > input:first-child:checked + input[type=hidden] + label::before, .icheck-emerland > input:first-child:checked + label::before {
+  background-color: #2ecc71;
+  border-color: #2ecc71;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-peterriver > input:first-child:not(:checked):not(:disabled):hover + input[type=hidden] + label::before, .icheck-peterriver > input:first-child:not(:checked):not(:disabled):hover + label::before {
+  border-color: #3498db;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-peterriver > input:first-child:checked + input[type=hidden] + label::before, .icheck-peterriver > input:first-child:checked + label::before {
+  background-color: #3498db;
+  border-color: #3498db;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-amethyst > input:first-child:not(:checked):not(:disabled):hover + input[type=hidden] + label::before, .icheck-amethyst > input:first-child:not(:checked):not(:disabled):hover + label::before {
+  border-color: #9b59b6;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-amethyst > input:first-child:checked + input[type=hidden] + label::before, .icheck-amethyst > input:first-child:checked + label::before {
+  background-color: #9b59b6;
+  border-color: #9b59b6;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-wetasphalt > input:first-child:not(:checked):not(:disabled):hover + input[type=hidden] + label::before, .icheck-wetasphalt > input:first-child:not(:checked):not(:disabled):hover + label::before {
+  border-color: #34495e;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-wetasphalt > input:first-child:checked + input[type=hidden] + label::before, .icheck-wetasphalt > input:first-child:checked + label::before {
+  background-color: #34495e;
+  border-color: #34495e;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-greensea > input:first-child:not(:checked):not(:disabled):hover + input[type=hidden] + label::before, .icheck-greensea > input:first-child:not(:checked):not(:disabled):hover + label::before {
+  border-color: #16a085;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-greensea > input:first-child:checked + input[type=hidden] + label::before, .icheck-greensea > input:first-child:checked + label::before {
+  background-color: #16a085;
+  border-color: #16a085;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-nephritis > input:first-child:not(:checked):not(:disabled):hover + input[type=hidden] + label::before, .icheck-nephritis > input:first-child:not(:checked):not(:disabled):hover + label::before {
+  border-color: #27ae60;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-nephritis > input:first-child:checked + input[type=hidden] + label::before, .icheck-nephritis > input:first-child:checked + label::before {
+  background-color: #27ae60;
+  border-color: #27ae60;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-belizehole > input:first-child:not(:checked):not(:disabled):hover + input[type=hidden] + label::before, .icheck-belizehole > input:first-child:not(:checked):not(:disabled):hover + label::before {
+  border-color: #2980b9;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-belizehole > input:first-child:checked + input[type=hidden] + label::before, .icheck-belizehole > input:first-child:checked + label::before {
+  background-color: #2980b9;
+  border-color: #2980b9;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-wisteria > input:first-child:not(:checked):not(:disabled):hover + input[type=hidden] + label::before, .icheck-wisteria > input:first-child:not(:checked):not(:disabled):hover + label::before {
+  border-color: #8e44ad;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-wisteria > input:first-child:checked + input[type=hidden] + label::before, .icheck-wisteria > input:first-child:checked + label::before {
+  background-color: #8e44ad;
+  border-color: #8e44ad;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-midnightblue > input:first-child:not(:checked):not(:disabled):hover + input[type=hidden] + label::before, .icheck-midnightblue > input:first-child:not(:checked):not(:disabled):hover + label::before {
+  border-color: #2c3e50;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-midnightblue > input:first-child:checked + input[type=hidden] + label::before, .icheck-midnightblue > input:first-child:checked + label::before {
+  background-color: #2c3e50;
+  border-color: #2c3e50;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-sunflower > input:first-child:not(:checked):not(:disabled):hover + input[type=hidden] + label::before, .icheck-sunflower > input:first-child:not(:checked):not(:disabled):hover + label::before {
+  border-color: #f1c40f;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-sunflower > input:first-child:checked + input[type=hidden] + label::before, .icheck-sunflower > input:first-child:checked + label::before {
+  background-color: #f1c40f;
+  border-color: #f1c40f;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-carrot > input:first-child:not(:checked):not(:disabled):hover + input[type=hidden] + label::before, .icheck-carrot > input:first-child:not(:checked):not(:disabled):hover + label::before {
+  border-color: #e67e22;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-carrot > input:first-child:checked + input[type=hidden] + label::before, .icheck-carrot > input:first-child:checked + label::before {
+  background-color: #e67e22;
+  border-color: #e67e22;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-alizarin > input:first-child:not(:checked):not(:disabled):hover + input[type=hidden] + label::before, .icheck-alizarin > input:first-child:not(:checked):not(:disabled):hover + label::before {
+  border-color: #e74c3c;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-alizarin > input:first-child:checked + input[type=hidden] + label::before, .icheck-alizarin > input:first-child:checked + label::before {
+  background-color: #e74c3c;
+  border-color: #e74c3c;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-clouds > input:first-child:not(:checked):not(:disabled):hover + input[type=hidden] + label::before, .icheck-clouds > input:first-child:not(:checked):not(:disabled):hover + label::before {
+  border-color: #ecf0f1;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-clouds > input:first-child:checked + input[type=hidden] + label::before, .icheck-clouds > input:first-child:checked + label::before {
+  background-color: #ecf0f1;
+  border-color: #ecf0f1;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-clouds > input:first-child:checked + input[type=hidden] + label::after, .icheck-clouds > input:first-child:checked + label::after {
+  border-bottom-color: #95a5a6;
+  border-right-color: #95a5a6;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-concrete > input:first-child:not(:checked):not(:disabled):hover + input[type=hidden] + label::before, .icheck-concrete > input:first-child:not(:checked):not(:disabled):hover + label::before {
+  border-color: #95a5a6;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-concrete > input:first-child:checked + input[type=hidden] + label::before, .icheck-concrete > input:first-child:checked + label::before {
+  background-color: #95a5a6;
+  border-color: #95a5a6;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-orange > input:first-child:not(:checked):not(:disabled):hover + input[type=hidden] + label::before, .icheck-orange > input:first-child:not(:checked):not(:disabled):hover + label::before {
+  border-color: #f39c12;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-orange > input:first-child:checked + input[type=hidden] + label::before, .icheck-orange > input:first-child:checked + label::before {
+  background-color: #f39c12;
+  border-color: #f39c12;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-pumpkin > input:first-child:not(:checked):not(:disabled):hover + input[type=hidden] + label::before, .icheck-pumpkin > input:first-child:not(:checked):not(:disabled):hover + label::before {
+  border-color: #d35400;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-pumpkin > input:first-child:checked + input[type=hidden] + label::before, .icheck-pumpkin > input:first-child:checked + label::before {
+  background-color: #d35400;
+  border-color: #d35400;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-pomegranate > input:first-child:not(:checked):not(:disabled):hover + input[type=hidden] + label::before, .icheck-pomegranate > input:first-child:not(:checked):not(:disabled):hover + label::before {
+  border-color: #c0392b;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-pomegranate > input:first-child:checked + input[type=hidden] + label::before, .icheck-pomegranate > input:first-child:checked + label::before {
+  background-color: #c0392b;
+  border-color: #c0392b;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-silver > input:first-child:not(:checked):not(:disabled):hover + input[type=hidden] + label::before, .icheck-silver > input:first-child:not(:checked):not(:disabled):hover + label::before {
+  border-color: #bdc3c7;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-silver > input:first-child:checked + input[type=hidden] + label::before, .icheck-silver > input:first-child:checked + label::before {
+  background-color: #bdc3c7;
+  border-color: #bdc3c7;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-asbestos > input:first-child:not(:checked):not(:disabled):hover + input[type=hidden] + label::before, .icheck-asbestos > input:first-child:not(:checked):not(:disabled):hover + label::before {
+  border-color: #7f8c8d;
+}
+
+/* line 5, app/assets/stylesheets/icheck-bootstrap.min.scss */
+.icheck-asbestos > input:first-child:checked + input[type=hidden] + label::before, .icheck-asbestos > input:first-child:checked + label::before {
+  background-color: #7f8c8d;
+  border-color: #7f8c8d;
+}
+
+/* This is a compiled file, to make changes persist, consider editing under the templates directory */
+/* line 2, app/assets/stylesheets/pace-theme-minimal.scss */
+.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+/* line 11, app/assets/stylesheets/pace-theme-minimal.scss */
+.pace-inactive {
+  display: none;
+}
+
+/* line 15, app/assets/stylesheets/pace-theme-minimal.scss */
+.pace .pace-progress {
+  background: #2299dd;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 100%;
+  width: 100%;
+  height: 2px;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable {
+  width: 100%;
+  margin: 0 auto;
+  clear: both;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable thead th, table.dataTable tfoot th {
+  font-weight: bold;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable thead th, table.dataTable thead td {
+  padding: 10px 18px;
+  border-bottom: 1px solid #111;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable thead th:active, table.dataTable thead td:active {
+  outline: none;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable tfoot th, table.dataTable tfoot td {
+  padding: 10px 18px 6px 18px;
+  border-top: 1px solid #111;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc, table.dataTable thead .sorting_asc_disabled, table.dataTable thead .sorting_desc_disabled {
+  cursor: pointer;
+  *cursor: hand;
+  background-repeat: no-repeat;
+  background-position: center right;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable thead .sorting {
+  background-image: url("images/sort_both.png");
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable thead .sorting_asc {
+  background-image: url("images/sort_asc.png");
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable thead .sorting_desc {
+  background-image: url("images/sort_desc.png");
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable thead .sorting_asc_disabled {
+  background-image: url("images/sort_asc_disabled.png");
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable thead .sorting_desc_disabled {
+  background-image: url("images/sort_desc_disabled.png");
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable tbody tr {
+  background-color: #ffffff;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable tbody tr.selected {
+  background-color: #B0BED9;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable tbody th, table.dataTable tbody td {
+  padding: 8px 10px;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.row-border tbody th, table.dataTable.row-border tbody td, table.dataTable.display tbody th, table.dataTable.display tbody td {
+  border-top: 1px solid #ddd;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.row-border tbody tr:first-child th, table.dataTable.row-border tbody tr:first-child td, table.dataTable.display tbody tr:first-child th, table.dataTable.display tbody tr:first-child td {
+  border-top: none;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.cell-border tbody th, table.dataTable.cell-border tbody td {
+  border-top: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.cell-border tbody tr th:first-child, table.dataTable.cell-border tbody tr td:first-child {
+  border-left: 1px solid #ddd;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.cell-border tbody tr:first-child th, table.dataTable.cell-border tbody tr:first-child td {
+  border-top: none;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd {
+  background-color: #f9f9f9;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.stripe tbody tr.odd.selected, table.dataTable.display tbody tr.odd.selected {
+  background-color: #acbad4;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
+  background-color: #f6f6f6;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.hover tbody tr.selected:hover, table.dataTable.display tbody tr.selected:hover {
+  background-color: #aab7d1;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.order-column tbody tr > .sorting_1, table.dataTable.order-column tbody tr > .sorting_2, table.dataTable.order-column tbody tr > .sorting_3, table.dataTable.display tbody tr > .sorting_1, table.dataTable.display tbody tr > .sorting_2, table.dataTable.display tbody tr > .sorting_3 {
+  background-color: #fafafa;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.order-column tbody tr.selected > .sorting_1, table.dataTable.order-column tbody tr.selected > .sorting_2, table.dataTable.order-column tbody tr.selected > .sorting_3, table.dataTable.display tbody tr.selected > .sorting_1, table.dataTable.display tbody tr.selected > .sorting_2, table.dataTable.display tbody tr.selected > .sorting_3 {
+  background-color: #acbad5;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.display tbody tr.odd > .sorting_1, table.dataTable.order-column.stripe tbody tr.odd > .sorting_1 {
+  background-color: #f1f1f1;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.display tbody tr.odd > .sorting_2, table.dataTable.order-column.stripe tbody tr.odd > .sorting_2 {
+  background-color: #f3f3f3;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.display tbody tr.odd > .sorting_3, table.dataTable.order-column.stripe tbody tr.odd > .sorting_3 {
+  background-color: whitesmoke;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.display tbody tr.odd.selected > .sorting_1, table.dataTable.order-column.stripe tbody tr.odd.selected > .sorting_1 {
+  background-color: #a6b4cd;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.display tbody tr.odd.selected > .sorting_2, table.dataTable.order-column.stripe tbody tr.odd.selected > .sorting_2 {
+  background-color: #a8b5cf;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.display tbody tr.odd.selected > .sorting_3, table.dataTable.order-column.stripe tbody tr.odd.selected > .sorting_3 {
+  background-color: #a9b7d1;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.display tbody tr.even > .sorting_1, table.dataTable.order-column.stripe tbody tr.even > .sorting_1 {
+  background-color: #fafafa;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.display tbody tr.even > .sorting_2, table.dataTable.order-column.stripe tbody tr.even > .sorting_2 {
+  background-color: #fcfcfc;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.display tbody tr.even > .sorting_3, table.dataTable.order-column.stripe tbody tr.even > .sorting_3 {
+  background-color: #fefefe;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.display tbody tr.even.selected > .sorting_1, table.dataTable.order-column.stripe tbody tr.even.selected > .sorting_1 {
+  background-color: #acbad5;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.display tbody tr.even.selected > .sorting_2, table.dataTable.order-column.stripe tbody tr.even.selected > .sorting_2 {
+  background-color: #aebcd6;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.display tbody tr.even.selected > .sorting_3, table.dataTable.order-column.stripe tbody tr.even.selected > .sorting_3 {
+  background-color: #afbdd8;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.display tbody tr:hover > .sorting_1, table.dataTable.order-column.hover tbody tr:hover > .sorting_1 {
+  background-color: #eaeaea;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.display tbody tr:hover > .sorting_2, table.dataTable.order-column.hover tbody tr:hover > .sorting_2 {
+  background-color: #ececec;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.display tbody tr:hover > .sorting_3, table.dataTable.order-column.hover tbody tr:hover > .sorting_3 {
+  background-color: #efefef;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.display tbody tr.selected:hover > .sorting_1, table.dataTable.order-column.hover tbody tr.selected:hover > .sorting_1 {
+  background-color: #a2aec7;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.display tbody tr.selected:hover > .sorting_2, table.dataTable.order-column.hover tbody tr.selected:hover > .sorting_2 {
+  background-color: #a3b0c9;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.display tbody tr.selected:hover > .sorting_3, table.dataTable.order-column.hover tbody tr.selected:hover > .sorting_3 {
+  background-color: #a5b2cb;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.no-footer {
+  border-bottom: 1px solid #111;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.nowrap th, table.dataTable.nowrap td {
+  white-space: nowrap;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.compact thead th, table.dataTable.compact thead td {
+  padding: 4px 17px 4px 4px;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.compact tfoot th, table.dataTable.compact tfoot td {
+  padding: 4px;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable.compact tbody th, table.dataTable.compact tbody td {
+  padding: 4px;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable th.dt-left, table.dataTable td.dt-left {
+  text-align: left;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable th.dt-center, table.dataTable td.dt-center, table.dataTable td.dataTables_empty {
+  text-align: center;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable th.dt-right, table.dataTable td.dt-right {
+  text-align: right;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable th.dt-justify, table.dataTable td.dt-justify {
+  text-align: justify;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable th.dt-nowrap, table.dataTable td.dt-nowrap {
+  white-space: nowrap;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable thead th.dt-head-left, table.dataTable thead td.dt-head-left, table.dataTable tfoot th.dt-head-left, table.dataTable tfoot td.dt-head-left {
+  text-align: left;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable thead th.dt-head-center, table.dataTable thead td.dt-head-center, table.dataTable tfoot th.dt-head-center, table.dataTable tfoot td.dt-head-center {
+  text-align: center;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable thead th.dt-head-right, table.dataTable thead td.dt-head-right, table.dataTable tfoot th.dt-head-right, table.dataTable tfoot td.dt-head-right {
+  text-align: right;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable thead th.dt-head-justify, table.dataTable thead td.dt-head-justify, table.dataTable tfoot th.dt-head-justify, table.dataTable tfoot td.dt-head-justify {
+  text-align: justify;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable thead th.dt-head-nowrap, table.dataTable thead td.dt-head-nowrap, table.dataTable tfoot th.dt-head-nowrap, table.dataTable tfoot td.dt-head-nowrap {
+  white-space: nowrap;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable tbody th.dt-body-left, table.dataTable tbody td.dt-body-left {
+  text-align: left;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable tbody th.dt-body-center, table.dataTable tbody td.dt-body-center {
+  text-align: center;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable tbody th.dt-body-right, table.dataTable tbody td.dt-body-right {
+  text-align: right;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable tbody th.dt-body-justify, table.dataTable tbody td.dt-body-justify {
+  text-align: justify;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable tbody th.dt-body-nowrap, table.dataTable tbody td.dt-body-nowrap {
+  white-space: nowrap;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+table.dataTable, table.dataTable th, table.dataTable td {
+  box-sizing: content-box;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+.dataTables_wrapper {
+  position: relative;
+  clear: both;
+  *zoom: 1;
+  zoom: 1;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+.dataTables_wrapper .dataTables_length {
+  float: left;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+.dataTables_wrapper .dataTables_filter {
+  float: right;
+  text-align: right;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+.dataTables_wrapper .dataTables_filter input {
+  margin-left: 0.5em;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+.dataTables_wrapper .dataTables_info {
+  clear: both;
+  float: left;
+  padding-top: 0.755em;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+.dataTables_wrapper .dataTables_paginate {
+  float: right;
+  text-align: right;
+  padding-top: 0.25em;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  box-sizing: border-box;
+  display: inline-block;
+  min-width: 1.5em;
+  padding: 0.5em 1em;
+  margin-left: 2px;
+  text-align: center;
+  text-decoration: none !important;
+  cursor: pointer;
+  *cursor: hand;
+  color: #333 !important;
+  border: 1px solid transparent;
+  border-radius: 2px;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+  color: #333 !important;
+  border: 1px solid #979797;
+  background-color: white;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fff), color-stop(100%, #dcdcdc));
+  background: -webkit-linear-gradient(top, #fff 0%, #dcdcdc 100%);
+  background: -moz-linear-gradient(top, #fff 0%, #dcdcdc 100%);
+  background: -ms-linear-gradient(top, #fff 0%, #dcdcdc 100%);
+  background: -o-linear-gradient(top, #fff 0%, #dcdcdc 100%);
+  background: linear-gradient(to bottom, #fff 0%, #dcdcdc 100%);
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+  cursor: default;
+  color: #666 !important;
+  border: 1px solid transparent;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  color: white !important;
+  border: 1px solid #111;
+  background-color: #585858;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #585858), color-stop(100%, #111));
+  background: -webkit-linear-gradient(top, #585858 0%, #111 100%);
+  background: -moz-linear-gradient(top, #585858 0%, #111 100%);
+  background: -ms-linear-gradient(top, #585858 0%, #111 100%);
+  background: -o-linear-gradient(top, #585858 0%, #111 100%);
+  background: linear-gradient(to bottom, #585858 0%, #111 100%);
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+.dataTables_wrapper .dataTables_paginate .paginate_button:active {
+  outline: none;
+  background-color: #2b2b2b;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #2b2b2b), color-stop(100%, #0c0c0c));
+  background: -webkit-linear-gradient(top, #2b2b2b 0%, #0c0c0c 100%);
+  background: -moz-linear-gradient(top, #2b2b2b 0%, #0c0c0c 100%);
+  background: -ms-linear-gradient(top, #2b2b2b 0%, #0c0c0c 100%);
+  background: -o-linear-gradient(top, #2b2b2b 0%, #0c0c0c 100%);
+  background: linear-gradient(to bottom, #2b2b2b 0%, #0c0c0c 100%);
+  box-shadow: inset 0 0 3px #111;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+.dataTables_wrapper .dataTables_paginate .ellipsis {
+  padding: 0 1em;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+.dataTables_wrapper .dataTables_processing {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 40px;
+  margin-left: -50%;
+  margin-top: -25px;
+  padding-top: 20px;
+  text-align: center;
+  font-size: 1.2em;
+  background-color: white;
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(25%, rgba(255, 255, 255, 0.9)), color-stop(75%, rgba(255, 255, 255, 0.9)), color-stop(100%, rgba(255, 255, 255, 0)));
+  background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 25%, rgba(255, 255, 255, 0.9) 75%, rgba(255, 255, 255, 0) 100%);
+  background: -moz-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 25%, rgba(255, 255, 255, 0.9) 75%, rgba(255, 255, 255, 0) 100%);
+  background: -ms-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 25%, rgba(255, 255, 255, 0.9) 75%, rgba(255, 255, 255, 0) 100%);
+  background: -o-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 25%, rgba(255, 255, 255, 0.9) 75%, rgba(255, 255, 255, 0) 100%);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 25%, rgba(255, 255, 255, 0.9) 75%, rgba(255, 255, 255, 0) 100%);
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
+  color: #333;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+.dataTables_wrapper .dataTables_scroll {
+  clear: both;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+.dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody {
+  *margin-top: -1px;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+.dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody > table > thead > tr > th, .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody > table > thead > tr > td, .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody > table > tbody > tr > th, .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody > table > tbody > tr > td {
+  vertical-align: middle;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+.dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody > table > thead > tr > th > div.dataTables_sizing, .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody > table > thead > tr > td > div.dataTables_sizing, .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody > table > tbody > tr > th > div.dataTables_sizing, .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody > table > tbody > tr > td > div.dataTables_sizing {
+  height: 0;
+  overflow: hidden;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+.dataTables_wrapper.no-footer .dataTables_scrollBody {
+  border-bottom: 1px solid #111;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+.dataTables_wrapper.no-footer div.dataTables_scrollHead table.dataTable, .dataTables_wrapper.no-footer div.dataTables_scrollBody > table {
+  border-bottom: none;
+}
+
+/* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+.dataTables_wrapper:after {
+  visibility: hidden;
+  display: block;
+  content: "";
+  clear: both;
+  height: 0;
+}
+
+@media screen and (max-width: 767px) {
+  /* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+  .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_paginate {
+    float: none;
+    text-align: center;
+  }
+  /* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+  .dataTables_wrapper .dataTables_paginate {
+    margin-top: 0.5em;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  /* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+  .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter {
+    float: none;
+    text-align: center;
+  }
+  /* line 1, app/assets/stylesheets/jquery.dataTables.min.scss */
+  .dataTables_wrapper .dataTables_filter {
+    margin-top: 0.5em;
+  }
+}
+
+/* line 1, app/assets/stylesheets/jkanban.min.scss */
+.kanban-container {
+  position: relative;
+  box-sizing: border-box;
+  width: auto;
+}
+
+/* line 1, app/assets/stylesheets/jkanban.min.scss */
+.kanban-container * {
+  box-sizing: border-box;
+}
+
+/* line 1, app/assets/stylesheets/jkanban.min.scss */
+.kanban-container:after {
+  clear: both;
+  display: block;
+  content: "";
+}
+
+/* line 1, app/assets/stylesheets/jkanban.min.scss */
+.kanban-board {
+  position: relative;
+  float: left;
+  background: #e2e4e6;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* line 1, app/assets/stylesheets/jkanban.min.scss */
+.kanban-board.disabled-board {
+  opacity: .3;
+}
+
+/* line 1, app/assets/stylesheets/jkanban.min.scss */
+.kanban-board.is-moving.gu-mirror {
+  transform: rotate(3deg);
+}
+
+/* line 1, app/assets/stylesheets/jkanban.min.scss */
+.kanban-board.is-moving.gu-mirror .kanban-drag {
+  overflow: hidden;
+  padding-right: 50px;
+}
+
+/* line 1, app/assets/stylesheets/jkanban.min.scss */
+.kanban-board header {
+  font-size: 16px;
+  padding: 15px;
+}
+
+/* line 1, app/assets/stylesheets/jkanban.min.scss */
+.kanban-board header .kanban-title-board {
+  font-weight: 700;
+  margin: 0;
+  padding: 0;
+  display: inline;
+}
+
+/* line 1, app/assets/stylesheets/jkanban.min.scss */
+.kanban-board header .kanban-title-button {
+  float: right;
+}
+
+/* line 1, app/assets/stylesheets/jkanban.min.scss */
+.kanban-board .kanban-drag {
+  min-height: 200px;
+  padding: 20px;
+}
+
+/* line 1, app/assets/stylesheets/jkanban.min.scss */
+.kanban-board:after {
+  clear: both;
+  display: block;
+  content: "";
+}
+
+/* line 1, app/assets/stylesheets/jkanban.min.scss */
+.kanban-item {
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 20px;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* line 1, app/assets/stylesheets/jkanban.min.scss */
+.kanban-item:hover {
+  cursor: move;
+}
+
+/* line 1, app/assets/stylesheets/jkanban.min.scss */
+.kanban-item:last-child {
+  margin: 0;
+}
+
+/* line 1, app/assets/stylesheets/jkanban.min.scss */
+.kanban-item.is-moving.gu-mirror {
+  transform: rotate(3deg);
+  height: auto !important;
+}
+
+/* line 1, app/assets/stylesheets/jkanban.min.scss */
+.gu-mirror {
+  position: fixed !important;
+  margin: 0 !important;
+  z-index: 9999 !important;
+}
+
+/* line 1, app/assets/stylesheets/jkanban.min.scss */
+.gu-hide {
+  display: none !important;
+}
+
+/* line 1, app/assets/stylesheets/jkanban.min.scss */
+.gu-unselectable {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+
+/* line 1, app/assets/stylesheets/jkanban.min.scss */
+.gu-transit {
+  opacity: 0.2 !important;
+  transform: rotate(0) !important;
+}
+
+/* line 1, app/assets/stylesheets/jkanban.min.scss */
+.drag_handler {
+  background: #fff;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  position: relative;
+  float: left;
+  top: -3px;
+  margin-right: 4px;
+}
+
+/* line 1, app/assets/stylesheets/jkanban.min.scss */
+.drag_handler:hover {
+  cursor: move;
+}
+
+/* line 1, app/assets/stylesheets/jkanban.min.scss */
+.drag_handler_icon {
+  position: relative;
+  display: block;
+  background: #000;
+  width: 24px;
+  height: 2px;
+  top: 12px;
+  transition: .5s ease-in-out;
+}
+
+/* line 1, app/assets/stylesheets/jkanban.min.scss */
+.drag_handler_icon:after, .drag_handler_icon:before {
+  background: #000;
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transition: .5s ease-in-out;
+}
+
+/* line 1, app/assets/stylesheets/jkanban.min.scss */
+.drag_handler_icon:before {
+  top: 6px;
+}
+
+/* line 1, app/assets/stylesheets/jkanban.min.scss */
+.drag_handler_icon:after {
+  bottom: 6px;
 }
 
 /* line 25, app/assets/stylesheets/application.scss */
