@@ -8,18 +8,18 @@ $fa-font-path: '@fortawesome/fontawesome-free/webfonts';
 @import "admin-lte/dist/css/adminlte";
 @import "ionicons";
 @import "toastr/toastr";
-@import "Chart.min.css";
+@import "Chart.min";
 
 // @import "bootstrap/dist/css/bootstrap";
-@import "datatables/dataTables.bootstrap4.css";
-@import "datatables/responsive.bootstrap4.css";
-@import "datatables/buttons.bootstrap4.css";
+@import "datatables/dataTables.bootstrap4";
+@import "datatables/responsive.bootstrap4";
+@import "datatables/buttons.bootstrap4";
 
 @import "jquery.calendars/redmond.calendars.picker";
-@import "icheck-bootstrap.min.css";
-@import "pace-theme-minimal.css";
-@import "jquery.dataTables.min.css";
-@import "jkanban.min.css";
+@import "icheck-bootstrap.min";
+@import "pace-theme-minimal";
+@import "jquery.dataTables.min";
+@import "jkanban.min";
 // @import "datatables.net-bs4/css/datatables.bootstrap4.css";
 
 #container {
