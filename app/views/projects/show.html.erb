@@ -375,8 +375,24 @@
                                             { title: "Skill" },
                                             { title: "Required Score" },
                                             { title: "Exceller Score" },
-                                            { title: "Result" }            
-                                          ]                                          
+                                            { title: "Result" }
+                                          ],
+                                          columnDefs: [                                           
+                                            {
+                                              targets: 3, 
+                                              render: function (data, type, row, meta) {
+                                                var result = '';
+                                                if(row[3]=='Pass'){
+                                                  result = '<span class="badge badge-success">' + row[3] + '</span>';
+                                                } else if (row[3]=='Fail') {
+                                                  result = '<span class="badge badge-danger">' + row[3] + '</span>';
+                                                } else {
+                                                  result = '<span class="badge badge-warning">' + row[3] + ' Required</span>';
+                                                }
+                                                return result;
+                                              }
+                                            }
+                                          ],                                         
                                       });
                                       $( exceller_scores_table.table().container() ).removeClass( 'form-inline' );
                                       var workflow_history_table = $('#workflow_history').DataTable({
