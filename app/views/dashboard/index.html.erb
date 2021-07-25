@@ -122,12 +122,12 @@
               <div class="pull-right" style="width: auto;float: right;">
                 <span><strong>Project:</strong></span>
                 <span class="pull-right">
-                  <%= select_tag 'dashboard_select_project',  options_from_collection_for_select( @projects, 'id', 'name' ) , { 'data-parsley-required' => 'true', :class => '', :id => 'dashboard_select_project'} %>
+                  <%= select_tag 'dashboard_select_project',  options_from_collection_for_select( @projects, 'id', 'name' ) , { 'data-parsley-required' => 'true', :class => 'width-150', :id => 'dashboard_select_project'} %>
                 </span>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <span><strong>Project requirement:</strong></span>
                 <span class="pull-right">
-                  <%= select_tag 'dashboard_select_project_requirement', options_for_select(@project_requirements.map { |obj| [obj['name'], obj['id']] }), { 'data-parsley-required' => 'true', :class => '', :id => 'dashboard_select_project_requirement'} %>
+                  <%= select_tag 'dashboard_select_project_requirement', options_for_select(@project_requirements.map { |obj| [obj['name'], obj['id']] }), { 'data-parsley-required' => 'true', :class => 'width-150', :id => 'dashboard_select_project_requirement'} %>
                 </span>
                 <button type="button" class="btn btn-tool pull-right" data-card-widget="collapse">
                   <i class="fas fa-minus"></i>

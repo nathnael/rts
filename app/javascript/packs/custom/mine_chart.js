@@ -436,179 +436,179 @@ TODO:
 - Check data labels after drilling. Label rank? New positions?
 */
 
-let data = Highcharts.geojson(Highcharts.maps['countries/et/et-all']);
-const separators = Highcharts.geojson(Highcharts.maps['countries/et/et-all'], 'mapline');
+// let data = Highcharts.geojson(Highcharts.maps['countries/et/et-all']);
+// const separators = Highcharts.geojson(Highcharts.maps['countries/et/et-all'], 'mapline');
 
-// Set drilldown pointers
-data.forEach((d, i) => {
-    d.drilldown = d.properties['ADM1_EN'];
-    d.value = i; // Non-random bogus data    
-});
+// // Set drilldown pointers
+// data.forEach((d, i) => {
+//     d.drilldown = d.properties['ADM1_EN'];
+//     d.value = i; // Non-random bogus data    
+// });
 
-function getScript(url, cb) {
-    const script = document.createElement('script');
-    script.src = url;
-    script.onload = cb;
-    document.head.appendChild(script);
-}
+// function getScript(url, cb) {
+//     const script = document.createElement('script');
+//     script.src = url;
+//     script.onload = cb;
+//     document.head.appendChild(script);
+// }
 
-let level1Title = ''; 
-let level2Title = '';
-let chart = '';
-let mapKey = '';
-let ADM2_PCODE = '';
-let ADM1_PCODE = '';
+// let level1Title = ''; 
+// let level2Title = '';
+// let chart = '';
+// let mapKey = '';
+// let ADM2_PCODE = '';
+// let ADM1_PCODE = '';
 
-// Instantiate the map
-Highcharts.mapChart('container', {
-    chart: {
-        events: {
-            drilldown: function (e) {
-                if (!e.seriesOptions) {
-                    chart = this;
-                    mapKey = e.point.drilldown.replace("/", "");                                        
+// // Instantiate the map
+// Highcharts.mapChart('container', {
+//     chart: {
+//         events: {
+//             drilldown: function (e) {
+//                 if (!e.seriesOptions) {
+//                     chart = this;
+//                     mapKey = e.point.drilldown.replace("/", "");                                        
                         
-                    // Load the drilldown map
-                    let admin_level = "";
-                    if (e.point.properties.ADM3_PCODE!==undefined) {
-                        return;
-                    }
-                    else if (e.point.properties.ADM2_PCODE!==undefined) {
-                        admin_level = "Woredas";
-                        mapKey = e.point.properties.ADM2_EN.replace("/", "");
-                        ADM2_PCODE = e.point.properties.ADM2_PCODE;
-                        level2Title = ' / ' + e.point.properties.ADM2_EN + ' Zone';
-                    }
-                    else if (e.point.properties.ADM1_PCODE!==undefined) {
-                        admin_level = "Zones";
-                        level1Title = e.point.drilldown + ' Region';
-                        ADM1_PCODE = e.point.properties.ADM1_PCODE;
-                    }                    
+//                     // Load the drilldown map
+//                     let admin_level = "";
+//                     if (e.point.properties.ADM3_PCODE!==undefined) {
+//                         return;
+//                     }
+//                     else if (e.point.properties.ADM2_PCODE!==undefined) {
+//                         admin_level = "Woredas";
+//                         mapKey = e.point.properties.ADM2_EN.replace("/", "");
+//                         ADM2_PCODE = e.point.properties.ADM2_PCODE;
+//                         level2Title = ' / ' + e.point.properties.ADM2_EN + ' Zone';
+//                     }
+//                     else if (e.point.properties.ADM1_PCODE!==undefined) {
+//                         admin_level = "Zones";
+//                         level1Title = e.point.drilldown + ' Region';
+//                         ADM1_PCODE = e.point.properties.ADM1_PCODE;
+//                     }                    
 
-                    getScript('jsons/' + mapKey + '-' + admin_level + '.js', () => {
-                        let zoneData = Highcharts.geojson(Highcharts.maps[mapKey + '-' + admin_level]);
+//                     getScript('jsons/' + mapKey + '-' + admin_level + '.js', () => {
+//                         let zoneData = Highcharts.geojson(Highcharts.maps[mapKey + '-' + admin_level]);
                         
-                        // Set drilldown pointers
-                        if (e.point.properties.ADM2_PCODE!==undefined) {
-                            zoneData.forEach((d, i) => {
-                                d.drilldown = d.properties['ADM3_EN'];
-                                d.value = i; // Non-random bogus data    
-                            });
-                            chart.addSeriesAsDrilldown(e.point, {
-                                name: e.point.properties['ADM2_EN'],
-                                data: zoneData,
-                                dataLabels: {
-                                    enabled: true,
-                                    format: '{point.properties.ADM3_EN}'
-                                }
-                            });
-                        }
-                        else if (e.point.properties.ADM1_PCODE!==undefined) {
-                            zoneData.forEach((d, i) => {
-                                d.drilldown = d.properties['ADM2_EN'];
-                                d.value = i; // Non-random bogus data    
-                            });
-                            chart.addSeriesAsDrilldown(e.point, {
-                                name: e.point.properties['ADM1_EN'],
-                                data: zoneData,
-                                dataLabels: {
-                                    enabled: true,
-                                    format: '{point.properties.ADM2_EN}'
-                                }
-                            });
-                        }
+//                         // Set drilldown pointers
+//                         if (e.point.properties.ADM2_PCODE!==undefined) {
+//                             zoneData.forEach((d, i) => {
+//                                 d.drilldown = d.properties['ADM3_EN'];
+//                                 d.value = i; // Non-random bogus data    
+//                             });
+//                             chart.addSeriesAsDrilldown(e.point, {
+//                                 name: e.point.properties['ADM2_EN'],
+//                                 data: zoneData,
+//                                 dataLabels: {
+//                                     enabled: true,
+//                                     format: '{point.properties.ADM3_EN}'
+//                                 }
+//                             });
+//                         }
+//                         else if (e.point.properties.ADM1_PCODE!==undefined) {
+//                             zoneData.forEach((d, i) => {
+//                                 d.drilldown = d.properties['ADM2_EN'];
+//                                 d.value = i; // Non-random bogus data    
+//                             });
+//                             chart.addSeriesAsDrilldown(e.point, {
+//                                 name: e.point.properties['ADM1_EN'],
+//                                 data: zoneData,
+//                                 dataLabels: {
+//                                     enabled: true,
+//                                     format: '{point.properties.ADM2_EN}'
+//                                 }
+//                             });
+//                         }
                         
-                        this.setTitle(null, { text: level1Title  + level2Title });
-                    });
-                }
-            },
-            drillup: function () {
-                // Set drilldown pointers
-                if (ADM2_PCODE!=='') {
-                    this.setTitle(null, { text: level1Title });
-                    ADM2_PCODE = '';
-                    level2Title = '';
-                }
-                else if (ADM1_PCODE!=='') {
-                    this.setTitle(null, { text: '' });
-                    level1Title = '';
-                }                
-            }
-        }
-    },
+//                         this.setTitle(null, { text: level1Title  + level2Title });
+//                     });
+//                 }
+//             },
+//             drillup: function () {
+//                 // Set drilldown pointers
+//                 if (ADM2_PCODE!=='') {
+//                     this.setTitle(null, { text: level1Title });
+//                     ADM2_PCODE = '';
+//                     level2Title = '';
+//                 }
+//                 else if (ADM1_PCODE!=='') {
+//                     this.setTitle(null, { text: '' });
+//                     level1Title = '';
+//                 }                
+//             }
+//         }
+//     },
 
-    title: {
-        text: 'Ethiopia Map'
-    },
+//     title: {
+//         text: 'Ethiopia Map'
+//     },
 
-    subtitle: {
-        text: '',
-        floating: true,
-        align: 'right',
-        y: 50,
-        style: {
-            fontSize: '16px'
-        }
-    },
+//     subtitle: {
+//         text: '',
+//         floating: true,
+//         align: 'right',
+//         y: 50,
+//         style: {
+//             fontSize: '16px'
+//         }
+//     },
 
-    colorAxis: {
-        min: 0,
-        minColor: '#E6E7E8',
-        maxColor: '#005645'
-    },
+//     colorAxis: {
+//         min: 0,
+//         minColor: '#E6E7E8',
+//         maxColor: '#005645'
+//     },
 
-    mapNavigation: {
-        enabled: true,
-        buttonOptions: {
-            verticalAlign: 'bottom'
-        }
-    },
+//     mapNavigation: {
+//         enabled: true,
+//         buttonOptions: {
+//             verticalAlign: 'bottom'
+//         }
+//     },
 
-    plotOptions: {
-        map: {
-            states: {
-                hover: {
-                    color: '#EEDD66'
-                }
-            }
-        }
-    },
+//     plotOptions: {
+//         map: {
+//             states: {
+//                 hover: {
+//                     color: '#EEDD66'
+//                 }
+//             }
+//         }
+//     },
 
-    series: [{
-        data: data,
-        name: 'Ethiopia',
-        dataLabels: {
-            enabled: true,
-            format: '{point.properties.ADM1_EN}'
-        }
-    }, {
-        type: 'mapline',
-        data: separators,
-        color: 'silver',
-        enableMouseTracking: false,
-        animation: {
-            duration: 500
-        }
-    }],
+//     series: [{
+//         data: data,
+//         name: 'Ethiopia',
+//         dataLabels: {
+//             enabled: true,
+//             format: '{point.properties.ADM1_EN}'
+//         }
+//     }, {
+//         type: 'mapline',
+//         data: separators,
+//         color: 'silver',
+//         enableMouseTracking: false,
+//         animation: {
+//             duration: 500
+//         }
+//     }],
 
-    drilldown: {
-        activeDataLabelStyle: {
-            color: '#FFFFFF',
-            textDecoration: 'none',
-            textOutline: '1px #000000'
-        },
-        drillUpButton: {
-            relativeTo: 'spacingBox',
-            position: {
-                x: 0,
-                y: 60
-            }
-        }
-    },
-    drillup: function () {
-        this.setTitle(null, { text: '' });
-    }
-});
+//     drilldown: {
+//         activeDataLabelStyle: {
+//             color: '#FFFFFF',
+//             textDecoration: 'none',
+//             textOutline: '1px #000000'
+//         },
+//         drillUpButton: {
+//             relativeTo: 'spacingBox',
+//             position: {
+//                 x: 0,
+//                 y: 60
+//             }
+//         }
+//     },
+//     drillup: function () {
+//         this.setTitle(null, { text: '' });
+//     }
+// });
 
 
 

@@ -59,7 +59,7 @@
                     <td><%= @address.city %></td>
                     <td><%= @address.state %></td>
                     <td><%= @address.country %></td>
-                    <td><%= client.status.humanize %></td>
+                    <td><%= client.status.present? ? client.status.humanize : "N/A" %></td>
                     <td><%= @created_by.name %></td>
                     <td>
                       <a href="<%= edit_client_path(client)%>" class="btn btn-warning btn-sm">
