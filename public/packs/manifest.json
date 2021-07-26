@@ -3,8 +3,8 @@
   "application.js.map": "/packs/js/application-0122c20f46dc77ee5953.js.map",
   "controllers/vendors.js": "/packs/js/controllers/vendors-22c538d44f0a9c09981c.js",
   "controllers/vendors.js.map": "/packs/js/controllers/vendors-22c538d44f0a9c09981c.js.map",
-  "custom/mine_chart.js": "/packs/js/custom/mine_chart-12dce795a7a6faff393e.js",
-  "custom/mine_chart.js.map": "/packs/js/custom/mine_chart-12dce795a7a6faff393e.js.map",
+  "custom/mine_chart.js": "/packs/js/custom/mine_chart-b3aa4e06b64f72462ed2.js",
+  "custom/mine_chart.js.map": "/packs/js/custom/mine_chart-b3aa4e06b64f72462ed2.js.map",
   "datatables/buttons.js": "/packs/js/datatables/buttons-534e77ace54f5164bcb6.js",
   "datatables/buttons.js.map": "/packs/js/datatables/buttons-534e77ace54f5164bcb6.js.map",
   "datatables/dataTables.js": "/packs/js/datatables/dataTables-138508df210fe0cafb77.js",
@@ -34,10 +34,10 @@
     },
     "custom/mine_chart": {
       "js": [
-        "/packs/js/custom/mine_chart-12dce795a7a6faff393e.js"
+        "/packs/js/custom/mine_chart-b3aa4e06b64f72462ed2.js"
       ],
       "js.map": [
-        "/packs/js/custom/mine_chart-12dce795a7a6faff393e.js.map"
+        "/packs/js/custom/mine_chart-b3aa4e06b64f72462ed2.js.map"
       ]
     },
     "datatables/buttons": {

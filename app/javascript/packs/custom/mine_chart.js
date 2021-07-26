@@ -182,9 +182,11 @@ $(document).ready(function() {
             console.log("Labels: " + JSON.stringify(labels));
             console.log("Data: " + JSON.stringify(data));
 
-            if(salesChartCanvas && salesChart !== null){ 
-                salesChart.destroy(); 
-            }
+            // if(salesChartCanvas && salesChart != null){ 
+            //     const context = salesChartCanvas.getContext('2d');
+            //     context.clearRect(0, 0, salesChartCanvas.width, salesChartCanvas.height);
+            // }
+            
             var salesChartCanvas = document.getElementById('salesChart');
 
             // var chartColors = [ 'rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)' ];
@@ -228,6 +230,8 @@ $(document).ready(function() {
                     enabled: true
                 }
             };
+
+            
             
             // This will get the first returned node in the jQuery collection.
             var salesChart = new Chart(salesChartCanvas, {
